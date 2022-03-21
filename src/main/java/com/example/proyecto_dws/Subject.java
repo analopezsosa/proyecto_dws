@@ -20,19 +20,25 @@ public class Subject {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public int getSubjectNumber() {
         return subjectNumber;
     }
+
     public void setSubjectNumber(int subjectNumber) {
         this.subjectNumber = subjectNumber;
     }
-    public String getName() {return name;}
+
+    public String getName() { return name; }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String toString(){
         return "Asignatura: "+name + " Número: "+ subjectNumber + ". Con ID: " + id;
     }
