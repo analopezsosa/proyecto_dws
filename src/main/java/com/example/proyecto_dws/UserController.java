@@ -20,20 +20,21 @@ public class UserController {
     public String signUpUser(@RequestParam String user, @RequestParam String password, Model model){
         User newuser = new User(user, password);
 
-        if(newuser.getUser(user) != null) {
-            userHolder.addUser(new User(user, password));
+        if(userHolder.getUser(user) == null) {
+            userHolder.addUser(user, newuser);
             model.addAttribute("user", newuser);
             return "login";
         }
         return "error";
     }
 
+
     @GetMapping("/login.html")
     public String showLogin() { return "login"; }
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
-        User userUsedInLogin =userHolder.getUser(user);
 
+        User userUsedInLogin =userHolder.getUser(user);
         if(userUsedInLogin.isPasswordCorrect(password)){
             model.addAttribute("user", userHolder.getUser(user));
             return "viewgrades";
