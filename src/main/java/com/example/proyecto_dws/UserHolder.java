@@ -21,8 +21,8 @@ public class UserHolder {
     public Collection<User> getUsers(){
         return users.values();
     }
-    public User getUser(long id){
-        return users.get(id);
+    public User getUser(String user){
+        return users.get(user);
     }
 
 }

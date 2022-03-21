@@ -45,7 +45,7 @@ public class User {
 
 
 
-    public String getUser() {
+    public String getUser(String user) {
         return user;
     }
 
