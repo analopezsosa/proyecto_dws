@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +14,6 @@ import java.util.List;
 public class User {
     private String user;
     private String password;
-    private long id=-1;
     private List<String> gradesOfTheUser = new ArrayList<>();
 
     public User(String user, String password){
@@ -30,7 +30,6 @@ public class User {
     public boolean addGrade (String grade) {
         if (!gradesOfTheUser.contains(grade)) {
             gradesOfTheUser.add(grade);
-
             return true;
         }
         return false;
@@ -38,7 +37,6 @@ public class User {
     public void removeGrade(String grade) {
         gradesOfTheUser.remove(grade);
     }
-
     public List<String> getGrades() {
         return gradesOfTheUser;
     }
@@ -59,6 +57,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user1 = (User) o;
+        return Objects.equals(user, user1.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user);
     }
 
 }

@@ -21,8 +21,9 @@ public class GradeController {
     @PostMapping("/creategrade.html")
     public String createGrade(@RequestParam String name, @RequestParam int gradeNumber, Model model) {
         Grade newgrade = new Grade(name, gradeNumber);
+        long idNewGrade = newgrade.getId();
 
-        if(newgrade!=null) { //hacer algo para que compruebe que no existe ya un grade que se llame igual
+        if(gradeHolder.getGrade(idNewGrade)== null ) { //hacer algo para que compruebe que no existe ya un grade que se llame igual
             gradeHolder.addGrade(new Grade(name, gradeNumber));
             model.addAttribute("grade", newgrade);
             return "viewgrades";

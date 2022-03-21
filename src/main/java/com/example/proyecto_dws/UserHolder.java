@@ -9,20 +9,19 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class UserHolder {
-    private Map<Long,User> users= new ConcurrentHashMap<>();
+    private Map<String,User> usersM= new ConcurrentHashMap<>();
     private AtomicLong lastID=new AtomicLong();
 
-    public User addUser (User user){
-        long id=lastID.incrementAndGet();
-        user.setId(id);
-        users.put(id,user);
-        return user;
+    public void addUser (String username, User user){
+        usersM.put(username, user);
     }
+
     public Collection<User> getUsers(){
-        return users.values();
+        return usersM.values();
     }
-    public User getUser(String user){
-        return users.get(user);
+    public User getUser(String username){
+        return usersM.get(username);
     }
+
 
 }
