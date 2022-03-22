@@ -25,7 +25,7 @@ public class GradeController {
         Grade newgrade = new Grade(name, gradeNumber);
         long idNewGrade = newgrade.getId();
 
-        if(gradeHolder.getGrade(idNewGrade)== null ) { //hacer algo para que compruebe que no existe ya un grade que se llame igual
+        if(gradeHolder.getGrade(idNewGrade)== null ) {
             gradeHolder.addGrade(new Grade(name, gradeNumber));
             model.addAttribute("grade", newgrade);
             return "viewgrades";
@@ -52,7 +52,8 @@ public class GradeController {
     @PostMapping("/removegrade.html")
     public String removeGrade(@RequestParam long id, Model model){
         Grade gradeRemoved = gradeHolder.getGrade(id);
-        if (gradeRemoved!=null){
+
+        if (gradeRemoved!=null){ //if there is a grade with the id that has been introduced
             List<String> subjectList = gradeRemoved.getSubjectsOfTheGrade();
             for (String subject : subjectList) {
                 subjectHolder.getSubjects().remove(gradeRemoved);
