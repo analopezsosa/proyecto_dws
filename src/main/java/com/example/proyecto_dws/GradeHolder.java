@@ -32,5 +32,14 @@ public class GradeHolder {
         return gradesM.get(id);
     }
 
+    public boolean contains(String name){//new method to compare if we have a certain name in the map
+        if (gradesM.containsValue(name)){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 
 }
