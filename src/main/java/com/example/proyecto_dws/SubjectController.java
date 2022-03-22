@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/grades")
@@ -35,12 +34,16 @@ public class SubjectController {
     @GetMapping("/addSubjectToGrade")
     public String addSubjectToGrade(@RequestParam String name,@RequestParam Long id){
         Subject newsubject=subjectHolder.getSubject(id);
-
-        if (!gradeHolder.contains(name)) {//here you can compare if we have added the subject previously
+        if (newsubject!=null){
+            if (!gradeHolder.contains(name)) {//here you can compare if we have added the subject previously
             subjectHolder.getSubject(id).addGrade(name); //espero que funcione asi porque sería modo "basico"
 
             return "index";
+            }else{
+                return "error";
+            }
         }
+
         else    {
             return "error";
         }
@@ -49,7 +52,7 @@ public class SubjectController {
 
 
     @PostMapping("/{id}/deleteSubject")
-    public String deleteSubject(@PathVariable String name, @PathVariable long id){
+    public String deleteSubject( @PathVariable long id){
 
         Subject removedSubject= subjectHolder.getSubject(id);
         if (removedSubject!=null){
