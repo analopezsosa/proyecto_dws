@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class GradeController {
     @Autowired
@@ -30,6 +32,36 @@ public class GradeController {
         }
         return "error";
     }
+
+    @GetMapping("/editgrade.html")
+    public String showEdit() {
+        return "editgrade";
+    }
+    @PostMapping("/editgrade.html")
+    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, Model model){
+        Grade editThisGrade = gradeHolder.getGrade(id);
+        if (editThisGrade!=null) {
+            editThisGrade.setName(name);
+            editThisGrade.setGradeNumber(gradeNumber);
+            return "viewgrades";
+        } return "error";
+    }
+
+    @GetMapping("/removegrade.html")
+    public String showRemove() { return "removegrade"; }
+    @PostMapping("/removegrade.html")
+    public String removeGrade(@RequestParam long id, Model model){
+        Grade gradeRemoved = gradeHolder.getGrade(id);
+        if (gradeRemoved!=null){
+            List<String> subjectList = gradeRemoved.getSubjectsOfTheGrade();
+            for (String subject : subjectList) {
+                subjectHolder.getSubjects().remove(gradeRemoved);
+            }
+            return "viewgrades";
+        }
+        return "error";
+    }
+
 
 
 
