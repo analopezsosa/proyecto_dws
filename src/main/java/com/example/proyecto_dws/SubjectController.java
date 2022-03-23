@@ -15,7 +15,7 @@ public class SubjectController {
     SubjectHolder subjectHolder;
 
 
-    @GetMapping("/viewsubject.html")
+    @GetMapping("/viewsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
     public String showSubject(){return "viewsubjects";}
 
     @PostMapping("/createsubject.html")
@@ -25,7 +25,23 @@ public class SubjectController {
         newsubject.addGrade(name);
         subjectHolder.addSubject(newsubject);
 
-        return "viewsubjects"; //maybe we need a page to say "your subject is created"
+        return "viewsubject";
+    }
+
+
+
+    @GetMapping("/editsubject.html")
+    public String showEdit() {
+        return "editsubject";
+    }
+    @PostMapping("/editsubject.html")
+    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, Model model){
+        Subject editThisSubject = subjectHolder.getSubject(id);
+        if (editThisSubject!=null) {
+            editThisSubject.setName(name);
+            editThisSubject.setSubjectNumber(gradeNumber);
+            return "viewsubjects";
+        } return "error";
     }
 
 
@@ -34,10 +50,6 @@ public class SubjectController {
 
     @GetMapping("/createsubject.html")
     public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
-
-
-
-
 
 
 
