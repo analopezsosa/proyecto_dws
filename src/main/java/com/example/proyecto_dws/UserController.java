@@ -35,6 +35,7 @@ public class UserController {
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
         return "functionalities";
     }
+
     /*
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){

@@ -63,6 +63,11 @@ public class GradeController {
         return "error";
     }
 
+    @GetMapping("/viewgrades.html")
+    public String showGrades(){
+        return "viewgrades";
+    }
+
 
 
 
