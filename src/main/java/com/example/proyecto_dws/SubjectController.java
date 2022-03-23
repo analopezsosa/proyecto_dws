@@ -2,6 +2,7 @@ package com.example.proyecto_dws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,10 +15,10 @@ public class SubjectController {
     SubjectHolder subjectHolder;
 
 
-    @GetMapping("/createsubject")
-    public String showSubject(){return "createsubject";}
+    @GetMapping("/viewsubject.html")
+    public String showSubject(){return "viewsubjects";}
 
-    @PostMapping("/createsubject")
+    @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber){
         Subject newsubject=new Subject(name,subjectNumber);
 
@@ -28,31 +29,64 @@ public class SubjectController {
     }
 
 
-    @GetMapping ("/addSubjectToGrade")
+    @GetMapping ("/showsubject.html")
     public String showAddSubject(){return "createsubject";}//AQUI HAY QUE REDIGIRIR A UNA PAGINA QUE TE DIGA QUE TE HAS UNIDO CORRECTAMENTE
-/*
-    @GetMapping("/addSubjectToGrade")
-    public String addSubjectToGrade(@RequestParam String name,@RequestParam Long id){
+
+    @GetMapping("/createsubject.html")
+    public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
+
+
+
+
+
+
+
+        Grade editedGrade=gradeHolder.getGrade(id);
+        Subject newSubject=subjectHolder.getSubject(id);
+        if (newSubject==null) {
+            model.addAttribute("error",true);
+            return "signup";
+        } else if(editedGrade==null) {
+            model.addAttribute("error",true);
+            return "creategrade";
+        } else if(!editedGrade.addSubject(name)) {
+            model.addAttribute("error",true);
+            return "editsubject";
+        } else {
+            model.addAttribute("grade",gradeHolder.getGrade(id));
+            gradeHolder.getGrade(id).addSubject(name);
+
+
+
+            return "editsubject";
+        }
+
+
+
+
+
+
+
+       /*
         Subject newsubject=subjectHolder.getSubject(id);
+
         if (newsubject!=null){
-            if (!gradeHolder.containsSubject(newsubject)) {//here you can compare if we have added the subject previously
+            //if (!gradeHolder.containsSubject(newsubject)) {//here you can compare if we have added the subject previously
             subjectHolder.getSubject(id).addGrade(name); //espero que funcione asi porque sería modo "basico"
 
             return "createsubject";
             }else{
                 return "error";
             }
-        }
 
-        else    {
-            return "error";
-        }
 
-    }
 */
 
-    @PostMapping("/{id}/deleteSubject")
-    public String deleteSubject( @PathVariable long id){
+    }
+
+
+    @PostMapping("/removesubject.html")
+    public String deleteSubject( @RequestParam Long id){
 
         Subject removedSubject= subjectHolder.getSubject(id);
         if (removedSubject!=null){
