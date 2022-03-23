@@ -31,15 +31,15 @@ public class GradeHolder {
     public Grade getGrade(long id){
         return gradesM.get(id);
     }
-
-    public boolean contains(String name){//new method to compare if we have a certain name in the map
-        if (gradesM.containsValue(name)){
+/*
+    public boolean containsSubject(Long id){//new method to compare if we have a certain name in the map
+        if (gradesM.containsValue(id)){
             return true;
         }else{
             return false;
         }
 
     }
-
+*/
 
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/grades")
+@RequestMapping("/subjects")
 public class SubjectController {
     @Autowired
     GradeHolder gradeHolder;
@@ -24,21 +24,21 @@ public class SubjectController {
         newsubject.addGrade(name);
         subjectHolder.addSubject(newsubject);
 
-        return "index";
+        return "viewsubjects"; //maybe we need a page to say "your subject is created"
     }
 
 
     @GetMapping ("/addSubjectToGrade")
-    public String showAddSubject(){return "addSubjectToGrade";}//AQUI HAY QUE REDIGIRIR A UNA PAGINA QUE TE DIGA QUE TE HAS UNIDO CORRECTAMENTE
-
+    public String showAddSubject(){return "createsubject";}//AQUI HAY QUE REDIGIRIR A UNA PAGINA QUE TE DIGA QUE TE HAS UNIDO CORRECTAMENTE
+/*
     @GetMapping("/addSubjectToGrade")
     public String addSubjectToGrade(@RequestParam String name,@RequestParam Long id){
         Subject newsubject=subjectHolder.getSubject(id);
         if (newsubject!=null){
-            if (!gradeHolder.contains(name)) {//here you can compare if we have added the subject previously
+            if (!gradeHolder.containsSubject(newsubject)) {//here you can compare if we have added the subject previously
             subjectHolder.getSubject(id).addGrade(name); //espero que funcione asi porque sería modo "basico"
 
-            return "index";
+            return "createsubject";
             }else{
                 return "error";
             }
@@ -49,7 +49,7 @@ public class SubjectController {
         }
 
     }
-
+*/
 
     @PostMapping("/{id}/deleteSubject")
     public String deleteSubject( @PathVariable long id){
@@ -58,7 +58,7 @@ public class SubjectController {
         if (removedSubject!=null){
 
             subjectHolder.deleteSubject(id);//it is suposed to delete the subject but im not sure if it works too inside the grade, we have to try
-            return "index";
+            return "removesubject";
         }
 
         return "error";
