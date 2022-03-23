@@ -56,6 +56,9 @@ public class Grade {
         return "Curso: "+name + " Número: "+ gradeNumber + ". Con ID: " + id;
     }
 
+    public long getId(){
+        return this.id;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

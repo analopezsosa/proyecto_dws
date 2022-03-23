@@ -31,6 +31,7 @@ public class GradeHolder {
     public Grade getGrade(long id){
         return gradesM.get(id);
     }
+
 /*
     public boolean containsSubject(Long id){//new method to compare if we have a certain name in the map
         if (gradesM.containsValue(id)){

@@ -23,14 +23,22 @@ public class GradeController {
     @PostMapping("/creategrade.html")
     public String createGrade(@RequestParam String name, @RequestParam int gradeNumber, Model model) {
         Grade newgrade = new Grade(name, gradeNumber);
-        long idNewGrade = newgrade.getId();
 
-        if(gradeHolder.getGrade(idNewGrade)== null ) {
-            gradeHolder.addGrade(new Grade(name, gradeNumber));
-            model.addAttribute("grade", newgrade);
-            return "viewgrades";
+        if(newgrade!=null) {
+            gradeHolder.addGrade(newgrade);
+            model.addAttribute("grades", newgrade);
+            return "viewgrade";
         }
         return "error";
+        /*
+        if(gradeHolder.getGrade(newgrade.getId()) == null) {
+            gradeHolder.addGrade(newgrade);
+            model.addAttribute("grade", newgrade);
+            return "viewgrades";
+        }else{
+            return "error";
+        }*/
+
     }
 
     @GetMapping("/editgrade.html")
@@ -64,7 +72,8 @@ public class GradeController {
     }
 
     @GetMapping("/viewgrades.html")
-    public String showGrades(){
+    public String showGrades(Model model){
+        model.addAttribute("grades",gradeHolder.getGrades());
         return "viewgrades";
     }
 
