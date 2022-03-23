@@ -33,6 +33,11 @@ public class UserController {
     public String showLogin() { return "login"; }
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
+        return "functionalities";
+    }
+    /*
+    @PostMapping("/login.html")
+    public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
 
         User userUsedInLogin =userHolder.getUser(user);
         if(userUsedInLogin.isPasswordCorrect(password)){
@@ -42,5 +47,5 @@ public class UserController {
             return "error";
         }
 
-    }
+    }*/
 }
