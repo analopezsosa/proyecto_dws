@@ -30,14 +30,6 @@ public class GradeController {
             return "viewgrade";
         }
         return "error";
-        /*
-        if(gradeHolder.getGrade(newgrade.getId()) == null) {
-            gradeHolder.addGrade(newgrade);
-            model.addAttribute("grade", newgrade);
-            return "viewgrades";
-        }else{
-            return "error";
-        }*/
 
     }
 

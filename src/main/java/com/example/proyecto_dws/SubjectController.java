@@ -15,10 +15,11 @@ public class SubjectController {
 
 
     @GetMapping("/viewsubjects.html")
-    public String showSubjects(Model model, long id){
-        model.addAttribute("subject",subjectHolder.getSubject(id));
+    public String showGrades(Model model){
+        model.addAttribute("subject",subjectHolder.getSubjects());
         return "viewsubjects";
     }
+
 
     @GetMapping("/createsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
     public String showSubject(){return "createsubject";}

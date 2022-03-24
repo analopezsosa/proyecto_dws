@@ -13,7 +13,7 @@ import java.util.List;
 public class Subject {
     private String name;
     private int subjectNumber;
-    private long subjectid =-1;
+    private long id =-1;
     private List<String> grades = new ArrayList<>();
 
     public Subject(String name, int subjectNumber){
@@ -22,11 +22,11 @@ public class Subject {
     }
 
     public long getId() {
-        return subjectid;
+        return id;
     }
 
-    public void setId(long subjectid) {
-        this.subjectid = subjectid;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getSubjectNumber() {
@@ -44,7 +44,7 @@ public class Subject {
     }
 
     public String toString(){
-        return "Asignatura: "+name + " Número: "+ subjectNumber + ". Con ID: " + subjectid;
+        return "Asignatura: "+name + " Número: "+ subjectNumber + ". Con ID: " + id;
     }
 
     public void addGrade(String name){grades.add(name);}
