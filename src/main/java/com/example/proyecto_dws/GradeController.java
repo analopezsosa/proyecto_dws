@@ -72,5 +72,10 @@ public class GradeController {
         model.addAttribute("grades",gradeHolder.getGrades());
         return "viewgrades";
     }
+    @GetMapping("/functionalities.html")
+    public String functionalities(Model model){
+        model.addAttribute("grades",gradeHolder.getGrades());
+        return "functionalities";
+    }
 
 }
