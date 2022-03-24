@@ -14,41 +14,30 @@ public class SubjectController {
     SubjectHolder subjectHolder;
 
 
-    @GetMapping("/viewsubject.html")
-    public String showSubjects(Model model){
-        model.addAttribute("subject",subjectHolder.getSubjects());
+    @GetMapping("/viewsubjects.html")
+    public String showSubjects(Model model) {
+        model.addAttribute("subject", subjectHolder.getSubjects());
         return "viewsubjects";
     }
 
     @GetMapping("/createsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
-    public String showSubject(){return "createsubject";}
-
-    @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber){
-        Subject newsubject=new Subject(name,subjectNumber);
-
-        newsubject.addGrade(name);
-        subjectHolder.addSubject(newsubject);
-
-        return "viewsubject";
+    public String showSubject() {
+        return "createsubject";
     }
 
-/*Otra opcion de createsubject si no funciona es hacerlo pidiendo el nombre del grade al que va a entrar
-
     @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String gradename, @RequestParam String name, @RequestParam int subjectNumber){
-        Subject newsubject=new Subject(name,subjectNumber);
+    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,Model model) {
+        Subject newsubject = new Subject(name, subjectNumber);
 
-        newsubject.addGrade(gradename);
-        gradeHolder.getGrade(gradename).addSubject(newsubject);
-        subjectHolder.addSubject(newsubject);
-
-        return "viewsubject";
+        if(newsubject!=null) {
+            subjectHolder.addSubject(newsubject);
+            model.addAttribute("subject", newsubject);
+            return "viewsubject";
+        }
+        return "error";
     }
 
 
-
- */
 
     @GetMapping("/editsubject.html")
     public String showEdit() {
@@ -68,7 +57,7 @@ public class SubjectController {
    // @GetMapping ("/addsubjecttograde.html")
     //public String showAddSubject(){return "addsubjecttograde";}
 
-    @GetMapping("/addsubjecttograde.html")
+   /* @GetMapping("/addsubjecttograde.html")
     public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
 
 
@@ -94,7 +83,7 @@ public class SubjectController {
         }
 
 
-
+*/
 
 
 
@@ -114,7 +103,7 @@ public class SubjectController {
 
 */
 
-    }
+
 
 
     @PostMapping("/removesubject.html")
@@ -134,8 +123,8 @@ public class SubjectController {
     // @GetMapping("/{id}")
     // public String showSubject(@PathVariable String name){} Im not sure if we need this, it is a method to see the info of a subject
 
-
-
-
-
 }
+
+
+
+
