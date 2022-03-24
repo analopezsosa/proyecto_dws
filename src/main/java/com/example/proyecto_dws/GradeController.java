@@ -51,7 +51,7 @@ public class GradeController {
         if (editThisGrade!=null) {
             editThisGrade.setName(name);
             editThisGrade.setGradeNumber(gradeNumber);
-            gradeHolder.updateGrade(id,editThisGrade);
+            gradeHolder.addGrade(editThisGrade);
             model.addAttribute("grade",editThisGrade);
             return "viewgrades";
         } return "error";
