@@ -41,10 +41,10 @@ public class GradeController {
 
     }
 
-   /* @GetMapping("/editgrade.html")
+   @GetMapping("/editgrade.html")
     public String showEdit() {
         return "editgrade";
-    }*/
+    }
     @PostMapping("/editgrade.html")
     public String editGrade( Model model, @RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
         Grade editThisGrade = gradeHolder.getGrade(id);
@@ -57,8 +57,8 @@ public class GradeController {
         } return "error";
     }
 
-    //@GetMapping("/removegrade.html")
-  //  public String showRemove() { return "removegrade"; }
+    @GetMapping("/removegrade.html")
+   public String showRemove() { return "removegrade"; }
     @PostMapping("/removegrade.html")
     public String removeGrade(@RequestParam long id, Model model){
         Grade gradeRemoved = gradeHolder.getGrade(id);
