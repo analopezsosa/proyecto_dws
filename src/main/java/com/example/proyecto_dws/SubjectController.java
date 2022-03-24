@@ -14,8 +14,14 @@ public class SubjectController {
     SubjectHolder subjectHolder;
 
 
-    @GetMapping("/viewsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
-    public String showSubject(){return "viewsubjects";}
+    @GetMapping("/viewsubject.html")
+    public String showSubjects(Model model){
+        model.addAttribute("subject",subjectHolder.getSubjects());
+        return "viewsubjects";
+    }
+
+    @GetMapping("/createsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
+    public String showSubject(){return "createsubject";}
 
     @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber){
@@ -49,7 +55,7 @@ public class SubjectController {
         return "editsubject";
     }
     @PostMapping("/editsubject.html")
-    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, Model model){
+    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
         Subject editThisSubject = subjectHolder.getSubject(id);
         if (editThisSubject!=null) {
             editThisSubject.setName(name);
@@ -59,10 +65,10 @@ public class SubjectController {
     }
 
 
-    @GetMapping ("/showsubject.html")
-    public String showAddSubject(){return "createsubject";}//AQUI HAY QUE REDIGIRIR A UNA PAGINA QUE TE DIGA QUE TE HAS UNIDO CORRECTAMENTE
+   // @GetMapping ("/addsubjecttograde.html")
+    //public String showAddSubject(){return "addsubjecttograde";}
 
-    @GetMapping("/createsubject.html")
+    @GetMapping("/addsubjecttograde.html")
     public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
 
 
