@@ -118,9 +118,10 @@ public class SubjectController {
 
     }
 
-
+    @GetMapping("/removesubject.html")
+    public String showRemove() { return "removesubject"; }
     @PostMapping("/removesubject.html")
-    public String deleteSubject( @RequestParam Long id){
+    public String removeSubject( @RequestParam Long id){
 
         Subject removedSubject= subjectHolder.getSubject(id);
         if (removedSubject!=null){
