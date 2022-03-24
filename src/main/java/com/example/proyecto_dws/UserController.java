@@ -34,21 +34,14 @@ public class UserController {
     public String showLogin() { return "login"; }
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
-        return "functionalities";
-    }
-
-    /*      This code could be used to check if there is a user with that username and the correct password in the userHolder map
-
-    @PostMapping("/login.html")
-    public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
 
         User userUsedInLogin =userHolder.getUser(user);
-        if(userUsedInLogin.isPasswordCorrect(password)){
-            model.addAttribute("user", userHolder.getUser(user));
-            return "viewgrades";
-        }else{
+        if(userUsedInLogin==null || !userUsedInLogin.isPasswordCorrect(password)) {
             return "error";
         }
+            return "functionalities";
 
-    }*/
+    }
+
+
 }
