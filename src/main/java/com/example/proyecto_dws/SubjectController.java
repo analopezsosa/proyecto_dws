@@ -51,15 +51,37 @@ public class SubjectController {
         } return "error";
     }
 
+
+    @GetMapping("/addsubjecttograde.html")
+    public String showAddSubject(){
+        return "addsubjecttograde";
+    }
+    @PostMapping("/addsubjecttograde.html")
+    public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG, Model model){
+        Subject subjectToAdd = subjectHolder.getSubjectS(idS);
+        Grade gradeToAdd=gradeHolder.getGrade(idG);
+
+        if (gradeToAdd == null) {
+            model.addAttribute("error", true);
+            return "error";
+        } else if (subjectToAdd == null) {
+            model.addAttribute("error", true);
+            return "error";
+        }  else if (!gradeToAdd.addSubject(subjectToAdd)) {
+            model.addAttribute("error",true);
+            return "error";
+        } else {
+            gradeHolder.getGrade(idG).addSubject(subjectToAdd);
+            return "index.html";
+        }
+
+    }
+
 /*
    // @GetMapping ("/addsubjecttograde.html")
     //public String showAddSubject(){return "addsubjecttograde";}
-
     @GetMapping("/addsubjecttograde.html")
     public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
-
-
-
         Grade editedGrade=gradeHolder.getGrade(id);
         Subject newSubject=subjectHolder.getSubject(id);
         if (newSubject==null) {
