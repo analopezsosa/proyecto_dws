@@ -36,22 +36,22 @@ public class SubjectController {
         return "error";
     }
 
-/*
+
     @GetMapping("/editsubject.html")
     public String showEdit() {
         return "editsubject";
     }
     @PostMapping("/editsubject.html")
-    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
-        Subject editThisSubject = subjectHolder.getSubject(id);
+    public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber){
+        Subject editThisSubject = subjectHolder.getSubjectS(id);
         if (editThisSubject!=null) {
             editThisSubject.setName(name);
-            editThisSubject.setSubjectNumber(gradeNumber);
-            return "viewsubjects";
+            editThisSubject.setSubjectNumber(subjectNumber);
+            return "editedsubject";
         } return "error";
     }
 
-
+/*
    // @GetMapping ("/addsubjecttograde.html")
     //public String showAddSubject(){return "addsubjecttograde";}
 

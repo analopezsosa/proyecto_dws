@@ -28,6 +28,8 @@ public class SubjectHolder {
         return subjectsByGradeId.get(id);
     }
 
+    public Subject getSubjectS(long id){ return subjectsM.get(id);}
+
     public Collection<Subject> getSubjects(){
         return subjectsM.values();
     }
