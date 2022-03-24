@@ -35,22 +35,6 @@ public class SubjectController {
         return "error";
     }
 
-/*Otra opcion de createsubject si no funciona es hacerlo pidiendo el nombre del grade al que va a entrar
-
-    @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String gradename, @RequestParam String name, @RequestParam int subjectNumber){
-        Subject newsubject=new Subject(name,subjectNumber);
-
-        newsubject.addGrade(gradename);
-        gradeHolder.getGrade(gradename).addSubject(newsubject);
-        subjectHolder.addSubject(newsubject);
-
-        return "viewsubject";
-    }
-
-
-
- */
 
     @GetMapping("/editsubject.html")
     public String showEdit() {
