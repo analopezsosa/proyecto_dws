@@ -33,6 +33,28 @@
     <main class="page landing-page">
         <section class="clean-block clean-hero" style="color: rgba(32,201,151,0.87);height: 900px;background: url(&quot;assets/img/Aula-Vacia-Examen.jpg&quot;);background-size: cover;border-style: none;">
             <div class="text">
+                <script>
+                        function currentime()
+                        {
+                        var mytime = new Date();
+                        var hours = mytime.getHours().toString();
+                        var minutes = mytime.getMinutes().toString();
+                        var seconds = mytime.getSeconds().toString();
+                        if (minutes.length == 1) minutes = "0" + minutes;
+                        if (seconds.length == 1) seconds = "0" + minutes;
+
+                        document.forms[0].mireloj.value = hours+" : "+minutes+" : "+seconds;
+                        }
+                    </script>
+                <p>
+                    <script>
+                            var r = setInterval ("currentime()",500);
+                        </script>
+                <form>
+                    <input type="text" size="10" name="mireloj">
+                </form><br>
+
+                </p>
                 <h2 style="font-size: 63px;"><strong>REY JUAN CARLOS</strong></h2>
                 <p style="font-size: 30px;">Insituto de Educación Secundaria</p><a class="btn btn-outline-light btn-lg" role="button" href="#sobreelcentro">Información sobre el centro</a>
             </div>
@@ -43,9 +65,13 @@
                     <h2 class="text-info">Sobre el centro</h2>
 
 
-                    <div id="showTime">
-                        <script type="text/javascript">showCurrentTime();</script>
-                    </div>
+
+                    <script>
+                        alert("¡¡¡¡Bienvenido al instituto Rey Juan Carlos!!!!");
+                    </script>
+
+
+
 
 
                     <p>“Rey Juan Carlos”, un instituto público de talante humanista, que opta por una educación integral, personalizada e indiscriminatoria, mediante una actividad educativa que desarrolle la creatividad y el espíritu crítico.<br></p>
@@ -81,6 +107,26 @@
                         <h3 style="color: var(--bs-teal);">Los alumnos de 2º de Bachillerato realizan la EvAU<br></h3>
                         <div class="getting-started-info">
                             <p style="color: var(--bs-white);">La semana pasada los alumnos de nuestro dentro del curso de Segundo de bachillerato acudieron a la Universidad Autonoma de Madrid a realizar los exámenes de admision a la universidad<br></p>
+
+                            <p  style="color: var(--bs-teal);">Calcula tu nota de EVAU<br>
+                                Introduce tu nota de bachillerato: <input type="text" id="arg1" size="1"><br>
+                                Tu nota de las asignaturas nota de EvAU: <input type="text" id="arg2" size="1"><br>
+                                Tu nota de las optativas de Evau: <input type="text" id="arg3" size="1"><br>
+
+                            <input type="button" value="Calcular!" onclick="calc()">
+                            <div style="color: var(--bs-white);" id="result"></div>
+                            <script type="text/javascript">
+                                function calc(){
+                                    var argOne=document.getElementById('arg1').value;
+                                    var argTwo=document.getElementById('arg2').value;
+                                    var argThree=document.getElementById('arg3').value;
+                                    var ans=(argOne*0.4+argTwo*0.6+argThree*0.4);
+                                    document.getElementById('result').innerHTML='Tu nota de EvAU es igual a ' + ans;
+                                }
+                            </script>
+
+
+
                         </div>
                     </div>
                     <div class="col">
@@ -106,7 +152,12 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/Captura%20de%20pantalla%202022-03-06%20152819.jpg">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/Captura%20de%20pantalla%202022-03-06%20152819.jpg" onclick="pageOne()">
+                            <script>
+                            function pageOne(){
+                                window.location = "https://goo.gl/maps/fuM7ok7bVcbzFUGTA";
+                            }
+                            </script>
                             <div class="card-body info">
                                 <h4 class="card-title" style="color: var(--bs-gray-900);">Donde estamos</h4>
                                 <p class="card-text" style="color: var(--bs-gray-600);"><br>Calle de Goya, 10, 28001 Madrid<br><br></p>
@@ -114,7 +165,12 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/secretaría.jpg" style="height: 300px;">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/secretaría.jpg" style="height: 300px;" onclick="pageTwo()">
+                            <script>
+                            function pageTwo(){
+                                window.location.href = "mailto:mostoles.secretariadealumnos@urjc.es";
+                            }
+                            </script>
                             <div class="card-body info" style="height: 200.203px;">
                                 <h4 class="card-title" style="color: var(--bs-gray-900);">Contacta con secretaría</h4>
                                 <p class="card-text" style="color: var(--bs-gray-600);"><i class="icon-envelope" style="margin: 13px;color: var(--bs-teal);"></i>secretaria.insti@insti.es</p>
@@ -123,7 +179,12 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/ampa.png" style="height: 319.938px;">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/ampa.png" style="height: 319.938px;" onclick="pageThree()">
+                            <script>
+                            function pageThree(){
+                                window.location = "https://www.madrid.es/portales/munimadrid/es/Vandel/Asociaciones-de-Madres-y-Padres-de-Alumnado/?vgnextfmt=default&vgnextoid=3c7914b3c84ed010VgnVCM100000171f5a0aRCRD&vgnextchannel=516dc11457f8e210VgnVCM2000000c205a0aRCRD&page=0";
+                            }
+                            </script>
                             <div class="card-body info" style="height: 173.203px;">
                                 <h4 class="card-title" style="color: var(--bs-gray-900);">Asociaciones escolares</h4>
                                 <p class="card-text" style="color: var(--bs-gray-600);"><i class="icon-envelope" style="margin: 9px;color: var(--bs-teal);"></i>ampa.insti@insti.es</p>
