@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-/*
+
 @RequestMapping("/api")
 @RestController
 public class SubjectRESTController {
@@ -17,8 +17,8 @@ public class SubjectRESTController {
     public ResponseEntity<Collection> subjectList(){return new ResponseEntity<>(subjectHolder.getSubjects(), HttpStatus.OK);}
 
     @PostMapping("/subject")
-    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject){
-        subjectHolder.addSubject(subject);
+    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject, @RequestBody Long id){
+        subjectHolder.addSubject(id,subject);
         if(subject != null){
             return new ResponseEntity<>(subject, HttpStatus.OK);
         }
@@ -55,4 +55,4 @@ public class SubjectRESTController {
 
 
 }
-*/
+

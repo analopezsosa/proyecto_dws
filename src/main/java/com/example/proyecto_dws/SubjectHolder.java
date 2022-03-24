@@ -24,8 +24,17 @@ public class SubjectHolder {
         subjectsByGradeId.get(id).remove(subject);
     }
 
-    public Collection<Subject> getSubjects(long id){
+    public Collection<Subject> getSubject(long id){
         return subjectsByGradeId.get(id);
+    }
+
+    public Collection<Subject> getSubjects(){
+        return subjectsM.values();
+    }
+
+    public Subject updateSubject(long id, Subject subject){
+        subject.setId(id);
+        return subjectsM.replace(id, subject);
     }
 
     /*
@@ -33,20 +42,13 @@ public class SubjectHolder {
         long id  = lastId.incrementAndGet();
         subject.setId(id);
         subjectsM.put(id,subject);
-    }
-    public Subject updateSubject(long id, Subject subject){
-        subject.setId(id);
-        return subjectsM.replace(id, subject);
-    }
+    }*/
+
     public Subject deleteSubject(long id){
         return subjectsM.remove(id);
     }
-    public Collection<Subject> getSubjects(){
-        return subjectsM.values();
-    }
-    public Subject getSubject(long id){
-        return subjectsM.get(id);
-    }
 
-    */
+
+
+
 }

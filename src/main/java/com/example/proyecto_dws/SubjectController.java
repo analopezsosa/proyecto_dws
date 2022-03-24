@@ -16,7 +16,7 @@ public class SubjectController {
 
     @GetMapping("/viewsubjects.html")
     public String showSubjects(Model model, long id){
-        model.addAttribute("subject",subjectHolder.getSubjects(id));
+        model.addAttribute("subject",subjectHolder.getSubject(id));
         return "viewsubjects";
     }
 
