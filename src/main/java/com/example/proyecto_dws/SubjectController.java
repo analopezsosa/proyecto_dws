@@ -14,7 +14,7 @@ public class SubjectController {
     SubjectHolder subjectHolder;
 
 
-    @GetMapping("/viewsubject.html")
+    @GetMapping("/viewsubjects.html")
     public String showSubjects(Model model){
         model.addAttribute("subject",subjectHolder.getSubjects());
         return "viewsubjects";
@@ -24,13 +24,15 @@ public class SubjectController {
     public String showSubject(){return "createsubject";}
 
     @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber){
+    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber, Model model){
         Subject newsubject=new Subject(name,subjectNumber);
 
-        newsubject.addGrade(name);
-        subjectHolder.addSubject(newsubject);
-
-        return "viewsubject";
+        if(newsubject!=null) {
+            subjectHolder.addSubject(newsubject);
+            model.addAttribute("subject", newsubject);
+            return "viewsubject";
+        }
+        return "error";
     }
 
 /*Otra opcion de createsubject si no funciona es hacerlo pidiendo el nombre del grade al que va a entrar
