@@ -53,7 +53,7 @@ public class Grade {
     }
 
     public String toString(){
-        return "Curso: "+name + " Número: "+ gradeNumber + ". Con ID: " + id;
+        return " Curso: "+name + " Número: "+ gradeNumber + ". Con ID: " + id;
     }
 
     public long getId(){
