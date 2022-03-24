@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blog - Brand</title>
+    <title>Login - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
@@ -27,31 +27,21 @@
         </div>
     </div>
 </nav>
-<main class="page blog-post-list">
-    <section class="clean-block clean-blog-list dark" style="height: 800px;">
+<main class="page login-page">
+    <section class="clean-block clean-form dark" style="height: 800px;">
         <div class="container">
             <div class="block-heading">
-                <h2 class="text-info">Funcionalidades</h2>
+                <h2 class="text-info">Añade una asignatura al curso que quieras</h2>
+                <p>Introduce el nombre de la asignatura y el ID del curso a la que le quieras añadir la asignatura.</p>
             </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card clean-testimonial-item border-0 rounded-0">
-                        <div class="card-body"><a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-teal);" href="viewgrades.html">Ver cursos</a></div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card clean-testimonial-item border-0 rounded-0">
-                        <div class="card-body"><a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-teal);" href="viewsubjects.html">Ver asignaturas</a></div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card clean-testimonial-item border-0 rounded-0">
-                        <div class="card-body"><a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-gray-600);" href="index.html">Volver a la página de inicio</a></div>
-                    </div>
-                </div>
-            </div>
+            <form data-aos="fade-up" data-aos-once="true" action="addsubjecttograde.html" method="post" style="border-top-color: var(--bs-teal);">
+                <div class="mb-3"><label>Nombre asignatura</label><input class="form-control" type="text" name="name" required=""></div>
+                <div class="mb-3"><label>ID curso</label><input class="form-control" type="number"name="id" required=""></div>
 
+                <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Send</button>
 
+                <a class="btn btn-primary" role="button" href="viewsubjects.html" style="margin: 14px;background: var(--bs-gray-500);">Volver atrás</a>
+            </form>
         </div>
     </section>
 </main>
@@ -67,5 +57,6 @@
 <script src="assets/js/vanilla-zoom.js"></script>
 <script src="assets/js/theme.js"></script>
 </body>
+
 
 </html>

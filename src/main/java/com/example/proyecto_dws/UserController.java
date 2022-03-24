@@ -26,6 +26,7 @@ public class UserController {
             return "login";
         }
         return "error";
+
     }
 
 
@@ -36,7 +37,8 @@ public class UserController {
         return "functionalities";
     }
 
-    /*
+    /*      This code could be used to check if there is a user with that username and the correct password in the userHolder map
+
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
 
