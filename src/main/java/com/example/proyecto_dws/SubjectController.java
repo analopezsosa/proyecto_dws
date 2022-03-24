@@ -16,21 +16,21 @@ public class SubjectController {
 
     @GetMapping("/viewsubjects.html")
     public String showGrades(Model model){
-        model.addAttribute("subject",subjectHolder.getSubjects());
+        model.addAttribute("subjects",subjectHolder.getSubjects());
         return "viewsubjects";
     }
 
 
-    @GetMapping("/createsubject.html")//esto creo que asi no es pero si lo pongo "bien" no ejecuta el codigo
+    @GetMapping("/createsubject.html")
     public String showSubject(){return "createsubject";}
 
     @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam long gradeId, Model model){
-        Subject newsubject=new Subject(name,subjectNumber);
+    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber, Model model){
+        Subject newsubject = new Subject(name, subjectNumber);
 
         if(newsubject!=null) {
-            subjectHolder.addSubject(gradeId,newsubject);
-            model.addAttribute("subject", newsubject);
+            subjectHolder.addNewSubject(newsubject);
+            model.addAttribute("subjects", newsubject);
             return "viewsubject";
         }
         return "error";
@@ -101,28 +101,28 @@ public class SubjectController {
 
 
 
-    }
+    }*/
 
     @GetMapping("/removesubject.html")
     public String showRemove() { return "removesubject"; }
     @PostMapping("/removesubject.html")
     public String removeSubject( @RequestParam Long id){
 
-        Subject removedSubject= subjectHolder.getSubject(id);
-        if (removedSubject!=null){
+       // Subject removedSubject= subjectHolder.getSubject(id);
+        //if (removedSubject!=null){
 
             subjectHolder.deleteSubject(id);//it is suposed to delete the subject but im not sure if it works too inside the grade, we have to try
-            return "removesubject";
-        }
+            return "deletedsubject";
+       // }
 
-        return "error";
+
     }
 
 
     // @GetMapping("/{id}")
     // public String showSubject(@PathVariable String name){} Im not sure if we need this, it is a method to see the info of a subject
 
-*/
+
 
 
 

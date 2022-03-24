@@ -37,12 +37,12 @@ public class SubjectHolder {
         return subjectsM.replace(id, subject);
     }
 
-    /*
-    public void addSubject(Subject subject){
+
+    public void addNewSubject(Subject subject){
         long id  = lastId.incrementAndGet();
         subject.setId(id);
         subjectsM.put(id,subject);
-    }*/
+    }
 
     public Subject deleteSubject(long id){
         return subjectsM.remove(id);
