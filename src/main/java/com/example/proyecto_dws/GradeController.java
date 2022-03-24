@@ -41,22 +41,24 @@ public class GradeController {
 
     }
 
-    @GetMapping("/editgrade.html")
+   /* @GetMapping("/editgrade.html")
     public String showEdit() {
         return "editgrade";
-    }
+    }*/
     @PostMapping("/editgrade.html")
-    public String editGrade(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, Model model){
+    public String editGrade( Model model, @RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
         Grade editThisGrade = gradeHolder.getGrade(id);
         if (editThisGrade!=null) {
             editThisGrade.setName(name);
             editThisGrade.setGradeNumber(gradeNumber);
+            gradeHolder.updateGrade(id,editThisGrade);
+            model.addAttribute("grade",editThisGrade);
             return "viewgrades";
         } return "error";
     }
 
-    @GetMapping("/removegrade.html")
-    public String showRemove() { return "removegrade"; }
+    //@GetMapping("/removegrade.html")
+  //  public String showRemove() { return "removegrade"; }
     @PostMapping("/removegrade.html")
     public String removeGrade(@RequestParam long id, Model model){
         Grade gradeRemoved = gradeHolder.getGrade(id);
@@ -64,7 +66,8 @@ public class GradeController {
         if (gradeRemoved!=null){ //if there is a grade with the id that has been introduced
             List<String> subjectList = gradeRemoved.getSubjectsOfTheGrade();
             for (String subject : subjectList) {
-                subjectHolder.getSubjects().remove(gradeRemoved);
+
+                subjectHolder.getSubjects().remove(subject);
             }
             return "viewgrades";
         }
