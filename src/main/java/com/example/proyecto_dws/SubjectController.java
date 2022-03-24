@@ -61,18 +61,23 @@ public class SubjectController {
         Subject subjectToAdd = subjectHolder.getSubjectS(idS);
         Grade gradeToAdd=gradeHolder.getGrade(idG);
 
+        //check if the subject and the grade exist
         if (gradeToAdd == null) {
             model.addAttribute("error", true);
             return "error";
         } else if (subjectToAdd == null) {
             model.addAttribute("error", true);
             return "error";
-        }  else if (!gradeToAdd.addSubject(subjectToAdd)) {
+
+        }
+        //check if there is already that subject in the list "subjectsOfTheGrade" of the grade
+        else if (!gradeToAdd.addSubject(subjectToAdd)) {
             model.addAttribute("error",true);
             return "error";
-        } else {
+        }
+        else {
             gradeHolder.getGrade(idG).addSubject(subjectToAdd);
-            return "index.html";
+            return "addedsubjecttograde.html";
         }
 
     }
