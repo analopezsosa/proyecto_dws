@@ -57,10 +57,10 @@ public class SubjectController {
         return "addsubjecttograde";
     }
     @PostMapping("/addsubjecttograde.html")
-    public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG, Model model){
+    public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
         Subject subjectToAdd = subjectHolder.getSubjectS(idS);
-        Grade gradeToAdd=gradeHolder.getGrade(idG);
-
+        //Grade gradeToAdd=gradeHolder.getGrade(idG);
+        /*
         //check if the subject and the grade exist
         if (gradeToAdd == null) {
             model.addAttribute("error", true);
@@ -76,10 +76,18 @@ public class SubjectController {
             return "error";
         }
         else {
-            gradeHolder.getGrade(idG).addSubject(subjectToAdd);
-            return "addedsubjecttograde.html";
-        }
+            subjectHolder.addSubject(idG,subjectToAdd);
+            //return "addedsubjecttograde.html";
+            model.addAttribute("subject",subjectToAdd);
+            return "addedsubjecttograde";
+        }*/
+        //subjectHolder.addSubject(idG,subjectToAdd);
 
+        //model.addAttribute("subject",subjectToAdd);
+            //return "addedsubjecttograde";
+        subjectHolder.addSubject(idG,subjectToAdd);
+        gradeHolder.getGrade(idG).addSubject(subjectToAdd);
+        return "addedsubjecttograde";
     }
 
 /*
