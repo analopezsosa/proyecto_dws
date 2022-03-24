@@ -16,7 +16,7 @@ public class Grade {
     private String name;
     private int gradeNumber;
     private long id = -1;
-    private List<String> subjectsOfTheGrade = new ArrayList<>();
+    private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
 
     public Grade(String name, int gradeNumber){
@@ -24,9 +24,9 @@ public class Grade {
         this.gradeNumber = gradeNumber;
     }
 
-    public boolean addSubject(String id) {
-        if (!subjectsOfTheGrade.contains(id)) {
-            subjectsOfTheGrade.add(id);
+    public boolean addSubject(Subject subject) {
+        if (!subjectsOfTheGrade.contains(subject)) {
+            subjectsOfTheGrade.add(subject);
             return true;
         } else {
             return false;
@@ -35,7 +35,7 @@ public class Grade {
     public void removeSubject(String id) {
         subjectsOfTheGrade.remove(id);
     }
-    public List<String> getSubjectsOfTheGrade() {
+    public List<Subject> getSubjectsOfTheGrade() {
         return subjectsOfTheGrade;
     }
 

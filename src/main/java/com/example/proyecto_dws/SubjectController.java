@@ -15,8 +15,8 @@ public class SubjectController {
 
 
     @GetMapping("/viewsubjects.html")
-    public String showSubjects(Model model){
-        model.addAttribute("subject",subjectHolder.getSubjects());
+    public String showSubjects(Model model, long id){
+        model.addAttribute("subject",subjectHolder.getSubjects(id));
         return "viewsubjects";
     }
 
@@ -24,18 +24,18 @@ public class SubjectController {
     public String showSubject(){return "createsubject";}
 
     @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber, Model model){
+    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam long gradeId, Model model){
         Subject newsubject=new Subject(name,subjectNumber);
 
         if(newsubject!=null) {
-            subjectHolder.addSubject(newsubject);
+            subjectHolder.addSubject(gradeId,newsubject);
             model.addAttribute("subject", newsubject);
             return "viewsubject";
         }
         return "error";
     }
 
-
+/*
     @GetMapping("/editsubject.html")
     public String showEdit() {
         return "editsubject";
@@ -98,7 +98,7 @@ public class SubjectController {
             }
 
 
-*/
+
 
     }
 
@@ -121,7 +121,7 @@ public class SubjectController {
     // @GetMapping("/{id}")
     // public String showSubject(@PathVariable String name){} Im not sure if we need this, it is a method to see the info of a subject
 
-
+*/
 
 
 

@@ -64,12 +64,13 @@ public class GradeController {
         Grade gradeRemoved = gradeHolder.getGrade(id);
 
         if (gradeRemoved!=null){ //if there is a grade with the id that has been introduced
-            List<String> subjectList = gradeRemoved.getSubjectsOfTheGrade();
-            for (String subject : subjectList) {
+            List<Subject> subjectList = gradeRemoved.getSubjectsOfTheGrade();
+            for (Subject subject : subjectList) {
 
-                subjectHolder.getSubjects().remove(subject);
+                subjectHolder.deleteSubject(id,subject);
             }
-            return "viewgrades";
+            gradeHolder.deleteGrade(id);
+            return "deletedgrade";
         }
         return "error";
     }

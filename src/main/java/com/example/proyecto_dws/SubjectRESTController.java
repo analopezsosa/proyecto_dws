@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-
+/*
 @RequestMapping("/api")
 @RestController
 public class SubjectRESTController {
@@ -55,4 +55,4 @@ public class SubjectRESTController {
 
 
 }
-
+*/
