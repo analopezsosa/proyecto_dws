@@ -59,36 +59,22 @@ public class SubjectController {
     @PostMapping("/addsubjecttograde.html")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
         Subject subjectToAdd = subjectHolder.getSubjectS(idS);
-        //Grade gradeToAdd=gradeHolder.getGrade(idG);
-        /*
-        //check if the subject and the grade exist
-        if (gradeToAdd == null) {
-            model.addAttribute("error", true);
-            return "error";
-        } else if (subjectToAdd == null) {
-            model.addAttribute("error", true);
-            return "error";
-
-        }
-        //check if there is already that subject in the list "subjectsOfTheGrade" of the grade
-        else if (!gradeToAdd.addSubject(subjectToAdd)) {
-            model.addAttribute("error",true);
-            return "error";
-        }
-        else {
-            subjectHolder.addSubject(idG,subjectToAdd);
-            //return "addedsubjecttograde.html";
-            model.addAttribute("subject",subjectToAdd);
-            return "addedsubjecttograde";
-        }*/
-        //subjectHolder.addSubject(idG,subjectToAdd);
-
-        //model.addAttribute("subject",subjectToAdd);
-            //return "addedsubjecttograde";
         subjectHolder.addSubject(idG,subjectToAdd);
         gradeHolder.getGrade(idG).addSubject(subjectToAdd);
         return "addedsubjecttograde";
     }
+
+    @GetMapping("/removesubjectfromgrade.html")
+    public String showRemovSubjectFromGrade(){
+        return "removesubjectfromgrade";
+    }
+    @PostMapping("/removesubjectfromgrade.html")
+    public String removingSubjectFromGrade(@RequestParam long idS,@RequestParam long idG){
+        Subject subjectToRemove = subjectHolder.getSubjectS(idS);
+        gradeHolder.getGrade(idG).removeSubject(subjectToRemove);
+        return "removedsubjectfromgrade";
+    }
+
 
 /*
    // @GetMapping ("/addsubjecttograde.html")

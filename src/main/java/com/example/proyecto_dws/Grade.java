@@ -32,8 +32,8 @@ public class Grade {
             return false;
         }
     }
-    public void removeSubject(String id) {
-        subjectsOfTheGrade.remove(id);
+    public void removeSubject(Subject subject) {
+        subjectsOfTheGrade.remove(subject);
     }
     public List<Subject> getSubjectsOfTheGrade() {
         return subjectsOfTheGrade;
