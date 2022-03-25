@@ -17,8 +17,8 @@ public class SubjectRESTController {
     public ResponseEntity<Collection> subjectList(){return new ResponseEntity<>(subjectHolder.getSubjects(), HttpStatus.OK);}
 
     @PostMapping("/subject")
-    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject, @RequestBody Long id){
-        subjectHolder.addSubject(id,subject);
+    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject){
+        subjectHolder.addNewSubject(subject);
         if(subject != null){
             return new ResponseEntity<>(subject, HttpStatus.OK);
         }
