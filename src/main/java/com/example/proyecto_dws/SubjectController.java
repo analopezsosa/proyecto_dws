@@ -76,73 +76,17 @@ public class SubjectController {
         return "removedsubjectfromgrade";
     }
 
-
-/*
-   // @GetMapping ("/addsubjecttograde.html")
-    //public String showAddSubject(){return "addsubjecttograde";}
-    @GetMapping("/addsubjecttograde.html")
-    public String addSubjectToGrade(@RequestParam String name, @RequestParam Long id, Model model){
-        Grade editedGrade=gradeHolder.getGrade(id);
-        Subject newSubject=subjectHolder.getSubject(id);
-        if (newSubject==null) {
-            model.addAttribute("error",true);
-            return "signup";
-        } else if(editedGrade==null) {
-            model.addAttribute("error",true);
-            return "creategrade";
-        } else if(!editedGrade.addSubject(name)) {
-            model.addAttribute("error",true);
-            return "editsubject";
-        } else {
-            model.addAttribute("grade",gradeHolder.getGrade(id));
-            gradeHolder.getGrade(id).addSubject(name);
-
-
-
-            return "editsubject";
-        }
-
-
-
-
-
-
-
-       /*
-        Subject newsubject=subjectHolder.getSubject(id);
-
-        if (newsubject!=null){
-            //if (!gradeHolder.containsSubject(newsubject)) {//here you can compare if we have added the subject previously
-            subjectHolder.getSubject(id).addGrade(name); //espero que funcione asi porque sería modo "basico"
-
-            return "createsubject";
-            }else{
-                return "error";
-            }
-
-
-
-
-    }*/
-
     @GetMapping("/removesubject.html")
     public String showRemove() { return "removesubject"; }
     @PostMapping("/removesubject.html")
     public String removeSubject( @RequestParam Long id){
 
-       // Subject removedSubject= subjectHolder.getSubject(id);
-        //if (removedSubject!=null){
+        subjectHolder.deleteSubject(id);//it is suposed to delete the subject but im not sure if it works too inside the grade, we have to try
+        return "deletedsubject";
 
-            subjectHolder.deleteSubject(id);//it is suposed to delete the subject but im not sure if it works too inside the grade, we have to try
-            return "deletedsubject";
-       // }
 
 
     }
-
-
-    // @GetMapping("/{id}")
-    // public String showSubject(@PathVariable String name){} Im not sure if we need this, it is a method to see the info of a subject
 
 
 
