@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,15 +21,18 @@ public class Grade {
     private String name;
     private int gradeNumber;
 
+    @ManyToMany(mappedBy = "grades")
+    private List<Subject> subjects;
+
     //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
-/*
+
 
     public Grade(String name, int gradeNumber){
         this.name = name;
         this.gradeNumber = gradeNumber;
     }
-
+/*
     public boolean addSubject(Subject subject) {
         if (!subjectsOfTheGrade.contains(subject)) {
             subjectsOfTheGrade.add(subject);
