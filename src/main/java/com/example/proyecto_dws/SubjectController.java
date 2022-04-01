@@ -5,21 +5,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+
 
 @Controller
 public class SubjectController {
     @Autowired
-    GradeHolder gradeHolder;
+    private SubjectRepository subjectRepository;
     @Autowired
-    SubjectHolder subjectHolder;
+    private GradeRepository gradeRepository;
 
+
+    @PostConstruct
+    public void init(){
+        subjectRepository.save(new Subject("Mates",2));
+
+    }
 
     @GetMapping("/viewsubjects.html")
     public String showGrades(Model model){
-        model.addAttribute("subjects",subjectHolder.getSubjects());
+        model.addAttribute("subjects",subjectRepository.findAll());
         return "viewsubjects";
     }
 
+    ///////////////////
 
     @GetMapping("/createsubject.html")
     public String showSubject(){return "createsubject";}
@@ -27,13 +36,8 @@ public class SubjectController {
     @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber, Model model){
         Subject newsubject = new Subject(name, subjectNumber);
-
-        if(newsubject!=null) {
-            subjectHolder.addNewSubject(newsubject);
-            model.addAttribute("subjects", newsubject);
-            return "viewsubject";
-        }
-        return "error";
+        subjectRepository.save(newsubject);
+        return "viewsubject";
     }
 
 
@@ -43,12 +47,10 @@ public class SubjectController {
     }
     @PostMapping("/editsubject.html")
     public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber){
-        Subject editThisSubject = subjectHolder.getSubjectS(id);
-        if (editThisSubject!=null) {
+        Subject editThisSubject = subjectRepository.findById(id).get();
             editThisSubject.setName(name);
             editThisSubject.setSubjectNumber(subjectNumber);
             return "editedsubject";
-        } return "error";
     }
 
 
@@ -56,6 +58,7 @@ public class SubjectController {
     public String showAddSubject(){
         return "addsubjecttograde";
     }
+    /*
     @PostMapping("/addsubjecttograde.html")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
         Subject subjectToAdd = subjectHolder.getSubjectS(idS);
@@ -88,7 +91,7 @@ public class SubjectController {
 
     }
 
-
+*/
 
 
 

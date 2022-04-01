@@ -20,7 +20,7 @@ public class Grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id = -1;
+    private long id;
     private String name;
     private int gradeNumber;
 
