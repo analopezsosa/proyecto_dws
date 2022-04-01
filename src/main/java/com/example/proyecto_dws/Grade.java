@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-
+@NoArgsConstructor
 @Entity
 public class Grade {
 
@@ -26,12 +26,15 @@ public class Grade {
 
     //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
-
-
-    public Grade(String name, int gradeNumber){
+/*
+    public Grade(String name, int gradeNumber) {
         this.name = name;
         this.gradeNumber = gradeNumber;
     }
+
+ */
+
+}
 /*
     public boolean addSubject(Subject subject) {
         if (!subjectsOfTheGrade.contains(subject)) {
@@ -78,4 +81,3 @@ public class Grade {
 
 
  */
-}
