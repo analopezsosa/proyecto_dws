@@ -29,6 +29,11 @@ public class GradeController {
     @Autowired
     private GradeRepository repository;
 
+    @GetMapping("/viewgrades.html")
+    public String showGrades(Model model){
+        model.addAttribute("grades",repository.findAll());
+        return "viewgrades";
+    }
     @GetMapping("/creategrade")
     public String showCreate() { return "creategrade"; }
 
@@ -42,14 +47,10 @@ public class GradeController {
         return "viewgrade";
     }
     @GetMapping("/grade/{id}")
-    public String viewGrade( @PathVariable long id) {
-        Optional<Grade> op = repository.findById(id);
-        if (op.isPresent()) {
-            Grade grade = op.get();
-            return new ResponseEntity<>(grade, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public String viewGrade( Model model, @PathVariable long id) {
+        Grade grade = repository.findById(id).get();
+        model.addAttribute("grade",grade);
+        return "viewsubjectsbygrade";
     }
 
 
@@ -104,11 +105,7 @@ public class GradeController {
         return "error";
     }
 
-    @GetMapping("/viewgrades.html")
-    public String showGrades(Model model){
-        model.addAttribute("grades",gradeHolder.getGrades());
-        return "viewgrades";
-    }
+
     @GetMapping("/functionalities.html")
     public String functionalities(Model model){
         model.addAttribute("grades",gradeHolder.getGrades());

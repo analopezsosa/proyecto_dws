@@ -22,6 +22,7 @@ public class Subject {
 
     @ManyToMany
     private List<Grade> grades;
+
     public Subject(String name, int subjectNumber){
         this.name = name;
         this.subjectNumber = subjectNumber;

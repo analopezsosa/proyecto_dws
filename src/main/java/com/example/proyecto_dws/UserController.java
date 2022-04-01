@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+
+
+    /*
     @Autowired
     UserHolder userHolder;
 
@@ -37,7 +40,7 @@ public class UserController {
 
     }
 
-    /*      This code could be used to check if there is a user with that username and the correct password in the userHolder map
+          This code could be used to check if there is a user with that username and the correct password in the userHolder map
 
     @PostMapping("/login.html")
     public String logInUser(@RequestParam String user, @RequestParam String password, Model model){
@@ -50,4 +53,5 @@ public class UserController {
         }
 
     }*/
+
 }

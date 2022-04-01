@@ -24,6 +24,7 @@ public class Grade {
     @ManyToMany(mappedBy = "grades")
     private List<Subject> subjects;
 
+
     //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
 /*

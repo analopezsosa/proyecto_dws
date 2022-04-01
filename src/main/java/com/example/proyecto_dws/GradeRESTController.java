@@ -6,25 +6,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RequestMapping("/api")
 @RestController
 public class GradeRESTController {
     @Autowired
-    GradeHolder gradeHolder;
+    private GradeRepository repository;
 
     @GetMapping("/grades")
-    public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>(gradeHolder.getGrades(),HttpStatus.OK);}
+    public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>(repository.findAll(),HttpStatus.OK);}
 
     @GetMapping("/grades/{id}")
     public ResponseEntity<Grade> viewGrade(@PathVariable long id){
-        return new ResponseEntity<>(gradeHolder.getGrade(id),HttpStatus.OK);}
+        Optional<Grade> op = repository.findById(id);
+        if(op.isPresent()){
+            Grade grade = op.get();
+            return new ResponseEntity<>(grade,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @PostMapping("/grades")
     public ResponseEntity<Grade> addGrade(@RequestBody Grade grade){
-        Grade gradeT= gradeHolder.addGrade(grade);
-        if(gradeT != null){
-            return new ResponseEntity<>(gradeT, HttpStatus.OK);
+        repository.save(grade);
+        if(grade != null){
+            return new ResponseEntity<>(grade, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -32,7 +40,7 @@ public class GradeRESTController {
 
 
     }
-
+/*
     @PutMapping("/grades/{id}")
     public ResponseEntity updateGrade(@PathVariable int id, @RequestBody Grade grade){
         Grade gradeT = gradeHolder.updateGrade(id,grade);
@@ -56,7 +64,7 @@ public class GradeRESTController {
         }
     }
 
-
+*/
 }
 
 

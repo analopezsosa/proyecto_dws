@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,16 +15,21 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     private String user;
     private String password;
-    private List<String> gradesOfTheUser = new ArrayList<>();
-    private long id= -1;
+
     public User(String user, String password){
         this.user=user;
         this.password = password;
     }
-
+/*
     public boolean isPasswordCorrect (String passwordEntered){
         return this.password.equals(passwordEntered);
     }
@@ -70,6 +79,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(user);
-    }
+    }*/
 
 }

@@ -11,25 +11,26 @@ import java.util.Collection;
 @RestController
 public class SubjectRESTController {
     @Autowired
-    SubjectHolder subjectHolder;
+    SubjectRepository repository;
 
     @GetMapping("/subject")
-    public ResponseEntity<Collection> subjectList(){return new ResponseEntity<>(subjectHolder.getSubjects(), HttpStatus.OK);}
+    public ResponseEntity<Collection> subjectList() {
+        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+    }
 
     @PostMapping("/subject")
-    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject){
-        subjectHolder.addNewSubject(subject);
-        if(subject != null){
+    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
+        repository.save(subject);
+        if (subject != null) {
             return new ResponseEntity<>(subject, HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-
     }
+}
 
-
+/*
     @PutMapping("/subject/{id}")
     public ResponseEntity<Subject> updateSubject(@PathVariable long id,@RequestBody Subject subject){
         Subject aux = subjectHolder.updateSubject(id,subject);
@@ -56,3 +57,4 @@ public class SubjectRESTController {
 
 }
 
+*/
