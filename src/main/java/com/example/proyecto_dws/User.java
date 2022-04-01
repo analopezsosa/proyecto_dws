@@ -15,7 +15,7 @@ public class User {
     private String user;
     private String password;
     private List<String> gradesOfTheUser = new ArrayList<>();
-
+    private long id= -1;
     public User(String user, String password){
         this.user=user;
         this.password = password;
