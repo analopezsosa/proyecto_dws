@@ -1,6 +1,8 @@
 package com.example.proyecto_dws;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class GradeController {
+    /*
     @Autowired
     GradeHolder gradeHolder;
     @Autowired
@@ -20,6 +24,37 @@ public class GradeController {
     @Autowired
     UserHolder userHolder;
 
+     */
+
+    @Autowired
+    private GradeRepository repository;
+
+    @GetMapping("/creategrade")
+    public String showCreate() { return "creategrade"; }
+
+
+    @GetMapping("/creategrade/newgrade")
+    public String createGrade(Model model, Grade grade){
+
+        repository.save(grade);
+        model.addAttribute("grades",grade);
+        //model.addAttribute("grades",);
+        return "viewgrade";
+    }
+    @GetMapping("/grade/{id}")
+    public String viewGrade( @PathVariable long id) {
+        Optional<Grade> op = repository.findById(id);
+        if (op.isPresent()) {
+            Grade grade = op.get();
+            return new ResponseEntity<>(grade, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+/*
     @GetMapping("/creategrade.html")
     public String showCreate() { return "creategrade"; }
     @PostMapping("/creategrade.html")
@@ -87,4 +122,6 @@ public class GradeController {
         model.addAttribute("subjects",subjects);
         return "viewsubjectsbygrade";
     }
+
+ */
 }
