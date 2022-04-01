@@ -5,19 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
+
+@Entity
 public class Grade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id = -1;
     private String name;
     private int gradeNumber;
-    private long id = -1;
-    private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
+    //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
+
+/*
 
     public Grade(String name, int gradeNumber){
         this.name = name;
@@ -66,4 +75,7 @@ public class Grade {
         Grade grade = (Grade) o;
         return gradeNumber == grade.gradeNumber && id == grade.id && Objects.equals(name, grade.name) && Objects.equals(subjectsOfTheGrade, grade.subjectsOfTheGrade);
     }
+
+
+ */
 }
