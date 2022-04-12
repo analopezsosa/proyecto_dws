@@ -29,6 +29,8 @@ public class GradeController {
     @Autowired
     private GradeRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
     @GetMapping("/viewgrades.html")
     public String showGrades(Model model){
         model.addAttribute("grades",repository.findAll());
@@ -52,6 +54,11 @@ public class GradeController {
         model.addAttribute("grade",grade);
         return "viewsubjectsbygrade";
     }
+    /*@GetMapping("/grade/{id}/addusertograde")
+    public String addUserToGrade(Model model, @PathVariable long id){
+        userRepository.getById(id);
+
+    }*/
 
 
 

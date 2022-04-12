@@ -21,6 +21,9 @@ public class Grade {
     private String name;
     private int gradeNumber;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<User> userList;
+
     @ManyToMany(mappedBy = "grades")
     private List<Subject> subjects;
 

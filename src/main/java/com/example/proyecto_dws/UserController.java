@@ -29,6 +29,8 @@ public class UserController {
         model.addAttribute("user", user);
         return "view_user";
     }
+
+
     /*
     @Autowired
     UserHolder userHolder;

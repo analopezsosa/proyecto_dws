@@ -58,14 +58,18 @@ public class SubjectController {
     public String showAddSubject(){
         return "addsubjecttograde";
     }
-    /*
+
     @PostMapping("/addsubjecttograde.html")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
-        Subject subjectToAdd = subjectHolder.getSubjectS(idS);
-        subjectHolder.addSubject(idG,subjectToAdd);
-        gradeHolder.getGrade(idG).addSubject(subjectToAdd);
+        Subject subjectToAdd = subjectRepository.getById(idS);
+        Grade g = gradeRepository.getById(idG);
+        subjectToAdd.getGrades().add(g);
         return "addedsubjecttograde";
     }
+
+
+    /*
+
 
     @GetMapping("/removesubjectfromgrade.html")
     public String showRemovSubjectFromGrade(){
