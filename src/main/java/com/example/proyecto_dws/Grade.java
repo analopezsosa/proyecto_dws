@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 
 
-@NoArgsConstructor
 @Entity
 public class Grade {
 
@@ -22,39 +21,20 @@ public class Grade {
     private int gradeNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "grades")
     private List<Subject> subjects;
 
+    protected Grade(){}
 
     //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
-/*
+
     public Grade(String name, int gradeNumber) {
         this.name = name;
         this.gradeNumber = gradeNumber;
     }
-
- */
-
-}
-/*
-    public boolean addSubject(Subject subject) {
-        if (!subjectsOfTheGrade.contains(subject)) {
-            subjectsOfTheGrade.add(subject);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public void removeSubject(Subject subject) {
-        subjectsOfTheGrade.remove(subject);
-    }
-    public List<Subject> getSubjectsOfTheGrade() {
-        return subjectsOfTheGrade;
-    }
-
 
     public String getName() {
         return name;
@@ -75,6 +55,34 @@ public class Grade {
     public long getId(){
         return this.id;
     }
+
+    public List<User> getUserList(){
+        return this.userList;
+    }
+    public void setUsers(List<User> users){
+        this.userList = users;
+    }
+
+
+}
+/*
+    public boolean addSubject(Subject subject) {
+        if (!subjectsOfTheGrade.contains(subject)) {
+            subjectsOfTheGrade.add(subject);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void removeSubject(Subject subject) {
+        subjectsOfTheGrade.remove(subject);
+    }
+    public List<Subject> getSubjectsOfTheGrade() {
+        return subjectsOfTheGrade;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

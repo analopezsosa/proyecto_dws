@@ -22,11 +22,39 @@ public class User {
     private String user;
     private String password;
 
+    protected User(){}
     public User(String user, String password){
         this.user=user;
         this.password = password;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUser(String user) {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String toString() {
+        return "User [id=" + id + ", username=" + user+"]";
+    }
 
 /*
     public boolean isPasswordCorrect (String passwordEntered){
@@ -51,21 +79,7 @@ public class User {
 
 
 
-    public String getUser(String user) {
-        return user;
-    }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public boolean equals(Object o) {
