@@ -14,6 +14,9 @@ public class GradeRESTController {
     @Autowired
     private GradeRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/grades")
     public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>(repository.findAll(),HttpStatus.OK);}
 
