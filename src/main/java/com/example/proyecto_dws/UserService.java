@@ -16,4 +16,27 @@ public class UserService {
         User user= new User(username,password);
         userRepository.save(user);
     }
+
+
+    /* LO QUE HABIA EN EL HOLDER
+
+
+    @Service
+public class UserHolder {
+    private Map<String,User> usersM= new ConcurrentHashMap<>();
+    private AtomicLong lastID=new AtomicLong();
+
+    public void addUser (String username, User user){
+        usersM.put(username, user);
+    }
+
+    public Collection<User> getUsers(){
+        return usersM.values();
+    }
+    public User getUser(String username){
+        return usersM.get(username);
+    }
+
+     */
+
 }

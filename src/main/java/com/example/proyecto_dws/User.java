@@ -59,6 +59,17 @@ public class User {
     }
     @OneToMany(mappedBy = "grade")
     private Grade grade;
+
+    //Otra opcion no puede ser que sea asi??
+        //@OneToMany(mappedBy = "user")
+    //    private List<User> users;
+
+
+
+
+
+
+
 /*
     public boolean isPasswordCorrect (String passwordEntered){
         return this.password.equals(passwordEntered);
