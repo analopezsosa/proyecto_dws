@@ -19,11 +19,13 @@ public class Subject {
     private long id;
     private String name;
     private int subjectNumber;
+    private String description;
 
 
-    public Subject(String name, int subjectNumber){
+    public Subject(String name, int subjectNumber, String description){
         this.name = name;
         this.subjectNumber = subjectNumber;
+        this.description=description;
     }
     @ManyToMany
     private List<Grade> grades;

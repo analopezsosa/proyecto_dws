@@ -18,7 +18,7 @@ public class SubjectController {
 
     @PostConstruct
     public void init(){
-        subjectRepository.save(new Subject("Mates",2));
+        subjectRepository.save(new Subject("Mates",2,"Es una asignatura"));
 
     }
 
@@ -34,9 +34,12 @@ public class SubjectController {
     public String showSubject(){return "createsubject";}
 
     @PostMapping("/createsubject.html")
-    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber, Model model){
-        Subject newsubject = new Subject(name, subjectNumber);
+    public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam String description, Model model){
+
+        Subject newsubject = new Subject(name, subjectNumber,description);
         subjectRepository.save(newsubject);
+        model.addAttribute("subject",newsubject);
+
         return "viewsubject";
     }
 
@@ -47,7 +50,9 @@ public class SubjectController {
     }
     @PostMapping("/editsubject.html")
     public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber){
+
         Subject editThisSubject = subjectRepository.findById(id).get();
+
             editThisSubject.setName(name);
             editThisSubject.setSubjectNumber(subjectNumber);
             return "editedsubject";
@@ -73,6 +78,28 @@ public class SubjectController {
         subjectRepository.deleteById(id);
         return subject;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
 
 
