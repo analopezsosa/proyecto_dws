@@ -28,7 +28,7 @@
         </div>
     </nav>
     <main class="page login-page">
-        <section class="clean-block clean-form dark" style="height: 800px;">
+        <section class="clean-block clean-form dark" style="height: 1100px;">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Crear asignatura</h2>
@@ -36,10 +36,18 @@
                 </div>
                 <form data-aos="fade-up" data-aos-once="true" action="createsubject.html" method="post" style="border-top-color: var(--bs-teal);">
                     <div class="mb-3"><label>Nombre</label><input class="form-control" type="text" name="name" required=""></div>
-                    <div class="mb-3"><label>Número</label><input class="form-control" type="number" name="subjectNumber" required=""></div>
+                    <div class="mb-3"><label>Número</label><input class="form-control" type="number" name="subjectNumber" required=""></div><br>
+                    <p>Añade una descripcion </p>
+                    <textarea name="description"></textarea>
                     <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Send</button>
                     <a class="btn btn-primary" role="button" href="viewsubjects.html" style="margin: 14px;background: var(--bs-gray-500);">Volver atrás</a>
                 </form>
+
+
+                <script src="assets/ckeditor/ckeditor.js"> </script>
+                <script>
+                    CKEDITOR.replace('description');
+                </script>
             </div>
         </section>
     </main>
