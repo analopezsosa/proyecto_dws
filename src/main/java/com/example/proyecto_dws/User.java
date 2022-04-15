@@ -57,7 +57,8 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", username=" + user+"]";
     }
-
+    @OneToMany(mappedBy = "grade")
+    private Grade grade;
 /*
     public boolean isPasswordCorrect (String passwordEntered){
         return this.password.equals(passwordEntered);

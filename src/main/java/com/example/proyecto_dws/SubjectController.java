@@ -67,7 +67,12 @@ public class SubjectController {
         return "addedsubjecttograde";
     }
 
-
+    @DeleteMapping("/viewsubject.html")
+    public Subject deleteSubject(@RequestParam long id){
+        Subject subject = subjectRepository.findById(id).get();
+        subjectRepository.deleteById(id);
+        return subject;
+    }
     /*
 
 

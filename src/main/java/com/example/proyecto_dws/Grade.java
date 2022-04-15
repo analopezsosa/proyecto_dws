@@ -20,7 +20,7 @@ public class Grade {
     private String name;
     private int gradeNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<User> userList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "grades")
@@ -63,7 +63,9 @@ public class Grade {
         this.userList = users;
     }
 
-
+    public void setGradeNumber(int gradeNumber) {
+        this.gradeNumber = gradeNumber;
+    }
 }
 /*
     public boolean addSubject(Subject subject) {
