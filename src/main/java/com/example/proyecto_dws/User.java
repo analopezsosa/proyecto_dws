@@ -1,13 +1,16 @@
 package com.example.proyecto_dws;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @NoArgsConstructor
@@ -23,13 +26,12 @@ public class User {
     private String password;
 
 
-    public User(String user, String password){
-        this.user=user;
-        this.password = password;
+    public User(String user, String password) {
+        this.user = user;
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
-
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(long id) {
