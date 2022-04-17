@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -29,9 +28,7 @@ public class Grade {
     @ManyToMany(mappedBy = "grades")
     private List<Subject> subjects;
 
-    //protected Grade(){}
 
-    //private List<Subject> subjectsOfTheGrade = new ArrayList<>();
 
 
     public Grade(String name, int gradeNumber) {
