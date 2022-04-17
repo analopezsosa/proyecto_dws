@@ -27,8 +27,10 @@ public class Subject {
         this.subjectNumber = subjectNumber;
         this.description=description;
     }
-    @ManyToMany
-    private List<Grade> grades;
+
+
+    @ManyToMany //hay que poner mas cosas
+    private List<Grade> grades = new ArrayList<>();
 
 
 }
