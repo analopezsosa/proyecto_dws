@@ -18,40 +18,35 @@ public class UserService {
 
 
 
-    public void newUser(String username, String password, String... roles){
-        User user= new User(username,password,roles);
-        userRepository.save(user);
-    }
+    public boolean newUser(User user){
 
-    public org.springframework.security.core.userdetails.User loadByUsername(String username) throws UsernameNotFoundException{
-        User user = userRepository.loadByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        if (!userRepository.existsById(user.getId())){
+            userRepository.save(user);
+            return true;
 
-        List<GrantedAuthority> roles = new ArrayList<>();
-        for(String role : user.getRoles()){
-            roles.add(new SimpleGrantedAuthority("ROLE "+role ));
+        }else{
+            return false;
         }
-        return new org.springframework.security.core.userdetails.User(user.getUser(),user.getPassword(),roles);
+
     }
 
-    /* LO QUE HABIA EN EL HOLDER
+    public boolean updateUser(User user){
+        if (userRepository.existsById(user.getId())){
 
+            userRepository.save(user);
+            return true;
+        }else{
 
-    @Service
-public class UserHolder {
-    private Map<String,User> usersM= new ConcurrentHashMap<>();
-    private AtomicLong lastID=new AtomicLong();
+            return false;
+        }
 
-    public void addUser (String username, User user){
-        usersM.put(username, user);
     }
 
-    public Collection<User> getUsers(){
-        return usersM.values();
-    }
-    public User getUser(String username){
-        return usersM.get(username);
+    public boolean removeUser(Long id){
+        userRepository.deleteById(id);
+        return true;
     }
 
-     */
+
 
 }

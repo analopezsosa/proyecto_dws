@@ -40,7 +40,6 @@ public class User {
     }
 
 
-
     public long getId() {
         return this.id;
     }
@@ -66,65 +65,27 @@ public class User {
     }
 
     public String toString() {
-        return "User [id=" + id + ", username=" + user+"]";
+        return "User [id=" + id + ", username=" + user + "]";
     }
 
-    public List<String> getRoles(){
+    public List<String> getRoles() {
         return this.roles;
     }
-    public void setRoles(List<String> roles){
-        this.roles= roles;
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
-    @OneToMany(mappedBy = "grade")
+
+    @OneToMany(mappedBy = "grade") //CREO QUE HAY QUE PONER OTRA PUTA MIERDA EN GRADE O ESTO ESTA MAL
     private Grade grade;
 
     //Otra opcion no puede ser que sea asi??
-        //@OneToMany(mappedBy = "user")
+    //@OneToMany(mappedBy = "user")
     //    private List<User> users;
 
 
-
-
-
-
-
-/*
-    public boolean isPasswordCorrect (String passwordEntered){
-        return this.password.equals(passwordEntered);
-    }
-
-
-
-    public boolean addGrade (String grade) {
-        if (!gradesOfTheUser.contains(grade)) {
-            gradesOfTheUser.add(grade);
-            return true;
-        }
-        return false;
-    }
-    public void removeGrade(String grade) {
-        gradesOfTheUser.remove(grade);
-    }
-    public List<String> getGrades() {
-        return gradesOfTheUser;
-    }
-
-
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user1 = (User) o;
-        return Objects.equals(user, user1.user);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(user);
-    }*/
-
 }
+
+
+
