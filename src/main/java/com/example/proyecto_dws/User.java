@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
@@ -23,13 +25,22 @@ public class User {
     private long id;
 
     private String user;
+
+    @JsonIgnore
     private String password;
 
 
-    public User(String user, String password) {
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
+
+    public User(String user, String password, String... roles) {
         this.user = user;
         this.password = new BCryptPasswordEncoder().encode(password);
+        this.roles = List.of(roles);
     }
+
+
+
     public long getId() {
         return this.id;
     }
@@ -57,6 +68,14 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", username=" + user+"]";
     }
+
+    public List<String> getRoles(){
+        return this.roles;
+    }
+    public void setRoles(List<String> roles){
+        this.roles= roles;
+    }
+
     @OneToMany(mappedBy = "grade")
     private Grade grade;
 
