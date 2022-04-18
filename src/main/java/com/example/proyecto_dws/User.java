@@ -30,19 +30,16 @@ public class User {
     private String password;
 
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles;
 
     @ManyToOne
     @JoinColumn(name="userGrade")
     private Grade grade;
 
 
-    public User(String user, String password,Grade grade, String... roles) {
+    public User(String user, String password,Grade grade) {
         this.user = user;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.grade = grade;
-        this.roles = List.of(roles);
     }
 
 
@@ -72,14 +69,6 @@ public class User {
 
     public String toString() {
         return "User [id=" + id + ", username=" + user + "]";
-    }
-
-    public List<String> getRoles() {
-        return this.roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
     }
 
     public Grade getGrade() {
