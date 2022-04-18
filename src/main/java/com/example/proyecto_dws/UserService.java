@@ -7,20 +7,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    GradeRepository gradeRepository;
 
 
 
-    public boolean newUser(User user){//add a user
+    public boolean addUser(User user){//add a user
 
         if (!userRepository.existsById(user.getId())){
+            //if the user isnt already
             userRepository.save(user);
             return true;
 
@@ -43,8 +43,13 @@ public class UserService {
     }
 
     public boolean removeUser(Long id){
-        userRepository.deleteById(id);
+        if(userRepository.existsById(id)){
+            userRepository.deleteById(id);
+        }
         return true;
+    }
+    public Collection<User> getUsers(){
+        return userRepository.findAll();
     }
 
 

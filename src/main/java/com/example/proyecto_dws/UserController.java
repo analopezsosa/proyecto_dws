@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Autowired
     UserService userService;
 
     @GetMapping("/users")
     public String showUsers(Model model){
-        model.addAttribute("users",repository.findAll());
+        model.addAttribute("users",userRepository.findAll());
         return "viewusers";
     }
 
     @GetMapping("/user/{id}")
     public String showUser(Model model, @PathVariable long id) {
-        User user = repository.findById(id).get();
+        User user = userRepository.findById(id).get();
         model.addAttribute("user", user);
         return "viewuser";
     }
@@ -31,8 +31,8 @@ public class UserController {
     }
     @PostMapping("removeUser")
     public String deleteUser(@PathVariable Long id){
-        User aux = repository.getById(id);
-        repository.delete(aux);
+        User aux = userRepository.getById(id);
+        userRepository.delete(aux);
         return "viewusers";
     }
 }
