@@ -1,4 +1,4 @@
-package com.example.proyecto_dws;
+package com.example.proyectodws;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

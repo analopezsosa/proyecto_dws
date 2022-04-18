@@ -1,4 +1,4 @@
-package com.example.proyecto_dws;
+package com.example.proyectodws;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

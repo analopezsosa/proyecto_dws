@@ -1,4 +1,4 @@
-package com.example.proyecto_dws;
+package com.example.proyectodws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class SubjectController {
         return "viewsubjects";
     }
 
-    ///////////////////
+
 
     @GetMapping("/createsubject.html")
     public String showSubject(){return "createsubject";}

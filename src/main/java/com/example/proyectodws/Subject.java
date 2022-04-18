@@ -1,4 +1,4 @@
-package com.example.proyecto_dws;
+package com.example.proyectodws;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

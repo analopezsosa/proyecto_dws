@@ -1,4 +1,4 @@
-package com.example.proyecto_dws;
+package com.example.proyectodws;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
