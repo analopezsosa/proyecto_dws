@@ -67,31 +67,4 @@ public class Grade {
         this.gradeNumber = gradeNumber;
     }
 }
-/*
-    public boolean addSubject(Subject subject) {
-        if (!subjectsOfTheGrade.contains(subject)) {
-            subjectsOfTheGrade.add(subject);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public void removeSubject(Subject subject) {
-        subjectsOfTheGrade.remove(subject);
-    }
-    public List<Subject> getSubjectsOfTheGrade() {
-        return subjectsOfTheGrade;
-    }
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Grade grade = (Grade) o;
-        return gradeNumber == grade.gradeNumber && id == grade.id && Objects.equals(name, grade.name) && Objects.equals(subjectsOfTheGrade, grade.subjectsOfTheGrade);
-    }
-
-
- */

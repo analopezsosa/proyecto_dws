@@ -12,10 +12,11 @@ import java.util.Optional;
 @RestController
 public class GradeRESTController {
     @Autowired
-    private GradeRepository repository;
+    private GradeService gradeService;
 
     @Autowired
-    private UserRepository userRepository;
+
+    private GradeRepository repository;
 
     @GetMapping("/grades")
     public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>(repository.findAll(),HttpStatus.OK);}
@@ -43,12 +44,13 @@ public class GradeRESTController {
 
 
     }
-/*
+
     @PutMapping("/grades/{id}")
-    public ResponseEntity updateGrade(@PathVariable int id, @RequestBody Grade grade){
-        Grade gradeT = gradeHolder.updateGrade(id,grade);
+    public ResponseEntity updateGrade(@PathVariable long id, @RequestBody Grade grade){
+        Grade gradeT = gradeService.getGrade(id);
 
         if(gradeT != null){
+            gradeService.saveGrade(gradeT);
             return new ResponseEntity<>(gradeT, HttpStatus.OK);
         }
         else{
@@ -58,7 +60,7 @@ public class GradeRESTController {
 
     @DeleteMapping("/grades/{id}")
     public ResponseEntity<Grade> deleteGrade(@PathVariable long id){
-        Grade gradeT = gradeHolder.deleteGrade(id);
+        Grade gradeT = gradeService.deleteGrade(id);
         if (gradeT != null){
             return new ResponseEntity<>(gradeT, HttpStatus.OK);
         }
@@ -67,7 +69,6 @@ public class GradeRESTController {
         }
     }
 
-*/
 }
 
 

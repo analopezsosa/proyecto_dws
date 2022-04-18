@@ -18,34 +18,19 @@ public class GradeService {
         return gradeRepository.findAll();
     }
 
-
-    /* LO QUE HABIA EN EL HOLDER
-    @Service
-public class GradeHolder {
-    private Map<Long,Grade> gradesM = new ConcurrentHashMap<>();
-    private AtomicLong lastId = new AtomicLong();
-
-    public Grade addGrade(Grade grade){
-        long id = lastId.incrementAndGet();
-        grade.setId(id);
-        gradesM.put(id,grade);
+    public Grade getGrade(long id){
+        Grade grade= gradeRepository.getById(id);
         return grade;
     }
-    public Grade updateGrade(long id, Grade grade){
-        grade.setId(id);
-        return gradesM.replace(id, grade);
-    }
-    public Grade deleteGrade(long id){
-        return gradesM.remove(id);
-    }
-    public Collection<Grade> getGrades(){
-        return gradesM.values();
-    }
-    public Grade getGrade(long id){
-        return gradesM.get(id);
-    }
 
-     */
+
+    public Grade deleteGrade(long id){
+
+       Grade grade= gradeRepository.getById(id);
+
+       gradeRepository.deleteById(id);
+       return grade;
+    }
 
 
 
