@@ -11,11 +11,8 @@ import java.util.Collection;
 @RequestMapping("/api")
 @RestController
 public class UserRestController {
-
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    GradeRepository gradeRepository;
     @Autowired
     UserService userService;
 
