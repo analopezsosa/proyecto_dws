@@ -66,5 +66,20 @@ public class Grade {
     public void setGradeNumber(int gradeNumber) {
         this.gradeNumber = gradeNumber;
     }
+
+
+    public boolean addSubject(Subject subject){
+        if (subjects.contains(subject)) {
+
+            return false;
+        }else{
+            subjects.add(subject);
+            return true;
+        }
+
+    }
+
+    public void deleteSubject(Subject subject){subjects.remove(subject);}
+
 }
 

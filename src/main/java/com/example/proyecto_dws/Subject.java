@@ -33,4 +33,24 @@ public class Subject {
     private List<Grade> grades = new ArrayList<>();
 
 
+    public boolean addGrade(Grade grade){
+
+        if (grades.contains(grade)){
+
+            return false;
+        }else{
+
+            grades.add(grade);
+            return true;
+        }
+
+
+
+    }
+
+    public void deleteGrade(Grade grade){
+        grades.remove(grade);
+    }
+
+
 }
