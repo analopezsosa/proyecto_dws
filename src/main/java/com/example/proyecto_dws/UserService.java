@@ -18,7 +18,7 @@ public class UserService {
 
 
 
-    public boolean newUser(User user){
+    public boolean newUser(User user){//add a user
 
         if (!userRepository.existsById(user.getId())){
             userRepository.save(user);

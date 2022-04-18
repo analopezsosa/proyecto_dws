@@ -26,16 +26,22 @@ public class User {
 
     private String user;
 
-    @JsonIgnore
+    @JsonIgnore //evita bucles infinitos
     private String password;
 
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    public User(String user, String password, String... roles) {
+    @ManyToOne
+    @JoinColumn(name="userGrade")
+    private Grade grade;
+
+
+    public User(String user, String password,Grade grade, String... roles) {
         this.user = user;
         this.password = new BCryptPasswordEncoder().encode(password);
+        this.grade = grade;
         this.roles = List.of(roles);
     }
 
@@ -76,13 +82,17 @@ public class User {
         this.roles = roles;
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
 
-    @OneToMany(mappedBy = "grade") //CREO QUE HAY QUE PONER OTRA PUTA MIERDA EN GRADE O ESTO ESTA MAL
-    private Grade grade;
-
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
     //Otra opcion no puede ser que sea asi??
     //@OneToMany(mappedBy = "user")
     //    private List<User> users;
+
 
 
 }

@@ -22,10 +22,10 @@ public class Grade {
     private String name;
     private int gradeNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grade")
     private List<User> userList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "grades")
+    @ManyToMany(mappedBy = "grade")
     private List<Subject> subjects;
 
 

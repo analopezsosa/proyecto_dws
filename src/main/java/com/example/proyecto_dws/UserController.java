@@ -13,6 +13,9 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/users")
     public String showUsers(Model model){
         model.addAttribute("users",repository.findAll());
