@@ -13,6 +13,9 @@ public class SubjectRESTController {
     @Autowired
     SubjectRepository repository;
 
+    @Autowired
+    SubjectService subjectService;
+
     @GetMapping("/subject")
     public ResponseEntity<Collection> subjectList() {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
@@ -28,12 +31,15 @@ public class SubjectRESTController {
         }
 
     }
-}
 
-/*
+
+
     @PutMapping("/subject/{id}")
     public ResponseEntity<Subject> updateSubject(@PathVariable long id,@RequestBody Subject subject){
-        Subject aux = subjectHolder.updateSubject(id,subject);
+        Subject aux = repository.getById(id);
+
+        subjectService.updateSubject(aux);
+
 
         if(aux != null){
             return new ResponseEntity<>(aux, HttpStatus.OK);
@@ -45,7 +51,8 @@ public class SubjectRESTController {
 
     @DeleteMapping("/subject/{id}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable long id){
-        Subject aux = subjectHolder.deleteSubject(id);
+        Subject aux = repository.getById(id);
+         subjectService.removeSubject(id);
         if (aux != null){
             return new ResponseEntity<>(aux, HttpStatus.OK);
         }

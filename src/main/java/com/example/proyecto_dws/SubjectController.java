@@ -80,6 +80,17 @@ public class SubjectController {
     }
 
 
+    @GetMapping("/removesubject.html")
+    public String showRemove() { return "removesubject"; }
+    @PostMapping("/removesubject.html")
+    public String removeSubject( @RequestParam Long id){
+
+        subjectRepository.deleteById(id);
+        return "deletedsubject";
+
+
+
+    }
 
 
 
@@ -115,17 +126,6 @@ public class SubjectController {
         return "removedsubjectfromgrade";
     }
 
-    @GetMapping("/removesubject.html")
-    public String showRemove() { return "removesubject"; }
-    @PostMapping("/removesubject.html")
-    public String removeSubject( @RequestParam Long id){
-
-        subjectHolder.deleteSubject(id);//it is suposed to delete the subject but im not sure if it works too inside the grade, we have to try
-        return "deletedsubject";
-
-
-
-    }
 
 */
 
