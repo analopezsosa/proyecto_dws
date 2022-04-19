@@ -25,14 +25,32 @@ public class UserController {
         model.addAttribute("user", user);
         return "viewuser";
     }
-    @GetMapping("removeUser")
+    @GetMapping("/removeUser")
     public String removeUser(){
             return "removeUser";
     }
-    @PostMapping("removeUser")
+    @PostMapping("/removeUser")
     public String deleteUser(@PathVariable Long id){
         User aux = userRepository.getById(id);
         userRepository.delete(aux);
         return "viewusers";
+    }
+
+
+    @GetMapping("/signup.html")
+    public String showRegistrer() { return "signup"; }
+
+    @GetMapping("/signup/new")
+    public String addUser(Model model,@RequestParam String user,@RequestParam String password ){//add a user
+
+
+            User user1=new User(user,password);
+            userRepository.save(user1);
+            model.addAttribute("user",user1);
+
+            return "login";
+
+
+
     }
 }

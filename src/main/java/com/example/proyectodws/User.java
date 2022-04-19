@@ -31,10 +31,9 @@ public class User {
     private Grade grade;
 
 
-    public User(String user, String password,Grade grade) {
+    public User(String user, String password) {
         this.user = user;
         this.password = new BCryptPasswordEncoder().encode(password);
-        this.grade = grade;
     }
 
 
