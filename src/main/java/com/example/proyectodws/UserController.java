@@ -46,7 +46,7 @@ public class UserController {
             if (user.getGrade()!= null) {
                 model.addAttribute("userGrade", userService.getUser(username));
             }
-            return "user"; //pagina de gestion de usuario donde le sale para por ejemplo unirse a un grado, etc
+            return "funcionalities"; //pagina de gestion de usuario donde le sale para por ejemplo unirse a un grado, etc
         } else {
             model.addAttribute("error",true);
             return "login";
