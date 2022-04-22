@@ -7,11 +7,53 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     UserService userService;
+
+
+    @GetMapping("/signup")
+    public String showSignUp(){
+        return "signup";
+    }
+    @PostMapping("/signup")
+    public String registerUser(@RequestParam String name,@RequestParam String password,Model model){
+        /*  Hacer algun if por si ya esta el usuario
+
+        if(userService.getUser(id)!=null) {
+            model.addAttribute("error",true);
+            return "register-user";
+        }
+
+         */
+        User newUser= new User(name,password);
+        userService.addUser(newUser);
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String showLogin(){
+        return "login";
+    }
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String name,@RequestParam String password, Model model){
+        User user=userService.getUser(name);
+        if(user==null) {
+            model.addAttribute("notRegistered",true);
+            return "register-user";
+        }else if(user.checkPass(password)){
+            model.addAttribute("user", users.getValue(name));
+            if (user.getTeam()!= null) {
+                model.addAttribute("hasATeam", users.getValue(name));
+            }
+            return "user";
+        } else {
+            model.addAttribute("error",true);
+            return "login-user";
+        }
+    }
+
+    /*
 
     @GetMapping("/users")
     public String showUsers(Model model){
@@ -53,4 +95,6 @@ public class UserController {
 
 
     }
+
+     */
 }

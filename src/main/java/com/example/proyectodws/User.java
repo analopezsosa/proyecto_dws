@@ -16,9 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String user;
 
     @JsonIgnore //evita bucles infinitos
@@ -33,10 +30,17 @@ public class User {
 
     public User(String user, String password) {
         this.user = user;
-        this.password = new BCryptPasswordEncoder().encode(password);
+        this.password = password;
     }
 
 
+    public String toString() {
+        return "User [username=" + user + "]";
+    }
+
+
+
+    /*  No es necesario
     public long getId() {
         return this.id;
     }
@@ -61,9 +65,7 @@ public class User {
         this.password = password;
     }
 
-    public String toString() {
-        return "User [id=" + id + ", username=" + user + "]";
-    }
+
 
     public Grade getGrade() {
         return grade;
@@ -72,9 +74,9 @@ public class User {
     public void setGrade(Grade grade) {
         this.grade = grade;
     }
-    //Otra opcion no puede ser que sea asi??
-    //@OneToMany(mappedBy = "user")
-    //    private List<User> users;
+
+
+     */
 
 
 
