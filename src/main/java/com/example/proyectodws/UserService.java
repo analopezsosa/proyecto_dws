@@ -13,44 +13,40 @@ public class UserService {
 
 
 
-    public boolean addUser(User user){//add a user
+    public void addUser(User username){//add a user
 
-        if (!userRepository.existsById(user.getId())){
-            //if the user isnt already
-            userRepository.save(user);
-            return true;
-
-        }else{
-            return false;
-        }
+       userRepository.save(username);
 
     }
 
-    public boolean updateUser(User user){
-        if (userRepository.existsById(user.getId())){
 
-            userRepository.save(user);
+    public boolean removeUser(String username){
+        User usertodelete=this.getUser(username);
+        if(usertodelete!=null){
+
+            userRepository.delete(usertodelete);
             return true;
         }else{
 
-            return false;
-        }
 
-    }
 
-    public boolean removeUser(Long id){
-        if(userRepository.existsById(id)){
-            userRepository.deleteById(id);
-        }
-        return true;
+        return false;}
     }
     public Collection<User> getUsers(){
         return userRepository.findAll();
     }
 
     public User getUser(String username)   {
+
+
         Optional<User> present = userRepository.findById(username);
-        return present.isPresent()?present.get():null;
+
+        if (present.isPresent()){
+            return present.get();
+        }else{
+            return null;
+        }
+
     }
 
 }

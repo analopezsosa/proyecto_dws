@@ -38,7 +38,9 @@ public class User {
         return "User [username=" + user + "]";
     }
 
-
+    public boolean checkPass(String password) {
+        return this.password.equals(password);
+    }
 
     /*  No es necesario
     public long getId() {

@@ -36,20 +36,20 @@ public class UserController {
         return "login";
     }
     @PostMapping("/login")
-    public String loginUser(@RequestParam String name,@RequestParam String password, Model model){
-        User user=userService.getUser(name);
+    public String loginUser(@RequestParam String username,@RequestParam String password, Model model){
+        User user=userService.getUser(username);
         if(user==null) {
             model.addAttribute("notRegistered",true);
-            return "register-user";
+            return "signup";
         }else if(user.checkPass(password)){
-            model.addAttribute("user", users.getValue(name));
-            if (user.getTeam()!= null) {
-                model.addAttribute("hasATeam", users.getValue(name));
+            model.addAttribute("user", userService.getUser(username));
+            if (user.getGrade()!= null) {
+                model.addAttribute("userGrade", userService.getUser(username));
             }
-            return "user";
+            return "user"; //pagina de gestion de usuario donde le sale para por ejemplo unirse a un grado, etc
         } else {
             model.addAttribute("error",true);
-            return "login-user";
+            return "login";
         }
     }
 

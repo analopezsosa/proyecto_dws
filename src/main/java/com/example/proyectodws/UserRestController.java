@@ -15,7 +15,7 @@ public class UserRestController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
-
+/*
     @GetMapping("/user")
     public ResponseEntity<Collection>users(){
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
@@ -58,5 +58,5 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+*/
 }
