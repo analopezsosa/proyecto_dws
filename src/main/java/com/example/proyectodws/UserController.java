@@ -12,11 +12,11 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping("/signup")
+    @GetMapping("/signup.html")
     public String showSignUp(){
         return "signup";
     }
-    @PostMapping("/signup")
+    @PostMapping("/signup.html")
     public String registerUser(@RequestParam String name,@RequestParam String password,Model model){
         /*  Hacer algun if por si ya esta el usuario
 
@@ -31,11 +31,11 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login.html")
     public String showLogin(){
         return "login";
     }
-    @PostMapping("/login")
+    @PostMapping("/login.html")
     public String loginUser(@RequestParam String username,@RequestParam String password, Model model){
         User user=userService.getUser(username);
         if(user==null) {
