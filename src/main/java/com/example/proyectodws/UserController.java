@@ -18,14 +18,14 @@ public class UserController {
     }
     @PostMapping("/signup.html")
     public String registerUser(@RequestParam String username,@RequestParam String password,Model model){
-        /*  Hacer algun if por si ya esta el usuario
 
-        if(userService.getUser(id)!=null) {
+
+        if(userService.getUser(username)!=null) {
             model.addAttribute("error",true);
-            return "register-user";
+            return "signup";
         }
 
-         */
+
         User newUser= new User(username,password);
         userService.addUser(newUser);
         return "index";
@@ -46,7 +46,7 @@ public class UserController {
             if (user.getGrade()!= null) {
                 model.addAttribute("userGrade", userService.getUser(username));
             }
-            return "funcionalities"; //pagina de gestion de usuario donde le sale para por ejemplo unirse a un grado, etc
+            return "functionalities"; //pagina de gestion de usuario donde le sale para por ejemplo unirse a un grado, etc
         } else {
             model.addAttribute("error",true);
             return "login";
