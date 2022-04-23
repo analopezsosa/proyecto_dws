@@ -29,7 +29,6 @@ public class SubjectController {
 
     @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam String description, Model model){
-
         Subject newsubject = new Subject(name, subjectNumber,description);
         subjectService.saveSubject(newsubject);
         model.addAttribute("subject",newsubject);
@@ -53,12 +52,13 @@ public class SubjectController {
     }
 
 
-    @GetMapping("/addsubjecttograde.html")
+    @GetMapping("/addsubjecttograde")
     public String showAddSubject(){
         return "addsubjecttograde";
     }
 
-    @PostMapping("/addsubjecttograde.html")
+
+    @PostMapping("/addsubjecttograde")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
         Subject subjectToAdd = subjectService.getSubject(idS);
         Grade g = gradeService.getGrade(idG);

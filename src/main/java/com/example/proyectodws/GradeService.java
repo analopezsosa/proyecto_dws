@@ -10,6 +10,9 @@ public class GradeService {
     @Autowired
     GradeRepository gradeRepository;
 
+    @Autowired
+    SubjectRepository subjectRepository;
+
     public void saveGrade(Grade grade){
         gradeRepository.save(grade);
     }
@@ -31,6 +34,11 @@ public class GradeService {
        return grade;
     }
 
-
-
+    public Grade addSubjectToGrade(long idS, long idG){
+        Grade g = gradeRepository.getById(idG);
+        g.addSubject(subjectRepository.getById(idS));
+        gradeRepository.deleteById(idG);
+        gradeRepository.save(g);
+        return g;
+    }
 }
