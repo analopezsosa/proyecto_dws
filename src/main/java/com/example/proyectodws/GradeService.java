@@ -19,8 +19,7 @@ public class GradeService {
     }
 
     public Grade getGrade(long id){
-        Grade grade= gradeRepository.getById(id);
-        return grade;
+        return gradeRepository.getById(id);
     }
 
 

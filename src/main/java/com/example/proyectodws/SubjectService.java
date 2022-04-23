@@ -3,12 +3,12 @@ package com.example.proyectodws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubjectService {
     @Autowired
     SubjectRepository subjectRepository;
-    @Autowired
-    GradeRepository gradeRepository;
 
     public boolean newSubject(Subject subject) {
         if(!subjectRepository.existsById(subject.getId())) {
@@ -32,6 +32,24 @@ public class SubjectService {
         subjectRepository.deleteById(id);
         return true;
     }
+    public List<Subject> getSubjectList(){
+        return subjectRepository.findAll();
+    }
+    public void saveSubject(Subject s){
+        subjectRepository.save(s);
+    }
 
+    public Subject getSubject(long id){
+
+        return subjectRepository.getById(id);
+    }
+
+    public Subject deleteSubject(long id){
+
+        Subject s= subjectRepository.getById(id);
+
+        subjectRepository.deleteById(id);
+        return s;
+    }
 
 }

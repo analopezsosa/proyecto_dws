@@ -11,20 +11,14 @@ import javax.annotation.PostConstruct;
 @Controller
 public class SubjectController {
     @Autowired
-    private SubjectRepository subjectRepository;
+    private SubjectService subjectService;
+
     @Autowired
-    private GradeRepository gradeRepository;
-
-
-    @PostConstruct
-    public void init(){
-        subjectRepository.save(new Subject("Mates",2,"Es una asignatura"));
-
-    }
+    private GradeService gradeService;
 
     @GetMapping("/viewsubjects.html")
-    public String showGrades(Model model){
-        model.addAttribute("subjects",subjectRepository.findAll());
+    public String showSubjects(Model model){
+        model.addAttribute("subjects",subjectService.getSubjectList());
         return "viewsubjects";
     }
 
@@ -37,7 +31,7 @@ public class SubjectController {
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam String description, Model model){
 
         Subject newsubject = new Subject(name, subjectNumber,description);
-        subjectRepository.save(newsubject);
+        subjectService.saveSubject(newsubject);
         model.addAttribute("subject",newsubject);
 
         return "viewsubject";
@@ -51,7 +45,7 @@ public class SubjectController {
     @PostMapping("/editsubject.html")
     public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber){
 
-        Subject editThisSubject = subjectRepository.findById(id).get();
+        Subject editThisSubject = subjectService.getSubject(id);
 
             editThisSubject.setName(name);
             editThisSubject.setSubjectNumber(subjectNumber);
@@ -66,16 +60,16 @@ public class SubjectController {
 
     @PostMapping("/addsubjecttograde.html")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
-        Subject subjectToAdd = subjectRepository.getById(idS);
-        Grade g = gradeRepository.getById(idG);
+        Subject subjectToAdd = subjectService.getSubject(idS);
+        Grade g = gradeService.getGrade(idG);
         subjectToAdd.getGrades().add(g);
         return "addedsubjecttograde";
     }
 
     @DeleteMapping("/viewsubject.html")
     public Subject deleteSubject(@RequestParam long id){
-        Subject subject = subjectRepository.findById(id).get();
-        subjectRepository.deleteById(id);
+        Subject subject = subjectService.getSubject(id);
+        subjectService.deleteSubject(id);
         return subject;
     }
 
@@ -85,7 +79,7 @@ public class SubjectController {
     @PostMapping("/removesubject.html")
     public String removeSubject( @RequestParam Long id){
 
-        subjectRepository.deleteById(id);
+        subjectService.deleteSubject(id);
         return "deletedsubject";
 
 

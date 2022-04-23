@@ -10,14 +10,14 @@ public class GradeController {
 
 
     @Autowired
-    private GradeRepository repository;
+    private GradeService gradeService;
 
 
 
 
     @GetMapping("/viewgrades.html")
     public String showGrades(Model model){
-        model.addAttribute("grades",repository.findAll());
+        model.addAttribute("grades",gradeService.gradeList());
         return "viewgrades";
     }
     @GetMapping("/creategrade")
@@ -26,29 +26,29 @@ public class GradeController {
     @PostMapping("/creategrade")
     public String gradeCreated(Model model, String name, int gradeNumber){
         Grade grade = new Grade(name,gradeNumber);
-        repository.save(grade);
+        gradeService.saveGrade(grade);
         model.addAttribute("grade",grade);
         return "functionalities";
     }
 
     @GetMapping("/grade/{id}")
     public String viewGrade( Model model, @PathVariable long id) {
-        Grade grade = repository.findById(id).get();
+        Grade grade = gradeService.getGrade(id);
         model.addAttribute("grade",grade);
         return "viewsubjectsbygrade";
     }
 
 
     @DeleteMapping("/grade/{id}")
-    public Grade deleteGrade(@PathVariable Long id){
-        Grade grade = repository.findById(id).get();
-        repository.deleteById(id);
-        return grade;
+    public String deleteGrade(@PathVariable Long id){
+        Grade grade = gradeService.getGrade(id);
+        gradeService.deleteGrade(id);
+        return "functionalities";
     }
 
     @PutMapping("/grade/{id}")
     public Grade updateGrade(Grade grade, Long id){
-        Grade aux = repository.findById(id).get();
+        Grade aux = gradeService.getGrade(id);
         if(aux != null && !"".equalsIgnoreCase(grade.getName())){
             aux.setName(grade.getName());
             aux.setGradeNumber(grade.getGradeNumber());
