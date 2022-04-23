@@ -52,7 +52,10 @@ public class UserController {
             return "login";
         }
     }
-
+    @GetMapping("/functionalities")
+    public String showFunctionalities(){
+        return "functionalities";
+    }
     /*
 
     @GetMapping("/users")
