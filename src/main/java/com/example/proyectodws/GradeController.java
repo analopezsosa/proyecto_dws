@@ -23,14 +23,14 @@ public class GradeController {
     @GetMapping("/creategrade")
     public String showCreate() { return "creategrade"; }
 
-
-    @GetMapping("/creategrade/newgrade")
-    public String createGrade(Model model, Grade grade){
-
+    @PostMapping("/creategrade")
+    public String gradeCreated(Model model, String name, int gradeNumber){
+        Grade grade = new Grade(name,gradeNumber);
         repository.save(grade);
         model.addAttribute("grade",grade);
-        return "viewgrade";
+        return "functionalities";
     }
+
     @GetMapping("/grade/{id}")
     public String viewGrade( Model model, @PathVariable long id) {
         Grade grade = repository.findById(id).get();
