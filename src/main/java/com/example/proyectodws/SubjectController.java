@@ -64,13 +64,14 @@ public class SubjectController {
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG, Model model){
         Subject subjectToAdd = subjectService.getSubject(idS);
         Grade g = gradeService.getGrade(idG);
+
         g.addSubject(subjectToAdd);
+        subjectService.addSubject(subjectToAdd);
+        gradeService.addGrade(g);
         subjectToAdd.getGrades().add(g);
 
         model.addAttribute("grade",gradeService.getGrade(idG));
         return "viewsubjectsbygrade";
-        //te lo muestra bien pero luego cuando accedes desde grade/{id}
-        //no te muestra la añadida
     }
 
     @DeleteMapping("/viewsubject.html")

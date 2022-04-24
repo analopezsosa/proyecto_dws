@@ -52,4 +52,7 @@ public class SubjectService {
         return s;
     }
 
+    public void addSubject(Subject subjectToAdd) {
+        subjectRepository.save(subjectToAdd);
+    }
 }

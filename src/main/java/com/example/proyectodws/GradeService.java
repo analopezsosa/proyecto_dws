@@ -34,19 +34,7 @@ public class GradeService {
        return grade;
     }
 
-    public void updateGradeBySubject(Grade g, Subject s){
-        g.addSubject(s);
-        if(gradeRepository.existsById(g.getId())){
-            Grade aux = gradeRepository.getById(g.getId());
-            gradeRepository.deleteById(aux.getId());
-            gradeRepository.save(g);
-            g.setId(aux.getId());
-        }
-    }
-
-    public void addSubjectToGrade(long idS, long idG){
-        Grade g = gradeRepository.getById(idG); //tengo el grado
-        g.addSubject(subjectRepository.getById(idS)); //añado la asig al grado
-        updateGradeBySubject(g,subjectRepository.getById(idS));
+    public void addGrade(Grade g) {
+        gradeRepository.save(g);
     }
 }
