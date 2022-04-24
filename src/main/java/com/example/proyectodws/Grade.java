@@ -81,5 +81,9 @@ public class Grade {
     public List<Subject> getSubjects(){
         return this.subjects;
     }
+
+    public void updateGrade(Grade g) {
+        this.subjects = g.subjects;
+    }
 }
 

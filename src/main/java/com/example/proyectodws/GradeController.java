@@ -32,9 +32,8 @@ public class GradeController {
     }
 
     @GetMapping("/grade/{id}")
-    public String viewGrade( Model model, @PathVariable long id) {
-        Grade grade = gradeService.getGrade(id);
-        model.addAttribute("grade",grade);
+    public String viewGrade( Model model, @PathVariable long id) {;
+        model.addAttribute("grade",gradeService.getGrade(id));
         return "viewsubjectsbygrade";
     }
 

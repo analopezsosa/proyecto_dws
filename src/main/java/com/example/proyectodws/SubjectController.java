@@ -64,9 +64,11 @@ public class SubjectController {
         Grade g = gradeService.getGrade(idG);
         g.addSubject(subjectToAdd);
         subjectToAdd.getGrades().add(g);
-        model.addAttribute("subject",subjectToAdd);
-        return "addedsubjecttograde";
 
+        model.addAttribute("grade",gradeService.getGrade(idG));
+        return "viewsubjectsbygrade";
+        //te lo muestra bien pero luego cuando accedes desde grade/{id}
+        //no te muestra la añadida
     }
 
     @DeleteMapping("/viewsubject.html")
