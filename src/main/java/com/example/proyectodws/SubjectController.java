@@ -59,11 +59,14 @@ public class SubjectController {
 
 
     @PostMapping("/addsubjecttograde")
-    public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG){
+    public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG, Model model){
         Subject subjectToAdd = subjectService.getSubject(idS);
         Grade g = gradeService.getGrade(idG);
+        g.addSubject(subjectToAdd);
         subjectToAdd.getGrades().add(g);
+        model.addAttribute("subject",subjectToAdd);
         return "addedsubjecttograde";
+
     }
 
     @DeleteMapping("/viewsubject.html")

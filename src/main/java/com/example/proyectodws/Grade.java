@@ -78,6 +78,8 @@ public class Grade {
     }
 
     public void deleteSubject(Subject subject){subjects.remove(subject);}
-
+    public List<Subject> getSubjects(){
+        return this.subjects;
+    }
 }
 
