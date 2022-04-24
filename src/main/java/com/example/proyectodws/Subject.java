@@ -26,6 +26,7 @@ public class Subject {
         this.name = name;
         this.subjectNumber = subjectNumber;
         this.description=description;
+        grades = new ArrayList<>();
     }
 
 

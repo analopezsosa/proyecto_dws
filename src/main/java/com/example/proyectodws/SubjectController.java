@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
+import java.util.List;
 
 
 @Controller
@@ -83,9 +85,13 @@ public class SubjectController {
     public String showRemove() { return "removesubject"; }
     @PostMapping("/removesubject.html")
     public String removeSubject( @RequestParam Long id){
-
-        subjectService.deleteSubject(id);
-        return "deletedsubject";
+        if(subjectService.getSubject(id).getGrades().size() == 0){
+            //si no está en ningún curso
+            subjectService.deleteSubject(id);
+            return "deletedsubject";
+        }else{
+            return "notEmpty";
+        }
 
 
 

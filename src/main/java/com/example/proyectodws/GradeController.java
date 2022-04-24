@@ -55,6 +55,17 @@ public class GradeController {
         return aux;
     }
 
+    @GetMapping("/editgrade")
+    public String edit(){
+        return "editgrade";
+    }
+    @PostMapping("/editgrade")
+    public String edited(@RequestParam long id, @RequestParam String name,@RequestParam int number){
+        Grade g =gradeService.getGrade(id);
+        g.setGradeNumber(number);
+        g.setName(name);
+        return "functionalities";
+    }
     /*@GetMapping("/grade/{id}/addusertograde")
     public String addUserToGrade(Model model, @PathVariable long id){
         userRepository.getById(id);
