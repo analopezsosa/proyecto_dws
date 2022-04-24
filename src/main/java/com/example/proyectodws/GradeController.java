@@ -14,7 +14,6 @@ public class GradeController {
 
 
 
-
     @GetMapping("/viewgrades.html")
     public String showGrades(Model model){
         model.addAttribute("grades",gradeService.gradeList());
@@ -37,11 +36,17 @@ public class GradeController {
         return "viewsubjectsbygrade";
     }
 
-
-    @DeleteMapping("/grade/{id}")
-    public String deleteGrade(@PathVariable Long id){
+    @GetMapping("/removegrade")
+    public String showremove(){
+        return "removegrade";
+    }
+    @PostMapping("/removegrade")
+    public String deleteGrade(@RequestParam Long id){
         Grade grade = gradeService.getGrade(id);
-        gradeService.deleteGrade(id);
+        if(grade != null){
+            gradeService.deleteGrade(id);
+        }
+
         return "functionalities";
     }
 
