@@ -65,11 +65,13 @@ public class GradeController {
         return "editgrade";
     }
     @PostMapping("/editgrade")
-    public String edited(@RequestParam long id, @RequestParam String name,@RequestParam int number){
+    public String edited(@RequestParam long id, @RequestParam String name,@RequestParam int number, Model model){
         Grade g =gradeService.getGrade(id);
         g.setGradeNumber(number);
         g.setName(name);
-        return "functionalities";
+        gradeService.addGrade(g);
+        model.addAttribute("grade",g);
+        return "viewsubjectsbygrade";
     }
     /*@GetMapping("/grade/{id}/addusertograde")
     public String addUserToGrade(Model model, @PathVariable long id){
