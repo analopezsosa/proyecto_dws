@@ -98,7 +98,22 @@ public class SubjectController {
 
     }
 
+    @GetMapping("/removesubjectfromgrade")
+    public String showRemoveFromGrade(){
+        return "removesubjectfromgrade";
+    }
+    @PostMapping("/removesubjectfromgrade")
+    public String remove(@RequestParam Long idS, @RequestParam Long idG, Model model){
+        Subject subjectToRemove = subjectService.getSubject(idS);
+        Grade g = gradeService.getGrade(idG);
 
+        g.deleteSubject(subjectToRemove);
+        subjectToRemove.getGrades().remove(g);
+
+        gradeService.addGrade(g);
+        model.addAttribute("grade",gradeService.getGrade(idG));
+        return "viewsubjectsbygrade";
+    }
 
 
 
