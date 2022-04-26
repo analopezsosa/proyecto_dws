@@ -5,6 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 @Controller
 public class GradeController {
 
@@ -31,7 +36,7 @@ public class GradeController {
     }
 
     @GetMapping("/grade/{id}")
-    public String viewGrade( Model model, @PathVariable long id) {;
+    public String viewGrade( Model model, @PathVariable long id) {
         model.addAttribute("grade",gradeService.getGrade(id));
         return "viewsubjectsbygrade";
     }
@@ -78,6 +83,24 @@ public class GradeController {
         userRepository.getById(id);
 
     }*/
+
+    @GetMapping("/namefilter")
+    public String filterGrade(Model model, @RequestParam (required = false, name = "gradeName") String name){
+
+        if (name==null){
+            model.addAttribute("grades",gradeService.gradeList());
+
+        }else{
+            Set<Grade> grades = new HashSet<>(gradeService.gradeList());
+
+           // grades.retainAll(gradeService.); //AQUI TENDRIA QUE FILTRAR POR EL NOMBRE PERO ES QUE SOLO SE VE POR LA ID DE LOS COJONES
+
+            List<Grade> listToPrint= new LinkedList<>(grades);
+            model.addAttribute("grades",listToPrint);
+
+        }
+        return "viewgrades";
+    }
 
 
 
