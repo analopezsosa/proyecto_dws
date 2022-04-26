@@ -26,7 +26,7 @@
         </div>
     </nav>
     <main class="page blog-post-list">
-        <section class="clean-block clean-blog-list dark" style="height: 800px;">
+        <section class="clean-block clean-blog-list dark" style="height: 1100px;">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Cursos</h2>
@@ -51,7 +51,15 @@
 
                     <a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-gray-500);" href="functionalities" onclick="return confirmar()">Volver atrás</a>
                 </div>
+                <div class="block-content" style="border-top-style: solid;border-top-color: var(--bs-teal);height: auto;"> Filtrar
+                    <form action="/namefilter" method="get" style="border-top-color: var(--bs-teal);">
+                        <div class="mb-3"><label>Nombre</label><input class="form-control" type="text" name="name" ></div>
+                        <div class="mb-3"><label>Número</label><input class="form-control" type="number"name="gradeNumber"></div>
 
+                        <button class="btn btn-primary" type="submit" style="background: var(--bs-teal); ">Buscar</button>
+
+                    </form>
+                </div>
 
 
             </div>
