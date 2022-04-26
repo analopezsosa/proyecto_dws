@@ -71,7 +71,7 @@ public class GradeController {
         g.setName(name);
         gradeService.addGrade(g);
         model.addAttribute("grade",g);
-        return "viewsubjectsbygrade";
+        return "editedsubject";
     }
     /*@GetMapping("/grade/{id}/addusertograde")
     public String addUserToGrade(Model model, @PathVariable long id){
