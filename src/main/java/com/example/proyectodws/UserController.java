@@ -79,22 +79,22 @@ public class UserController {
     public String showFunctionalities(){
         return "functionalities";
     }
-    @PostMapping("/functionalities")
+    @PostMapping("/joingrade")
     public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
-        User userJoined = userService.getUser(username);
+        User userToJoin = userService.getUser(username);
         Grade gradeToJoin=gradeService.getGrade(id);
-        if (userJoined.getGrade()==null) {
 
-            userJoined.setGrade(gradeToJoin);
-            gradeService.addGrade(gradeToJoin);
-            userService.addUser(userJoined);
-            userJoined.getGrade().addUser(userJoined);
 
-            model.addAttribute("user", userService.getUser(username));
+        userToJoin.setGrade(gradeToJoin);
+        gradeToJoin.addUser(userToJoin);
+        userService.addUser(userToJoin);
+        gradeService.addGrade(gradeToJoin);
 
-            return "matriculado";
-        }
-        return "error";
+
+        model.addAttribute("user", userService.getUser(username));
+
+        return "functionalities";
+
 
 
 
