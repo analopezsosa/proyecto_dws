@@ -56,6 +56,12 @@ public class UserController {
     public String showFunctionalities(){
         return "functionalities";
     }
+
+    @GetMapping("/viewusers")
+    public String showAllUsers(Model model){
+        model.addAttribute("users",userService.getUsers());
+        return "viewusers";
+    }
     /*
 
     @GetMapping("/users")
