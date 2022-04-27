@@ -81,21 +81,26 @@ public class UserController {
     }
     @PostMapping("/joingrade")
     public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
+
+
         User userToJoin = userService.getUser(username);
         Grade gradeToJoin=gradeService.getGrade(id);
 
+        if (userToJoin.getGrade()==null) {
 
-        userToJoin.setGrade(gradeToJoin);
-        gradeToJoin.addUser(userToJoin);
-        userService.addUser(userToJoin);
-        gradeService.addGrade(gradeToJoin);
-
-
-        model.addAttribute("user", userService.getUser(username));
-
-        return "functionalities";
+            userToJoin.setGrade(gradeToJoin);
+            gradeToJoin.addUser(userToJoin);
+            userService.addUser(userToJoin);
+            gradeService.addGrade(gradeToJoin);
 
 
+            model.addAttribute("user", userService.getUser(username));
+
+            return "functionalities";
+
+        }else{
+            return "error";
+        }
 
 
 
