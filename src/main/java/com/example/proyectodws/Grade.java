@@ -21,6 +21,7 @@ public class Grade {
     private long id;
     private String name;
     private int gradeNumber;
+    private String teacher;
 
     @OneToMany()
     private List<User> userList = new ArrayList<>();
@@ -29,9 +30,18 @@ public class Grade {
     private List<Subject> subjects;
 
 
-    public Grade(String name, int gradeNumber) {
+    public Grade(String name, int gradeNumber, String teacher) {
         this.name = name;
         this.gradeNumber = gradeNumber;
+        this.teacher = teacher;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     public String getName() {

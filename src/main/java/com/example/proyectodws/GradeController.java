@@ -31,19 +31,10 @@ public class GradeController {
     public String showCreate() { return "creategrade"; }
 
     @PostMapping("/creategrade")
-    public String gradeCreated(Model model, String name, int gradeNumber, String username){
-        Grade grade = new Grade(name,gradeNumber);
-
-        User teacher= userService.getUser(username);
-        grade.addUser(teacher);
+    public String gradeCreated(Model model, String name, int gradeNumber, String teacher){
+        Grade grade = new Grade(name,gradeNumber,teacher);
         gradeService.saveGrade(grade);
-        teacher.setGrade(grade);
-        userService.addUser(teacher);
-
-
-
         model.addAttribute("grade",grade);
-
         return "functionalities";
     }
 
