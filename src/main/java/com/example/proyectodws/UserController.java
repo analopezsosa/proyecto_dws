@@ -11,6 +11,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    GradeService gradeService;
 
     @GetMapping("/signup.html")
     public String showSignUp(){
@@ -80,9 +82,32 @@ public class UserController {
     @PostMapping("/functionalities")
     public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
         User userJoined = userService.getUser(username);
-        if (userJoined.getGrade()==null){
-            userJoined.
-        }
+        Grade gradeToJoin=gradeService.getGrade(id);
+        //if (userJoined.getGrade()==null){
+
+            userJoined.setGrade(gradeToJoin);
+            gradeService.addGrade(gradeToJoin);
+            userService.addUser(userJoined);
+           // userJoined.getGrade().
+
+        return "funcionalities";
+
+
+
+
+        //}
+/*
+        Subject subjectToAdd = subjectService.getSubject(idS);
+        Grade g = gradeService.getGrade(idG);
+
+        g.addSubject(subjectToAdd);
+        subjectService.addSubject(subjectToAdd);
+        gradeService.addGrade(g);
+        subjectToAdd.getGrades().add(g);
+
+        model.addAttribute("grade",gradeService.getGrade(idG));
+        return "viewsubjectsbygrade";
+*/
     }
 
 
