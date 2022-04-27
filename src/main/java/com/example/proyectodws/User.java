@@ -47,7 +47,11 @@ public class User {
     public Grade getGrade() {
         return grade;
     }
-
+    public void deleteGrade(Grade g){
+        if(this.grade == g){
+            this.grade = null;
+        }
+    }
     /*  No es necesario
     public long getId() {
         return this.id;

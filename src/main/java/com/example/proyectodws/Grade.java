@@ -103,5 +103,8 @@ public class Grade {
     public void updateGrade(Grade g) {
         this.subjects = g.subjects;
     }
+    public void deleteUser(User user){
+        userList.remove(user);
+    }
 }
 

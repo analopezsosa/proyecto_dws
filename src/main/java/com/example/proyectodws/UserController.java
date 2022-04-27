@@ -101,13 +101,24 @@ public class UserController {
         }else{
             return "error";
         }
-
-
-
-
     }
 
+    @GetMapping("/removeuserfromgrade")
+    public String showremovefrom(){
+        return "removeuserfromgrade";
+    }
+    @PostMapping("/removeuserfromgrade")
+    public String removefromgrade(@RequestParam String name,@RequestParam long id){
 
+        User usertoremove = userService.getUser(name);
+        Grade g = gradeService.getGrade(id);
+        g.deleteUser(usertoremove);
+        gradeService.addGrade(g);
+        usertoremove.deleteGrade(g);
+        userService.addUser(usertoremove);
 
+        return "functionalities";
+
+    }
 
 }
