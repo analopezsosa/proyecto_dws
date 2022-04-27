@@ -57,14 +57,17 @@ public class GradeController {
     public String showremove(){
         return "removegrade";
     }
+
+
     @PostMapping("/removegrade")
     public String deleteGrade(@RequestParam Long id){
         Grade grade = gradeService.getGrade(id);
         if(grade != null){
             gradeService.deleteGrade(id);
+            return "functionalities";
         }
+        return "error";
 
-        return "functionalities";
     }
 
     @PutMapping("/grade/{id}")
@@ -95,7 +98,7 @@ public class GradeController {
 
 
 
-
+/*
     @GetMapping("/namefilter")
     public String filterGrade(Model model, @RequestParam (required = false, name = "gradeName") String name){
 
@@ -112,6 +115,6 @@ public class GradeController {
 
         }
         return "viewgrades";
-    }
+    }*/
 
 }
