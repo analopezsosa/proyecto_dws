@@ -52,10 +52,6 @@ public class UserController {
             return "login";
         }
     }
-    @GetMapping("/functionalities")
-    public String showFunctionalities(){
-        return "functionalities";
-    }
 
     @GetMapping("/viewusers")
     public String showAllUsers(Model model){
@@ -76,6 +72,23 @@ public class UserController {
         return "functionalities";
 
     }
+
+    @GetMapping("/functionalities")
+    public String showFunctionalities(){
+        return "functionalities";
+    }
+    @PostMapping("/functionalities")
+    public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
+        User userJoined = userService.getUser(username);
+        if (userJoined.getGrade()==null){
+            userJoined.
+        }
+    }
+
+
+
+
+
     /*
 
 

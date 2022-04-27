@@ -78,11 +78,11 @@ public class GradeController {
         gradeService.addGrade(editThisGrade);
         return "editedgrade";
     }
-    /*@GetMapping("/grade/{id}/addusertograde")
-    public String addUserToGrade(Model model, @PathVariable long id){
-        userRepository.getById(id);
 
-    }*/
+
+
+
+
 
     @GetMapping("/namefilter")
     public String filterGrade(Model model, @RequestParam (required = false, name = "gradeName") String name){
