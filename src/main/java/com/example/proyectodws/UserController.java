@@ -62,7 +62,23 @@ public class UserController {
         model.addAttribute("users",userService.getUsers());
         return "viewusers";
     }
+
+    @GetMapping("/removeUser")
+    public String showremove(){
+        return "removeUser";
+    }
+    @PostMapping("/removeUser")
+    public String removeUser(@RequestParam String username){
+        User u = userService.getUser(username);
+        if(u != null){
+            userService.removeUser(username);
+        }
+        return "functionalities";
+
+    }
     /*
+
+
 
     @GetMapping("/users")
     public String showUsers(Model model){

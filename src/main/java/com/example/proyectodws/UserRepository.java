@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,String> {
     //List<User> findDistinctPeopleByUserNameOrLastName(String username, String LastName);
+
 }
