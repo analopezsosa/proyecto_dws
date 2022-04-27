@@ -20,15 +20,13 @@
         <div class="container"><a class="navbar-brand logo" href="index.html">IES Rey Juan Carlos</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Inico</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html" style="color: var(--bs-teal);">Log in</a></li>
-                    <li class="nav-item"><a class="nav-link" href="signup.html" style="color: var(--bs-teal);">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <main class="page blog-post-list">
-        <section class="clean-block clean-blog-list dark" style="height: 800px;">
+        <section class="clean-block clean-blog-list dark" style="height: 1100px;">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Cursos</h2>
@@ -53,7 +51,15 @@
 
                     <a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-gray-500);" href="functionalities" onclick="return confirmar()">Volver atrás</a>
                 </div>
+                <div class="block-content" style="border-top-style: solid;border-top-color: var(--bs-teal);height: auto;"> Filtrar
+                    <form action="/namefilter" method="get" style="border-top-color: var(--bs-teal);">
+                        <div class="mb-3"><label>Nombre</label><input class="form-control" type="text" name="name" ></div>
+                        <div class="mb-3"><label>Número</label><input class="form-control" type="number"name="gradeNumber"></div>
 
+                        <button class="btn btn-primary" type="submit" style="background: var(--bs-teal); ">Buscar</button>
+
+                    </form>
+                </div>
 
 
             </div>
