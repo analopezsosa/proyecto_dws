@@ -44,6 +44,10 @@ public class User {
         return this.password.equals(password);
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
+
     /*  No es necesario
     public long getId() {
         return this.id;
