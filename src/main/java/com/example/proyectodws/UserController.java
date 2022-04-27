@@ -88,8 +88,9 @@ public class UserController {
             userJoined.setGrade(gradeToJoin);
             gradeService.addGrade(gradeToJoin);
             userService.addUser(userJoined);
-           // userJoined.getGrade().
+            //userJoined.getGrade();
 
+        model.addAttribute("user",userService.getUser(username));
         return "funcionalities";
 
 
