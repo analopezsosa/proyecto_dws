@@ -36,9 +36,7 @@
                             <div class="card-body">
                                 <h4 class="card-title" style="color: var(--bs-teal);text-align: center;">Cursos en los que estas matriculado</h4>
                                 <p class="card-text" style="text-align: left;">
-                                    {{#user}}
-                                    {{user.grade.name}}
-                                    {{/user}}
+
                                 </p>
                             </div>
                         </div>
@@ -50,7 +48,7 @@
                                 <form action="joingrade" method="post" style="border-style: none;border-top-color: var(--bs-teal);">
                                     <div class="mb-3"><label>Nombre de usuario</label><input class="form-control" type="text" name="username"></div>
                                     <div class="mb-3"><label>ID del curso</label><input class="form-control" type="number" name="id"></div>
-                                    <a class="btn btn-primary" type="submit" style="margin: 14px;background: var(--bs-teal);">Matricularme</a>
+                                    <button class="btn btn-primary" type="submit" style="margin: 14px;background: var(--bs-teal);">Matricularme</button>
                                 </form>
                             </div>
                         </div>

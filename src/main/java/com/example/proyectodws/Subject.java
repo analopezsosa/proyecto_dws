@@ -30,7 +30,7 @@ public class Subject {
     }
 
 
-    @ManyToMany //hay que poner mas cosas
+    @ManyToMany(mappedBy = "subjects")
     private List<Grade> grades = new ArrayList<>();
 
 

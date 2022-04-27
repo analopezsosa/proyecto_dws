@@ -22,7 +22,7 @@ public class Grade {
     private String name;
     private int gradeNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grade")
+    @OneToMany()
     private List<User> userList = new ArrayList<>();
 
     @ManyToMany
@@ -65,6 +65,14 @@ public class Grade {
         this.gradeNumber = gradeNumber;
     }
 
+
+    public void addUser(User user) {
+
+        if (!userList.contains(user)) {
+            userList.add(user);
+
+        }
+    }
 
     public boolean addSubject(Subject subject){
         if (subjects.contains(subject)) {

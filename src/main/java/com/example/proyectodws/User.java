@@ -19,7 +19,7 @@ public class User {
     private String user;
     private String lastName;
 
-    @JsonIgnore //evita bucles infinitos
+    @JsonIgnore
     private String password;
 
 

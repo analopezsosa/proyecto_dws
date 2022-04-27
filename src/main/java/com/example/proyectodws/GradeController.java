@@ -17,6 +17,9 @@ public class GradeController {
     @Autowired
     private GradeService gradeService;
 
+    @Autowired
+    private UserService userService;
+
 
 
     @GetMapping("/viewgrades.html")
@@ -28,10 +31,19 @@ public class GradeController {
     public String showCreate() { return "creategrade"; }
 
     @PostMapping("/creategrade")
-    public String gradeCreated(Model model, String name, int gradeNumber){
+    public String gradeCreated(Model model, String name, int gradeNumber, String username){
         Grade grade = new Grade(name,gradeNumber);
+
+        User teacher= userService.getUser(username);
+        grade.addUser(teacher);
         gradeService.saveGrade(grade);
+        teacher.setGrade(grade);
+        userService.addUser(teacher);
+
+
+
         model.addAttribute("grade",grade);
+
         return "functionalities";
     }
 

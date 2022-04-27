@@ -30,7 +30,7 @@ public class UserController {
 
         User newUser= new User(username,password,lastName);
         userService.addUser(newUser);
-        return "index";
+        return "login";
     }
 
     @GetMapping("/login.html")
@@ -83,82 +83,26 @@ public class UserController {
     public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
         User userJoined = userService.getUser(username);
         Grade gradeToJoin=gradeService.getGrade(id);
-        //if (userJoined.getGrade()==null){
+        if (userJoined.getGrade()==null) {
 
             userJoined.setGrade(gradeToJoin);
             gradeService.addGrade(gradeToJoin);
             userService.addUser(userJoined);
-            //userJoined.getGrade();
+            userJoined.getGrade().addUser(userJoined);
 
-        model.addAttribute("user",userService.getUser(username));
-        return "funcionalities";
+            model.addAttribute("user", userService.getUser(username));
+
+            return "matriculado";
+        }
+        return "error";
 
 
 
 
-        //}
-/*
-        Subject subjectToAdd = subjectService.getSubject(idS);
-        Grade g = gradeService.getGrade(idG);
 
-        g.addSubject(subjectToAdd);
-        subjectService.addSubject(subjectToAdd);
-        gradeService.addGrade(g);
-        subjectToAdd.getGrades().add(g);
-
-        model.addAttribute("grade",gradeService.getGrade(idG));
-        return "viewsubjectsbygrade";
-*/
     }
 
 
 
 
-
-    /*
-
-
-
-    @GetMapping("/users")
-    public String showUsers(Model model){
-        model.addAttribute("users",userRepository.findAll());
-        return "viewusers";
-    }
-
-    @GetMapping("/user/{id}")
-    public String showUser(Model model, @PathVariable long id) {
-        User user = userRepository.findById(id).get();
-        model.addAttribute("user", user);
-        return "viewuser";
-    }
-    @GetMapping("/removeUser")
-    public String removeUser(){
-            return "removeUser";
-    }
-    @PostMapping("/removeUser")
-    public String deleteUser(@PathVariable Long id){
-        User aux = userRepository.getById(id);
-        userRepository.delete(aux);
-        return "viewusers";
-    }
-
-
-    @GetMapping("/signup.html")
-    public String showRegistrer() { return "signup"; }
-
-    @GetMapping("/signup/new")
-    public String addUser(Model model,@RequestParam String user,@RequestParam String password ){//add a user
-
-
-            User user1=new User(user,password);
-            userRepository.save(user1);
-            model.addAttribute("user",user1);
-
-            return "login";
-
-
-
-    }
-
-     */
 }
