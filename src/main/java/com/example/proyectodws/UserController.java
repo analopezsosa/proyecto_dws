@@ -17,7 +17,7 @@ public class UserController {
         return "signup";
     }
     @PostMapping("/signup.html")
-    public String registerUser(@RequestParam String username,@RequestParam String password,Model model){
+    public String registerUser(@RequestParam String username,@RequestParam String password,@RequestParam String lastName, Model model){
 
 
         if(userService.getUser(username)!=null) {
@@ -26,7 +26,7 @@ public class UserController {
         }
 
 
-        User newUser= new User(username,password);
+        User newUser= new User(username,password,lastName);
         userService.addUser(newUser);
         return "index";
     }

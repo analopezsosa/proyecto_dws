@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class User {
     @Id
     private String user;
+    private String lastName;
 
     @JsonIgnore //evita bucles infinitos
     private String password;
@@ -28,9 +29,10 @@ public class User {
     private Grade grade;
 
 
-    public User(String user, String password) {
+    public User(String user, String password, String lastName) {
         this.user = user;
         this.password = password;
+        this.lastName = lastName;
     }
 
 
