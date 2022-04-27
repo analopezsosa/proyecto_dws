@@ -50,6 +50,7 @@ public class SubjectController {
 
             editThisSubject.setName(name);
             editThisSubject.setSubjectNumber(subjectNumber);
+            subjectService.addSubject(editThisSubject);
             return "editedsubject";
     }
 

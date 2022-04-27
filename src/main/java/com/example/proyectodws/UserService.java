@@ -20,17 +20,12 @@ public class UserService {
     }
 
 
-    public boolean removeUser(String username){
-        User usertodelete=this.getUser(username);
+    public void removeUser(String username){
+        User usertodelete= this.getUser(username);
         if(usertodelete!=null){
-
             userRepository.delete(usertodelete);
-            return true;
-        }else{
+        }
 
-
-
-        return false;}
     }
     public Collection<User> getUsers(){
         return userRepository.findAll();

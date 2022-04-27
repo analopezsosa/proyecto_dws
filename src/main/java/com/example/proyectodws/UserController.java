@@ -17,7 +17,7 @@ public class UserController {
         return "signup";
     }
     @PostMapping("/signup.html")
-    public String registerUser(@RequestParam String username,@RequestParam String password,Model model){
+    public String registerUser(@RequestParam String username,@RequestParam String password,@RequestParam String lastName, Model model){
 
 
         if(userService.getUser(username)!=null) {
@@ -26,7 +26,7 @@ public class UserController {
         }
 
 
-        User newUser= new User(username,password);
+        User newUser= new User(username,password,lastName);
         userService.addUser(newUser);
         return "index";
     }
@@ -56,7 +56,29 @@ public class UserController {
     public String showFunctionalities(){
         return "functionalities";
     }
+
+    @GetMapping("/viewusers")
+    public String showAllUsers(Model model){
+        model.addAttribute("users",userService.getUsers());
+        return "viewusers";
+    }
+
+    @GetMapping("/removeUser")
+    public String showremove(){
+        return "removeUser";
+    }
+    @PostMapping("/removeUser")
+    public String removeUser(@RequestParam String username){
+        User u = userService.getUser(username);
+        if(u != null){
+            userService.removeUser(username);
+        }
+        return "functionalities";
+
+    }
     /*
+
+
 
     @GetMapping("/users")
     public String showUsers(Model model){

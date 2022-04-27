@@ -5,6 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 @Controller
 public class GradeController {
 
@@ -65,13 +70,13 @@ public class GradeController {
         return "editgrade";
     }
     @PostMapping("/editgrade")
-    public String edited(@RequestParam long id, @RequestParam String name,@RequestParam int number, Model model){
-        Grade g =gradeService.getGrade(id);
-        g.setGradeNumber(number);
-        g.setName(name);
-        gradeService.addGrade(g);
-        model.addAttribute("grade",g);
-        return "editedsubject";
+    public String edited(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
+        Grade editThisGrade = gradeService.getGrade(id);
+
+        editThisGrade.setName(name);
+        editThisGrade.setGradeNumber(gradeNumber);
+        gradeService.addGrade(editThisGrade);
+        return "editedgrade";
     }
     /*@GetMapping("/grade/{id}/addusertograde")
     public String addUserToGrade(Model model, @PathVariable long id){
@@ -79,6 +84,22 @@ public class GradeController {
 
     }*/
 
+    @GetMapping("/namefilter")
+    public String filterGrade(Model model, @RequestParam (required = false, name = "gradeName") String name){
 
+        if (name==null){
+            model.addAttribute("grades",gradeService.gradeList());
+
+        }else{
+            Set<Grade> grades = new HashSet<>(gradeService.gradeList());
+
+            // grades.retainAll(gradeService.); //AQUI TENDRIA QUE FILTRAR POR EL NOMBRE PERO ES QUE SOLO SE VE POR LA ID DE LOS COJONES
+
+            List<Grade> listToPrint= new LinkedList<>(grades);
+            model.addAttribute("grades",listToPrint);
+
+        }
+        return "viewgrades";
+    }
 
 }
