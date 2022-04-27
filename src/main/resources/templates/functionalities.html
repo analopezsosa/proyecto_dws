@@ -35,7 +35,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title" style="color: var(--bs-teal);text-align: center;">Cursos en los que estas matriculado</h4>
-                                <p class="card-text" style="text-align: left;">Aqui van los cursos</p>
+                                <p class="card-text" style="text-align: left;">
+                                    {{#user}}
+                                    {{user.grade.name}}
+                                    {{/user}}
+                                </p>
                             </div>
                         </div>
                     </div>
