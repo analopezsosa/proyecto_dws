@@ -34,10 +34,17 @@
                 </div>
                 <form data-aos="fade-up" data-aos-once="true" action="editsubject.html" method="post" style="border-top-color: var(--bs-teal);">
                     <div class="mb-3"><label>ID</label><input class="form-control" type="number" name="id" required=""></div>
-                    <div class="mb-3"><label>Nuevo nombre</label><input class="form-control" type="text" name="name" required=""></div>
-                    <div class="mb-3"><label>Nuevo número</label><input class="form-control" type="number" name="subjectNumber" required=""></div>
-                    <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Send</button>
+                    <div class="mb-3"><label>Nuevo nombre</label><input class="form-control" type="text" name="name"></div>
+                    <div class="mb-3"><label>Nuevo número</label><input class="form-control" type="number" name="subjectNumber" ></div>
+                    <div class="mb-3"><label>Nueva descripción</label><textarea name="description"></textarea></div>
+
+                    <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Editar</button>
                     <a class="btn btn-primary" role="button" href="viewsubjects.html" style="margin: 14px;background: var(--bs-gray-500);">Volver atrás</a>
+
+                    <script src="assets/ckeditor/ckeditor.js"> </script>
+                    <script>
+                    CKEDITOR.replace('description');
+                    </script>
                 </form>
             </div>
         </section>

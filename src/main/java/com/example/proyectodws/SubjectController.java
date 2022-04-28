@@ -44,12 +44,13 @@ public class SubjectController {
         return "editsubject";
     }
     @PostMapping("/editsubject.html")
-    public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber){
+    public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber, @RequestParam String description){
 
         Subject editThisSubject = subjectService.getSubject(id);
 
             editThisSubject.setName(name);
             editThisSubject.setSubjectNumber(subjectNumber);
+            editThisSubject.setDescription(description);
             subjectService.addSubject(editThisSubject);
             return "editedsubject";
     }
