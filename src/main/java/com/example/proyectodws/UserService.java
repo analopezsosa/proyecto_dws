@@ -29,11 +29,12 @@ public class UserService {
     }
 
 
-    public void removeUser(String username){
+    public User removeUser(String username){
         User usertodelete= this.getUser(username);
         if(usertodelete!=null){
             userRepository.delete(usertodelete);
         }
+        return usertodelete;
 
     }
     public Collection<User> getUsers(){
@@ -41,8 +42,6 @@ public class UserService {
     }
 
     public User getUser(String username)   {
-
-
         Optional<User> present = userRepository.findById(username);
 
         if (present.isPresent()){
@@ -50,7 +49,10 @@ public class UserService {
         }else{
             return null;
         }
-
+    }
+    public User updateUser(String username,User user){
+        user.setUser(username);
+        return userRepository.save(user);
     }
 
 

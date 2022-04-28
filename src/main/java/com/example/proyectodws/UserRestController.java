@@ -12,47 +12,39 @@ import java.util.Collection;
 @RestController
 public class UserRestController {
     @Autowired
-    UserRepository userRepository;
-    @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<Collection> users() {
-        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<Collection> userList() {
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/user")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         if (user != null) {
-            userRepository.save(user);
+            userService.addUser(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-
     }
-/*
-    @PutMapping("user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User user) {
-        User aux = userRepository.getById(id);
+    @PutMapping("/user/{user}")
+    public ResponseEntity<User> updateUser(@PathVariable String user, @RequestBody User u) {
 
-        userService.updateUser(aux);
+        User userUpdated = userService.updateUser(user, u);
 
+        if (userUpdated != null) {
 
-        if (aux != null) {
-            return new ResponseEntity<>(aux, HttpStatus.OK);
+            return new ResponseEntity<>(userUpdated, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
-
-    @DeleteMapping("/user/{id}")
+    }
+    @DeleteMapping("/user/{user}")
     public ResponseEntity<User> deleteUser(@PathVariable String user) {
-        User aux = userRepository.getById(user);
-        userService.removeUser(user);
-        if (aux != null) {
-            return new ResponseEntity<>(aux, HttpStatus.OK);
+        User userToDelete = userService.removeUser(user);
+        if (userToDelete != null) {
+            return new ResponseEntity<>(userToDelete, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
