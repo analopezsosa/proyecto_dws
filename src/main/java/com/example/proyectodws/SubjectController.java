@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
+import org.owasp.html.Sanitizers;
 
 
 @Controller
