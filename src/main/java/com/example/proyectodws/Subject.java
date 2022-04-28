@@ -53,5 +53,7 @@ public class Subject {
         grades.remove(grade);
     }
 
-
+    public void deleteGradeList(List<Grade> g){
+        grades.removeAll(g);
+    }
 }
