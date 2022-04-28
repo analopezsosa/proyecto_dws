@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.SecondaryTable;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -129,15 +131,24 @@ public class UserController {
 
     @GetMapping("/filter")
     public String filterUsers(@RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName, Model model) throws ParseException {
-        Set<User> userSet = new HashSet<>(userService.getUsers());
 
-        if (username != null) {
-            userSet.retainAll(userService.userByUsername(username));
+        if (username==null&&lastName==null){
+            model.addAttribute("users",userService.getUsers());
         }
-        if (lastName != null) {
-            userSet.retainAll(userService.userByLastname(lastName));
-        }
+        else {
+            Set<User> userSet = new HashSet<>(userService.getUsers());
 
+
+            if (username != null) {
+                userSet.retainAll(userService.userByUsername(username));
+            }
+            if (lastName != null) {
+                userSet.retainAll(userService.userByLastname(lastName));
+            }
+
+            List<User> finalList = new LinkedList<>(userSet);
+            model.addAttribute("users", finalList);
+        }
         return "viewusers";
     }
 
