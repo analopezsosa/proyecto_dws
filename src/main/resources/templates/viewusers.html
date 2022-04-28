@@ -32,6 +32,14 @@
                 <h2 class="text-info">Usuarios</h2>
             </div>
 
+
+            <form method="get" action="/filter">
+                <div class="mb-3"><label>Usuario</label><input class="form-control" type="search" name="username" required=""></div>
+                <div class="mb-3"><label>Apellido</label><input class="form-control" type="search" name="lastName" required=""></div>
+                <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Filtrar</button>
+            </form>
+
+
             <div class="block-content" style="border-top-style: solid;border-top-color: var(--bs-teal);">
                 <h3 class="text-info">Nombre de usuario, Contraseña, Apellido</h3>
                 {{#users}}

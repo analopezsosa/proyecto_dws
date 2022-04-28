@@ -5,6 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.SecondaryTable;
+import java.text.ParseException;
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class UserController {
 
@@ -120,5 +125,22 @@ public class UserController {
         return "functionalities";
 
     }
+
+
+    @GetMapping("/filter")
+    public String filterUsers(@RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName, Model model) throws ParseException {
+        Set<User> userSet = new HashSet<>(userService.getUsers());
+
+        if (username != null) {
+            userSet.retainAll(userService.userByUsername(username));
+        }
+        if (lastName != null) {
+            userSet.retainAll(userService.userByLastname(lastName));
+        }
+
+        return "viewusers";
+    }
+
+
 
 }
