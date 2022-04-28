@@ -176,7 +176,7 @@ public class UserController {
             List<User> finalList = new LinkedList<>(userSet);
             model.addAttribute("users", finalList);
         }
-        return "viewusers";
+        return "filter";
     }
 
     @GetMapping("/user/{user}")
