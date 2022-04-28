@@ -106,5 +106,9 @@ public class Grade {
     public void deleteUser(User user){
         userList.remove(user);
     }
+
+    public void deleteUserList(List<User> u){
+        userList.removeAll(u);
+    }
 }
 

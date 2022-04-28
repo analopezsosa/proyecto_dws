@@ -52,6 +52,9 @@ public class User {
             this.grade = null;
         }
     }
+
+
+
     /*  No es necesario
     public long getId() {
         return this.id;
