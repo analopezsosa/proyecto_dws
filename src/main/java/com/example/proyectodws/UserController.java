@@ -75,35 +75,20 @@ public class UserController {
     @PostMapping("/removeUser")
     public String removeUser(@RequestParam String username){
         User user = userService.getUser(username);
-        if(user != null){
+
+        if(user != null&&user.getGrade()!=null){
             Grade grade=user.getGrade();
             user.deleteGrade(grade);
             grade.deleteUser(user);
             gradeService.addGrade(grade);
             userService.removeUser(username);
+        }else if(user!=null){
+            userService.removeUser(username);
+
         }
         return "functionalities";
 
     }
-
-    /*
-    @PostMapping("/removesubject.html")
-    public String removeSubject( @RequestParam Long id){
-        Subject subject = subjectService.getSubject(id);
-        if(subject != null){
-
-            deleteGrades(id);
-            subjectService.deleteSubject(id);
-
-            return "functionalities";
-        }
-        return "error";
-
-
-
-    }
-     */
-
 
 
 
