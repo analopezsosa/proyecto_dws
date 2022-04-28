@@ -81,53 +81,35 @@ public class GradeController {
         return "functionalities";
     }
 
-
+/*
 
     @PutMapping("/grade/{id}")
     public Grade updateGrade(Grade grade, Long id){
-        Grade aux = gradeService.getGrade(id);
-        if(aux != null && !"".equalsIgnoreCase(grade.getName())){
-            aux.setName(grade.getName());
-            aux.setGradeNumber(grade.getGradeNumber());
+        Grade updatedGrade = gradeService.getGrade(id);
+        if(updatedGrade != null && !"".equalsIgnoreCase(grade.getName())){
+            updatedGrade.setName(grade.getName());
+            updatedGrade.setGradeNumber(grade.getGradeNumber());
+
         }
-        return aux;
+        return updatedGrade;
     }
 
+
+ */
     @GetMapping("/editgrade")
     public String edit(){
         return "editgrade";
     }
     @PostMapping("/editgrade")
-    public String edited(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber){
+    public String edited(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, @RequestParam String teacher){
         Grade editThisGrade = gradeService.getGrade(id);
 
         editThisGrade.setName(name);
         editThisGrade.setGradeNumber(gradeNumber);
+        editThisGrade.setTeacher(teacher);
         gradeService.addGrade(editThisGrade);
         return "editedgrade";
     }
 
-
-
-
-
-/*
-    @GetMapping("/namefilter")
-    public String filterGrade(Model model, @RequestParam (required = false, name = "gradeName") String name){
-
-        if (name==null){
-            model.addAttribute("grades",gradeService.gradeList());
-
-        }else{
-            Set<Grade> grades = new HashSet<>(gradeService.gradeList());
-
-            // grades.retainAll(gradeService.); //AQUI TENDRIA QUE FILTRAR POR EL NOMBRE PERO ES QUE SOLO SE VE POR LA ID DE LOS COJONES
-
-            List<Grade> listToPrint= new LinkedList<>(grades);
-            model.addAttribute("grades",listToPrint);
-
-        }
-        return "viewgrades";
-    }*/
 
 }
