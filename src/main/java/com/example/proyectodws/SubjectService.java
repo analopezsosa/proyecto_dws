@@ -10,6 +10,11 @@ public class SubjectService {
     @Autowired
     SubjectRepository subjectRepository;
 
+    public List<Subject> subjectList(){
+        return subjectRepository.findAll();
+    }
+
+
     public boolean newSubject(Subject subject) {
         if(!subjectRepository.existsById(subject.getId())) {
             subjectRepository.save(subject);
@@ -19,14 +24,11 @@ public class SubjectService {
         }
     }
 
-    public boolean updateSubject(Subject subject) {
-        if (subjectRepository.existsById(subject.getId())) {
-            subjectRepository.save(subject);
-            return true;
-        } else {
-            return false;
-        }
+    public Subject updateSubject(long id, Subject s){
+        s.setId(id);
+        return subjectRepository.save(s);
     }
+
 
     public boolean removeSubject(Long id){
         subjectRepository.deleteById(id);

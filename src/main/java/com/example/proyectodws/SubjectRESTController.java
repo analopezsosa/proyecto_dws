@@ -16,14 +16,25 @@ public class SubjectRESTController {
     @Autowired
     SubjectService subjectService;
 
-    @GetMapping("/subject")
+    @GetMapping("/subjects")
     public ResponseEntity<Collection> subjectList() {
-        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(subjectService.subjectList(), HttpStatus.OK);
     }
 
-    @PostMapping("/subject")
+
+    @GetMapping("/subjects/{id}")
+    public ResponseEntity<Subject> viewSubject(@PathVariable long id){
+        Subject subject=subjectService.getSubject(id);
+        if(subject!=null){
+            return new ResponseEntity<>(subject,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/subjects")
     public ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
-        repository.save(subject);
+        subjectService.addSubject(subject);
         if (subject != null) {
             return new ResponseEntity<>(subject, HttpStatus.OK);
         } else {
@@ -32,34 +43,29 @@ public class SubjectRESTController {
 
     }
 
-
-
-    @PutMapping("/subject/{id}")
+    @PutMapping("/subjects/{id}")
     public ResponseEntity<Subject> updateSubject(@PathVariable long id,@RequestBody Subject subject){
-        Subject aux = repository.getById(id);
-
-        subjectService.updateSubject(aux);
-
-
-        if(aux != null){
-            return new ResponseEntity<>(aux, HttpStatus.OK);
+        Subject subjectT = subjectService.updateSubject(id,subject);
+        if(subjectT != null){
+            return new ResponseEntity<>(subjectT, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/subject/{id}")
+
+    @DeleteMapping("/subjects/{id}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable long id){
-        Subject aux = repository.getById(id);
-         subjectService.removeSubject(id);
-        if (aux != null){
-            return new ResponseEntity<>(aux, HttpStatus.OK);
+        Subject subjectT = subjectService.deleteSubject(id);
+        if (subjectT != null){
+            return new ResponseEntity<>(subjectT, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
 
 }
