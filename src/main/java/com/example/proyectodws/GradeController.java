@@ -53,10 +53,21 @@ public class GradeController {
     @PostMapping("/removegrade")
     public String deleteGrade(@RequestParam Long id){
         Grade grade = gradeService.getGrade(id);
-
-
         if(grade != null){
+            if(!grade.getUserList().isEmpty()){
+                List<User> list = grade.getUserList();
 
+                int i=0;
+                while(!list.isEmpty()){
+                    User user = list.get(i);
+                    grade.deleteUser(user);
+                    gradeService.addGrade(grade);
+                    user.deleteGrade(grade);
+                    userService.addUser(user);
+                    list.remove(user);
+                    i++;
+                }
+            }
             gradeService.deleteGrade(id);
             return "functionalities";
         }
