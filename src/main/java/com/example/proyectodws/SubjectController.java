@@ -75,25 +75,20 @@ public class SubjectController {
         return "viewsubjectsbygrade";
     }
 
-    @DeleteMapping("/viewsubject.html")
-    public Subject deleteSubject(@RequestParam long id){
-        Subject subject = subjectService.getSubject(id);
-        subjectService.deleteSubject(id);
-        return subject;
-    }
-
 
     @GetMapping("/removesubject.html")
     public String showRemove() { return "removesubject"; }
     @PostMapping("/removesubject.html")
     public String removeSubject( @RequestParam Long id){
-        if(subjectService.getSubject(id).getGrades().size() == 0){
-            //si no está en ningún curso
+        Subject subject = subjectService.getSubject(id);
+        if(subject != null){
+
+            deleteGrades(id);
             subjectService.deleteSubject(id);
-            return "deletedsubject";
-        }else{
-            return "notEmpty";
+
+            return "functionalities";
         }
+        return "error";
 
 
 
@@ -118,7 +113,17 @@ public class SubjectController {
 
 
 
+    public void deleteGrades(long id){
+        Subject subject = subjectService.getSubject(id);
+        List<Grade> gradesToDeleteFromSubject=subject.getGrades();
+        int x=gradesToDeleteFromSubject.size();
+        for (int i=0;i<x;i++) {
+            gradesToDeleteFromSubject.get(i).deleteSubject(subject);
+        }
+        subject.deleteGradeList(gradesToDeleteFromSubject);
+        subjectService.addSubject(subject);
 
+    }
 
 
 
