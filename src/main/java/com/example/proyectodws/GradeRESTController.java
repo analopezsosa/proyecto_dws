@@ -46,8 +46,8 @@ public class GradeRESTController {
         Grade gradeT = gradeService.getGrade(id);
 
         if(gradeT != null){
-            gradeService.saveGrade(gradeT);
-            return new ResponseEntity<>(gradeT, HttpStatus.OK);
+            gradeService.saveGrade(grade);
+            return new ResponseEntity<>(grade, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
