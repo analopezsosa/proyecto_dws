@@ -53,13 +53,37 @@ public class GradeController {
     @PostMapping("/removegrade")
     public String deleteGrade(@RequestParam Long id){
         Grade grade = gradeService.getGrade(id);
+
+
         if(grade != null){
+
             gradeService.deleteGrade(id);
             return "functionalities";
         }
         return "error";
 
     }
+
+
+    @GetMapping("/removeUsers")
+    public String showRemoveU(){return "removeusers";}
+
+    @PostMapping("/removeUsers")
+    public String removeUsers(@RequestParam Long id){
+
+        Grade grade=gradeService.getGrade(id);
+        List<User> userToDeleteFromGrade=grade.getUserList();
+        int x=userToDeleteFromGrade.size();
+        for (int i=0;i<x;i++) {
+            userToDeleteFromGrade.get(i).deleteGrade(grade);
+        }
+        grade.deleteUserList(userToDeleteFromGrade);
+        gradeService.addGrade(grade);
+
+        return "functionalities";
+    }
+
+
 
     @PutMapping("/grade/{id}")
     public Grade updateGrade(Grade grade, Long id){
