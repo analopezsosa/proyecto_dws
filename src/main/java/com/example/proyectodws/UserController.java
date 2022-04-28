@@ -74,13 +74,40 @@ public class UserController {
     }
     @PostMapping("/removeUser")
     public String removeUser(@RequestParam String username){
-        User u = userService.getUser(username);
-        if(u != null){
+        User user = userService.getUser(username);
+        if(user != null){
+            Grade grade=user.getGrade();
+            user.deleteGrade(grade);
+            grade.deleteUser(user);
+            gradeService.addGrade(grade);
             userService.removeUser(username);
         }
         return "functionalities";
 
     }
+
+    /*
+    @PostMapping("/removesubject.html")
+    public String removeSubject( @RequestParam Long id){
+        Subject subject = subjectService.getSubject(id);
+        if(subject != null){
+
+            deleteGrades(id);
+            subjectService.deleteSubject(id);
+
+            return "functionalities";
+        }
+        return "error";
+
+
+
+    }
+     */
+
+
+
+
+
 
     @GetMapping("/functionalities")
     public String showFunctionalities(){
@@ -115,14 +142,14 @@ public class UserController {
         return "removeuserfromgrade";
     }
     @PostMapping("/removeuserfromgrade")
-    public String removefromgrade(@RequestParam String name,@RequestParam long id){
+    public String removeUserFromGrade(@RequestParam String name,@RequestParam long id){
 
-        User usertoremove = userService.getUser(name);
-        Grade g = gradeService.getGrade(id);
-        g.deleteUser(usertoremove);
-        gradeService.addGrade(g);
-        usertoremove.deleteGrade(g);
-        userService.addUser(usertoremove);
+            User user=userService.getUser(name);
+            Grade grade=gradeService.getGrade(id);
+            user.deleteGrade(grade);
+            grade.deleteUser(user);
+            gradeService.addGrade(grade);
+
 
         return "functionalities";
 
