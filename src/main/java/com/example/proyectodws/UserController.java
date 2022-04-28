@@ -157,7 +157,7 @@ public class UserController {
 
 
     @GetMapping("/filter")
-    public String filterUsers(@RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName, Model model) throws ParseException {
+    public String filterUsers(@RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName, Model model)  {
 
         if (username==null&&lastName==null){
             model.addAttribute("users",userService.getUsers());
