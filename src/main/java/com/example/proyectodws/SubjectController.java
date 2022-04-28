@@ -31,7 +31,7 @@ public class SubjectController {
 
     @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam String description, Model model){
-        Subject newsubject = new Subject(name, subjectNumber,description);
+        Subject newsubject = new Subject(name, subjectNumber,Sanitizers.FORMATTING.sanitize(description));
         subjectService.saveSubject(newsubject);
         model.addAttribute("subject",newsubject);
 
@@ -50,7 +50,7 @@ public class SubjectController {
 
         editThisSubject.setName(name);
         editThisSubject.setSubjectNumber(subjectNumber);
-        editThisSubject.setDescription(description);
+        editThisSubject.setDescription(Sanitizers.FORMATTING.sanitize(description));
         subjectService.addSubject(editThisSubject);
         return "editedsubject";
     }
