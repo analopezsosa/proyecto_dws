@@ -43,11 +43,11 @@ public class GradeRESTController {
 
     @PutMapping("/grades/{id}")
     public ResponseEntity updateGrade(@PathVariable long id, @RequestBody Grade grade){
-        Grade gradeT = gradeService.getGrade(id);
+        Grade gradeT = gradeService.updateGrade(id,grade);
 
         if(gradeT != null){
-            gradeService.saveGrade(grade);
-            return new ResponseEntity<>(grade, HttpStatus.OK);
+
+            return new ResponseEntity<>(gradeT, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

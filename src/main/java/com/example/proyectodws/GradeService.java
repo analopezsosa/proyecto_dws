@@ -37,4 +37,12 @@ public class GradeService {
     public void addGrade(Grade g) {
         gradeRepository.save(g);
     }
+
+    public Grade updateGrade(long id,Grade g){
+
+        g.setId(id);
+        return gradeRepository.save(g);
+
+
+    }
 }
