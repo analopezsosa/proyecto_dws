@@ -43,7 +43,7 @@
             <div class="block-content" style="border-top-style: solid;border-top-color: var(--bs-teal);">
                 <h3 class="text-info">Nombre de usuario, Contraseña, Apellido</h3>
                 {{#users}}
-                - {{user}},  {{password}} ,  {{lastName}} <br>
+                - <a href="user/{{user}}">{{user}},  {{lastName}}</a> <br>
                 {{/users}}
             </div>
             <div class="block-content" style="border-top-style: solid;border-top-color: var(--bs-teal);height: auto;">

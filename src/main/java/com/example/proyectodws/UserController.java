@@ -141,6 +141,12 @@ public class UserController {
         return "viewusers";
     }
 
-
+    @GetMapping("/user/{user}")
+    public String showUser(Model model, @PathVariable String user){
+        User u = userService.getUser(user);
+        model.addAttribute("user",userService.getUser(user));
+        model.addAttribute("grade",u.getGrade());
+        return "viewuser";
+    }
 
 }
