@@ -58,7 +58,7 @@ public class GradeRESTController {
     public ResponseEntity<Grade> deleteGrade(@PathVariable long id){
         Grade gradeT = gradeService.deleteGrade(id);
         if (gradeT != null){
-            return new ResponseEntity<>(gradeT, HttpStatus.OK);
+            return new ResponseEntity<>( HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
