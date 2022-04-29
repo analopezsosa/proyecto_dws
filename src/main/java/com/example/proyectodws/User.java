@@ -52,14 +52,7 @@ public class User {
             this.grade = null;
         }
     }
-    /*  No es necesario
-    public long getId() {
-        return this.id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUser(String user) {
         return user;
@@ -79,16 +72,12 @@ public class User {
 
 
 
-    public Grade getGrade() {
-        return grade;
-    }
 
     public void setGrade(Grade grade) {
         this.grade = grade;
     }
 
 
-     */
 
 
 

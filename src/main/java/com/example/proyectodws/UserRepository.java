@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,String> {
-    //List<User> findDistinctPeopleByUserNameOrLastName(String username, String LastName);
 
     @Query(value = "select * from user where user.user=?1", nativeQuery = true)
     List<User> userByUsername(@Param("username") String username);

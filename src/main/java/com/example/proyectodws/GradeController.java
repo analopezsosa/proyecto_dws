@@ -81,21 +81,6 @@ public class GradeController {
         return "functionalities";
     }
 
-/*
-
-    @PutMapping("/grade/{id}")
-    public Grade updateGrade(Grade grade, Long id){
-        Grade updatedGrade = gradeService.getGrade(id);
-        if(updatedGrade != null && !"".equalsIgnoreCase(grade.getName())){
-            updatedGrade.setName(grade.getName());
-            updatedGrade.setGradeNumber(grade.getGradeNumber());
-
-        }
-        return updatedGrade;
-    }
-
-
- */
     @GetMapping("/editgrade")
     public String edit(){
         return "editgrade";

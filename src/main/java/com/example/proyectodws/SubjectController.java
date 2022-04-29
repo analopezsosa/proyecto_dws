@@ -141,23 +141,7 @@ public class SubjectController {
 
 
 
-    /*
 
-
-    @GetMapping("/removesubjectfromgrade.html")
-    public String showRemovSubjectFromGrade(){
-        return "removesubjectfromgrade";
-    }
-    @PostMapping("/removesubjectfromgrade.html")
-    public String removingSubjectFromGrade(@RequestParam long idS,@RequestParam long idG){
-        Subject subjectToRemove = subjectHolder.getSubjectS(idS);
-        subjectHolder.deleteSubject(idG,subjectToRemove);
-        gradeHolder.getGrade(idG).removeSubject(subjectToRemove);
-        return "removedsubjectfromgrade";
-    }
-
-
-*/
 
 
 
