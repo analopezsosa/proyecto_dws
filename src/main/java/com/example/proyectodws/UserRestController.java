@@ -1,6 +1,7 @@
 package com.example.proyectodws;
 
 
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,17 +30,38 @@ public class UserRestController {
         }
     }
     @PutMapping("/user/{user}")
-    public ResponseEntity<User> updateUser(@PathVariable String user, @RequestBody User u) {
+    public ResponseEntity<User> updateUser(@PathVariable String user, @RequestBody User userToEdit) {
 
-        User userUpdated = userService.updateUser(user, u);
+       User user1=userService.getUser(user);
 
-        if (userUpdated != null) {
+        if (user1 != null) {
+            userService.removeUser(user);
+            userService.addUser(userToEdit);
 
-            return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+
+            return new ResponseEntity<>(userToEdit, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    /*
+ @PutMapping("/{name}")
+    public ResponseEntity<User> editUser(@PathVariable String name, @RequestBody User editedUser){
+        User user = users.getValue(name);
+        if (user != null) {
+            editedUser.setSelfDescription(Sanitizers.FORMATTING.sanitize(editedUser.getSelfDescription()));
+            users.addUser(editedUser);
+            return new ResponseEntity<>(editedUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+ */
+
+
+
+
     @DeleteMapping("/user/{user}")
     public ResponseEntity<User> deleteUser(@PathVariable String user) {
         User userToDelete = userService.removeUser(user);
@@ -49,5 +71,6 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
 }
