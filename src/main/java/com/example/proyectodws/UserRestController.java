@@ -44,7 +44,7 @@ public class UserRestController {
     public ResponseEntity<User> deleteUser(@PathVariable String user) {
         User userToDelete = userService.removeUser(user);
         if (userToDelete != null) {
-            return new ResponseEntity<>(userToDelete, HttpStatus.OK);
+            return new ResponseEntity<>( HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
