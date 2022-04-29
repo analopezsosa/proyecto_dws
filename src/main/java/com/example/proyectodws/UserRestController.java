@@ -45,20 +45,6 @@ public class UserRestController {
         }
     }
 
-    /*
- @PutMapping("/{name}")
-    public ResponseEntity<User> editUser(@PathVariable String name, @RequestBody User editedUser){
-        User user = users.getValue(name);
-        if (user != null) {
-            editedUser.setSelfDescription(Sanitizers.FORMATTING.sanitize(editedUser.getSelfDescription()));
-            users.addUser(editedUser);
-            return new ResponseEntity<>(editedUser, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
- */
-
 
 
 
