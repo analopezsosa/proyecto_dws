@@ -59,7 +59,7 @@ public class SubjectRESTController {
     public ResponseEntity<Subject> deleteSubject(@PathVariable long id){
         Subject subjectT = subjectService.deleteSubject(id);
         if (subjectT != null){
-            return new ResponseEntity<>(subjectT, HttpStatus.OK);
+            return new ResponseEntity<>( HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
