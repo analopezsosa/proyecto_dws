@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.owasp.html.Sanitizers;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;

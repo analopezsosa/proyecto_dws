@@ -1,5 +1,6 @@
 package com.example.proyectodws;
 
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class SubjectService {
 
     public Subject updateSubject(long id, Subject s){
         s.setId(id);
+        s.setDescription(Sanitizers.FORMATTING.sanitize(s.getDescription()));
+
+
         return subjectRepository.save(s);
     }
 

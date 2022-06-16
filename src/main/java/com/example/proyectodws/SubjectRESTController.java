@@ -1,5 +1,5 @@
 package com.example.proyectodws;
-
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +44,13 @@ public class SubjectRESTController {
     }
 
     @PutMapping("/subjects/{id}")
-    public ResponseEntity<Subject> updateSubject(@PathVariable long id,@RequestBody Subject subject){
-        Subject subjectT = subjectService.updateSubject(id,subject);
-        if(subjectT != null){
-            return new ResponseEntity<>(subjectT, HttpStatus.OK);
+    public ResponseEntity<Subject> updateSubject(@PathVariable long id, @RequestBody Subject subject){
+
+        Subject editThisSubject = subjectService.updateSubject(id,subject);
+
+
+        if(editThisSubject != null){
+            return new ResponseEntity<>(editThisSubject, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
