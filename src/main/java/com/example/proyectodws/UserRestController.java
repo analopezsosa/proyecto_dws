@@ -1,6 +1,7 @@
 package com.example.proyectodws;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ public class UserRestController {
     private UserService userService;
 
     @GetMapping("/user")
+    @JsonView(View.Base.class)
     public ResponseEntity<Collection> userList() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
@@ -28,6 +30,13 @@ public class UserRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("user/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username){
+        User user = userService.getUser(username);
+        if(user != null){
+            return new ResponseEntity<>(user,HttpStatus.OK);
+        }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PutMapping("/user/{user}")
     public ResponseEntity<User> updateUser(@PathVariable String user, @RequestBody User userToEdit) {

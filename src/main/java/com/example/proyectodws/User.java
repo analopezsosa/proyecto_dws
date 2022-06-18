@@ -1,6 +1,7 @@
 package com.example.proyectodws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 public class User {
     @Id
+    @JsonView(View.Base.class)
     private String user;
+    @JsonView(View.Base.class)
     private String lastName;
 
     @JsonIgnore
@@ -37,7 +40,12 @@ public class User {
 
 
     public String toString() {
-        return "User [username=" + user + "]";
+        if(grade != null){
+            return "Usuario: "+user +", Apellido: "+ lastName+" ,Curso: "+grade.getName();
+        }else{
+            return "Usuario: "+user +", Apellido: "+ lastName;
+        }
+
     }
 
     public boolean checkPass(String password) {

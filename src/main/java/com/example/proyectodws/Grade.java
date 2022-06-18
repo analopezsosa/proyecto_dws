@@ -1,6 +1,7 @@
 package com.example.proyectodws;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,11 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @JsonView(View.Base.class)
     private String name;
+    @JsonView(View.Base.class)
     private int gradeNumber;
+    @JsonView(View.Base.class)
     private String teacher;
 
     @OneToMany()

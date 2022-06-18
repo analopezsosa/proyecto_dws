@@ -1,5 +1,6 @@
 package com.example.proyectodws;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class GradeRESTController {
 
 
     @GetMapping("/grades")
+    @JsonView(View.Base.class)
     public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>( gradeService.gradeList(),HttpStatus.OK);}
 
     @GetMapping("/grades/{id}")
