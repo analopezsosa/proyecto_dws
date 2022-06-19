@@ -1,5 +1,6 @@
 package com.example.proyectodws;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,15 @@ import java.util.List;
 
 @Entity
 public class Subject {
+    @JsonView(View.Base.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @JsonView(View.Base.class)
     private String name;
+    @JsonView(View.Base.class)
     private int subjectNumber;
+    @JsonView(View.Base.class)
     private String description;
 
 
@@ -28,7 +33,6 @@ public class Subject {
         this.description=description;
         grades = new ArrayList<>();
     }
-
 
     @ManyToMany(mappedBy = "subjects")
     private List<Grade> grades = new ArrayList<>();

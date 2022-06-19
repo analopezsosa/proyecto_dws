@@ -29,7 +29,7 @@ public class Grade {
 
     @OneToMany()
     private List<User> userList = new ArrayList<>();
-
+    @JsonView(View.Base.class)
     @ManyToMany
     private List<Subject> subjects;
 

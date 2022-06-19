@@ -26,7 +26,7 @@ public class User {
     private String password;
 
 
-
+    @JsonView(View.Base.class)
     @ManyToOne
     @JoinColumn(name="userGrade")
     private Grade grade;

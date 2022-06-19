@@ -1,4 +1,5 @@
 package com.example.proyectodws;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,14 @@ public class SubjectRESTController {
     SubjectService subjectService;
 
     @GetMapping("/subjects")
+    @JsonView(View.Base.class)
     public ResponseEntity<Collection> subjectList() {
         return new ResponseEntity<>(subjectService.subjectList(), HttpStatus.OK);
     }
 
 
     @GetMapping("/subjects/{id}")
+    @JsonView(View.Base.class)
     public ResponseEntity<Subject> viewSubject(@PathVariable long id){
         Subject subject=subjectService.getSubject(id);
         if(subject!=null){
@@ -33,6 +36,7 @@ public class SubjectRESTController {
     }
 
     @PostMapping("/subjects")
+    @JsonView(View.Base.class)
     public ResponseEntity<Subject> addSubject(@RequestBody Subject subject) {
         subjectService.addSubject(subject);
         if (subject != null) {
@@ -44,6 +48,7 @@ public class SubjectRESTController {
     }
 
     @PutMapping("/subjects/{id}")
+    @JsonView(View.Base.class)
     public ResponseEntity<Subject> updateSubject(@PathVariable long id, @RequestBody Subject subject){
 
         Subject editThisSubject = subjectService.updateSubject(id,subject);

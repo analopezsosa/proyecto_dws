@@ -22,6 +22,7 @@ public class GradeRESTController {
     public ResponseEntity<Collection> gradeList(){return new ResponseEntity<>( gradeService.gradeList(),HttpStatus.OK);}
 
     @GetMapping("/grades/{id}")
+    @JsonView(View.Base.class)
     public ResponseEntity<Grade> viewGrade(@PathVariable long id){
        Grade grade=gradeService.getGrade(id);
         if(grade!=null){
@@ -32,6 +33,7 @@ public class GradeRESTController {
     }
 
     @PostMapping("/grades")
+    @JsonView(View.Base.class)
     public ResponseEntity<Grade> addGrade(@RequestBody Grade grade){
         gradeService.addGrade(grade);
         if(grade != null){
@@ -45,6 +47,7 @@ public class GradeRESTController {
     }
 
     @PutMapping("/grades/{id}")
+    @JsonView(View.Base.class)
     public ResponseEntity updateGrade(@PathVariable long id, @RequestBody Grade grade){
         Grade gradeT = gradeService.updateGrade(id,grade);
 
@@ -58,6 +61,7 @@ public class GradeRESTController {
     }
 
     @DeleteMapping("/grades/{id}")
+    @JsonView(View.Base.class)
     public ResponseEntity<Grade> deleteGrade(@PathVariable long id){
         Grade gradeT = gradeService.deleteGrade(id);
         if (gradeT != null){
