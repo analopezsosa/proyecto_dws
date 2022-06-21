@@ -59,6 +59,8 @@ public class SubjectService {
     }
 
     public void addSubject(Subject subjectToAdd) {
+        subjectToAdd.setDescription(Sanitizers.FORMATTING.sanitize(subjectToAdd.getDescription()));
+
         subjectRepository.save(subjectToAdd);
     }
 }
