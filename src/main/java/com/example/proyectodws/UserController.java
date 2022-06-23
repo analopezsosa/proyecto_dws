@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     GradeService gradeService;
 
+    @Autowired
+    QueryFilter QueryFilter;
+
     @GetMapping("/signup.html")
     public String showSignUp(){
         return "signup";
@@ -141,9 +144,27 @@ public class UserController {
 
     }
 
-
     @GetMapping("/filter")
-    public String filterUsers(@RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName, Model model)  {
+    public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName){
+        if (username!="" && lastName!=""){
+            model.addAttribute("viewusers", QueryFilter.userByUsernameAndLastName(username, lastName));
+        }
+        else if (username!=""){
+            model.addAttribute("viewusers", QueryFilter.userByUsername(username));
+        }
+        else if (lastName!=""){
+            model.addAttribute("viewusers", QueryFilter.userByLastName(username));
+        }
+        else{
+            model.addAttribute("users",userService.getUsers());
+        }
+
+        return "viewusers";
+    }
+
+/*
+    @GetMapping("/filter")
+    public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName)  {
 
         if (username==""&&lastName==""){
             model.addAttribute("users",userService.getUsers());
@@ -164,6 +185,8 @@ public class UserController {
         }
         return "viewusers";
     }
+
+ */
 
     @GetMapping("/user/{user}")
     public String showUser(Model model, @PathVariable String user){

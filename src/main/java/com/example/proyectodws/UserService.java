@@ -13,14 +13,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> userByUsername(String username) {
-        return userRepository.userByUsername(username);
-    }
-    public List<User> userByLastname(String lastName) {
-        return userRepository.userByLastname(lastName);
-    }
-
-
 
     public void addUser(User username){
         userRepository.save(username);
