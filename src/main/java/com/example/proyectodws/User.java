@@ -10,6 +10,9 @@ import javax.persistence.*;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +28,9 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
+
 
     @JsonView(View.Base.class)
     @ManyToOne
@@ -32,11 +38,28 @@ public class User {
     private Grade grade;
 
 
-    public User(String user, String password, String lastName) {
+    public User(String user, String password, String lastName, List<String> roles) {
         this.user = user;
         this.password = password;
         this.lastName = lastName;
+        this.roles = roles;
     }
+    public User(String user, String password, String lastName){
+        this.user = user;
+        this.password = password;
+        this.lastName = lastName;
+        roles = new ArrayList<>();
+        roles.add("USER");
+    }
+
+    public void addRole(String role) {
+        roles.add(role);
+    }
+
+    public void removeRole(String role) {
+        roles.remove(role);
+    }
+
 
 
     public String toString() {

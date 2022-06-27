@@ -1,10 +1,12 @@
 package com.example.proyectodws;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.SecondaryTable;
@@ -28,6 +30,9 @@ public class UserController {
     @Autowired
     QueryFilter QueryFilter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/signup.html")
     public String showSignUp(){
         return "signup";
@@ -42,9 +47,22 @@ public class UserController {
         }
 
 
-        User newUser= new User(username,password,lastName);
+        User newUser= new User(username,passwordEncoder.encode(password),lastName);
         userService.addUser(newUser);
+        loginDisplay(model);
         return "login";
+    }
+
+    private void loginDisplay(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            model.addAttribute("isLogged", true);
+            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("username", userService.getUser(auth.getName()));
+            }
+        }
     }
 
     @GetMapping("/login.html")
@@ -57,12 +75,21 @@ public class UserController {
         if(user==null) {
             model.addAttribute("notRegistered",true);
             return "signup";
-        }else if(user.checkPass(password)){
+        }else if(passwordEncoder.matches(password, user.getPassword())){
             model.addAttribute("user", userService.getUser(username));
             if (user.getGrade()!= null) {
                 model.addAttribute("userGrade", userService.getUser(username));
             }
-            return "functionalities";
+            if (user.getRoles().contains("ADMIN")){
+                return "admin"; //hay que hacer la pagina de admin
+            }
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("username", auth.getName());
+            }
+            return "functionalities";  //crear una pagina unica para usuario
         } else {
             model.addAttribute("error",true);
             return "login";
