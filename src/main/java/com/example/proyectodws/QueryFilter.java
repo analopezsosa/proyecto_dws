@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface QueryFilter extends JpaRepository<User, String>{
 
-    @Query(value = "select * from user where user.last_name=?1", nativeQuery = true)
+    @Query(value = "select * from user where user.user=?1 and user.last_name=?2", nativeQuery = true)
     List<User> userByUsernameAndLastName(@Param("username") String username, @Param("lastName") String lastName);
 
-    @Query(value = "select * from user where user.user=?1", nativeQuery = true)
-    List<User> userByUsername(@Param("username") String username);
+    @Query(value = "select * from user where user.user= :user", nativeQuery = true)
+    List<User> userByUsername(@Param("user") String username);
 
-    @Query(value = "select * from user where user.last_name=?1", nativeQuery = true)
+    @Query(value = "select * from user where user.last_name=?2", nativeQuery = true)
     List<User> userByLastName(@Param("lastName") String lastName);
 
 }

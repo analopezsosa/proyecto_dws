@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.SecondaryTable;
+import javax.persistence.TypedQuery;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -143,14 +146,17 @@ public class UserController {
         return "functionalities";
 
     }
-
+    @PersistenceContext
+    private EntityManager entityManager;
     @GetMapping("/filter")
     public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName){
         if (username!="" && lastName!=""){
-            model.addAttribute("viewusers", QueryFilter.userByUsernameAndLastName(username, lastName));
+            TypedQuery<User> q1 = entityManager.createQuery("SELECT u FROM User u where u.user = :username  and u.last_name= :lastName",User.class);
+            model.addAttribute("users", q1.setParameter("username",username).getResultList());
         }
         else if (username!=""){
-            model.addAttribute("viewusers", QueryFilter.userByUsername(username));
+            TypedQuery<User> q2 = entityManager.createQuery("SELECT u FROM User u WHERE u.user = :username",User.class);
+            model.addAttribute("users", q2.setParameter("username",username).getResultList());
         }
         else if (lastName!=""){
             model.addAttribute("viewusers", QueryFilter.userByLastName(username));
@@ -161,7 +167,6 @@ public class UserController {
 
         return "viewusers";
     }
-
 /*
     @GetMapping("/filter")
     public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName)  {
