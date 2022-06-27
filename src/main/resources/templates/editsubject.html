@@ -33,6 +33,7 @@
                     <p>Introduce la ID de la asignatura que desees editar.</p>
                 </div>
                 <form data-aos="fade-up" data-aos-once="true" action="editsubject.html" method="post" style="border-top-color: var(--bs-teal);">
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="mb-3"><label>ID</label><input class="form-control" type="number" name="id" required=""></div>
                     <div class="mb-3"><label>Nuevo nombre</label><input class="form-control" type="text" name="name"></div>
                     <div class="mb-3"><label>Nuevo número</label><input class="form-control" type="number" name="subjectNumber" ></div>

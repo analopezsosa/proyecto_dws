@@ -33,6 +33,7 @@
                 <p>Introduce la ID del curso del que desees eliminar sus usuarios.</p>
             </div>
             <form data-aos="fade-up" data-aos-once="true" action="removeUsers" method="post" style="border-top-color: var(--bs-teal);">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
                 <div class="mb-3"><label>ID</label><input class="form-control" type="number" name="id" required=""></div>
                 <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Send</button>
                 <a class="btn btn-primary" role="button" href="viewgrades.html" style="margin: 14px;background: var(--bs-gray-500);">Volver atrás</a>

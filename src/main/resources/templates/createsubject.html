@@ -33,6 +33,7 @@
                     <p>Introduce el nombre y el número de la asignatura que desees crear.</p>
                 </div>
                 <form data-aos="fade-up" data-aos-once="true" action="createsubject.html" method="post" style="border-top-color: var(--bs-teal);">
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="mb-3"><label>Nombre</label><input class="form-control" type="text" name="name" required=""></div>
                     <div class="mb-3"><label>Número</label><input class="form-control" type="number" name="subjectNumber" required=""></div><br>
                     <p>Añade una descripcion </p>
