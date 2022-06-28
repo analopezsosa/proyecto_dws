@@ -14,8 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected  void configure(HttpSecurity seguridad) throws Exception{
-        seguridad.csrf().disable();
+    protected  void configure(HttpSecurity http) throws Exception{
+
+
+        http.formLogin().loginPage("/users/login");
+        http.formLogin().usernameParameter("name");
+        http.formLogin().passwordParameter("password");
+        http.formLogin().failureUrl("/error");
+
+        http.logout().logoutSuccessUrl("/");
     }
 
     @Configuration
@@ -25,4 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             return new BCryptPasswordEncoder();
         }
     }
+
+
+
+
+
 }
