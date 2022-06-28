@@ -76,7 +76,8 @@ public class UserController {
             } else {
                 model.addAttribute("username", auth.getName());
             }
-            return "viewuser";  //crear una pagina unica para usuario
+            //return "viewuser";  //crear una pagina unica para usuario
+            return "functionalities";
         } else {
             model.addAttribute("error",true);
             return "login";
