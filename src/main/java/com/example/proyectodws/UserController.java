@@ -1,12 +1,13 @@
 package com.example.proyectodws;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.SecondaryTable;
@@ -124,55 +125,6 @@ public class UserController {
 
     }
 
-
-
-
-
-    @GetMapping("/functionalities")
-    public String showFunctionalities(){
-        return "functionalities";
-    }
-    @PostMapping("/joingrade")
-    public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
-
-
-        User userToJoin = userService.getUser(username);
-        Grade gradeToJoin=gradeService.getGrade(id);
-
-        if (userToJoin.getGrade()==null) {
-
-            userToJoin.setGrade(gradeToJoin);
-            gradeToJoin.addUser(userToJoin);
-            userService.addUser(userToJoin);
-            gradeService.addGrade(gradeToJoin);
-
-
-            model.addAttribute("user", userService.getUser(username));
-
-            return "functionalities";
-
-        }else{
-            return "error";
-        }
-    }
-
-    @GetMapping("/removeuserfromgrade")
-    public String showremovefrom(){
-        return "removeuserfromgrade";
-    }
-    @PostMapping("/removeuserfromgrade")
-    public String removeUserFromGrade(@RequestParam String name,@RequestParam long id){
-
-            User user=userService.getUser(name);
-            Grade grade=gradeService.getGrade(id);
-            user.deleteGrade(grade);
-            grade.deleteUser(user);
-            gradeService.addGrade(grade);
-
-
-        return "functionalities";
-
-    }
     @PersistenceContext
     private EntityManager entityManager;
     @GetMapping("/filter")
@@ -222,10 +174,86 @@ public class UserController {
 
     @GetMapping("/user/{user}")
     public String showUser(Model model, @PathVariable String user){
+        if(!checkSession(user)) {
+            model.addAttribute("403", user);
+            return "error";
+        }
+
         User u = userService.getUser(user);
-        model.addAttribute("user",userService.getUser(user));
-        model.addAttribute("grade",u.getGrade());
+
+        if (u != null) {
+            model.addAttribute("user", u);
+            if (u.getGrade() != null) {
+                model.addAttribute("grade", u);
+            }
+
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("username", auth.getName());
+            }
+
+
         return "viewuser";
     }
+    return "error";
+}
 
+    private boolean checkSession(String user){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return auth.getName() != null && (auth.getName().equals(user) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
+        }
+        return false;
+    }
+
+
+
+
+    @GetMapping("/functionalities")
+    public String showFunctionalities(){
+        return "functionalities";
+    }
+    @PostMapping("/joingrade")
+    public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
+
+
+        User userToJoin = userService.getUser(username);
+        Grade gradeToJoin=gradeService.getGrade(id);
+
+        if (userToJoin.getGrade()==null) {
+
+            userToJoin.setGrade(gradeToJoin);
+            gradeToJoin.addUser(userToJoin);
+            userService.addUser(userToJoin);
+            gradeService.addGrade(gradeToJoin);
+
+
+            model.addAttribute("user", userService.getUser(username));
+
+            return "functionalities";
+
+        }else{
+            return "error";
+        }
+    }
+
+    @GetMapping("/removeuserfromgrade")
+    public String showremovefrom(){
+        return "removeuserfromgrade";
+    }
+    @PostMapping("/removeuserfromgrade")
+    public String removeUserFromGrade(@RequestParam String name,@RequestParam long id){//convertirlo en que un usuario se salga de un curso
+
+        User user=userService.getUser(name);
+        Grade grade=gradeService.getGrade(id);
+        user.deleteGrade(grade);
+        grade.deleteUser(user);
+        gradeService.addGrade(grade);
+
+
+        return "functionalities";
+
+    }
 }
