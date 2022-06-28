@@ -35,6 +35,7 @@
                     {{#subjects}}
                     - {{name}}, {{subjectNumber}}. ID de la asignatura: {{id}} <br>
                     Descripción de la asignatura: {{{description}}} <br>
+                    <br>
                     {{/subjects}}
                 </div>
                 {{#isLogged}}
@@ -45,17 +46,16 @@
                     <a class="btn btn-primary" role="button" style="margin: 7px;background: rgba(32,110,201,0.72);" href="addsubjecttograde">Añadir asignatura a un curso</a>
                     <a class="btn btn-primary" role="button" style="margin: 7px;background: rgba(32,110,201,0.72);" href="removesubjectfromgrade">Eliminar asignatura de un curso</a>
 
+
+                {{/admin}}
+                {{/isLogged}}
                     <script language="JavaScript">
                         function confirmar()
                         {
                         return confirm("¿Estas seguro que quieres volver atrás?")
                         }
                     </script>
-
                     <a class="btn btn-primary" role="button" style="margin: 7px;background: var(--bs-gray-500);" href="functionalities" onclick="return confirmar()">Volver atrás</a></div>
-                {{/admin}}
-                {{/isLogged}}
-
             </div>
         </section>
     </main>
