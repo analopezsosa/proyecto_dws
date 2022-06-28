@@ -162,10 +162,13 @@ public class UserController {
 
     @GetMapping("/viewuser/{user}")
     public String showUser(Model model, @PathVariable String user){
-        if(!checkSession(user)) {
+        /*if(!checkSession(user)) {
+            System.out.println("usa este metodo"); //para ver si siempre se pasa a este metodo
             model.addAttribute("403", user);
             return "error";
         }
+
+         */
 
         User u = userService.getUser(user);
 
@@ -243,6 +246,7 @@ public class UserController {
     private void loginDisplay(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            System.out.println("funciona este metodo");
             model.addAttribute("isLogged", true);
             if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                 model.addAttribute("admin", true);
