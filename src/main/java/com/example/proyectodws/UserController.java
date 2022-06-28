@@ -54,17 +54,6 @@ public class UserController {
         return "login";
     }
 
-    private void loginDisplay(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
-            model.addAttribute("isLogged", true);
-            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-                model.addAttribute("admin", true);
-            } else {
-                model.addAttribute("username", userService.getUser(auth.getName()));
-            }
-        }
-    }
 
     @GetMapping("/login.html")
     public String showLogin(){
@@ -82,7 +71,7 @@ public class UserController {
                 model.addAttribute("userGrade", userService.getUser(username));
             }
             if (user.getRoles().contains("ADMIN")){
-                return "admin"; //hay que hacer la pagina de admin
+                return "functionalities"; //hay que hacer la pagina de admin
             }
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
@@ -90,7 +79,7 @@ public class UserController {
             } else {
                 model.addAttribute("username", auth.getName());
             }
-            return "functionalities";  //crear una pagina unica para usuario
+            return "viewuser";  //crear una pagina unica para usuario
         } else {
             model.addAttribute("error",true);
             return "login";
@@ -172,7 +161,7 @@ public class UserController {
 
  */
 
-    @GetMapping("/user/{user}")
+    @GetMapping("/viewuser/{user}")
     public String showUser(Model model, @PathVariable String user){
         if(!checkSession(user)) {
             model.addAttribute("403", user);
@@ -200,13 +189,7 @@ public class UserController {
     return "error";
 }
 
-    private boolean checkSession(String user){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return auth.getName() != null && (auth.getName().equals(user) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
-        }
-        return false;
-    }
+
 
 
 
@@ -256,4 +239,25 @@ public class UserController {
         return "functionalities";
 
     }
+
+
+    private void loginDisplay(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            model.addAttribute("isLogged", true);
+            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("username", userService.getUser(auth.getName()));
+            }
+        }
+    }
+    private boolean checkSession(String user){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return auth.getName() != null && (auth.getName().equals(user) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
+        }
+        return false;
+    }
+
 }
