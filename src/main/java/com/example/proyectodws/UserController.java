@@ -34,11 +34,11 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/signup.html")
+    @GetMapping("/signup")
     public String showSignUp(){
         return "signup";
     }
-    @PostMapping("/signup.html")
+    @PostMapping("/signup")
     public String registerUser(@RequestParam String username,@RequestParam String password,@RequestParam String lastName, Model model){
 
 
@@ -55,11 +55,11 @@ public class UserController {
     }
 
 
-    @GetMapping("/login.html")
+    @GetMapping("/login")
     public String showLogin(){
         return "login";
     }
-    @PostMapping("/login.html")
+    @PostMapping("/login")
     public String loginUser(@RequestParam String username,@RequestParam String password, Model model){
         User user=userService.getUser(username);
         if(user==null) {
@@ -79,7 +79,7 @@ public class UserController {
             } else {
                 model.addAttribute("username", auth.getName());
             }
-            return "viewuser";  //crear una pagina unica para usuario
+            return "functionalities";  //crear una pagina unica para usuario
         } else {
             model.addAttribute("error",true);
             return "login";
@@ -255,6 +255,7 @@ public class UserController {
     private boolean checkSession(String user){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
+            System.out.println("njdfodn");
             return auth.getName() != null && (auth.getName().equals(user) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
         }
         return false;
