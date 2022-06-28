@@ -21,8 +21,8 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Inico</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="login.html" style="color: var(--bs-teal);">Log in</a></li>
-                    <li class="nav-item"><a class="nav-link" href="signup.html" style="color: var(--bs-teal);">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="login" style="color: var(--bs-teal);">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup" style="color: var(--bs-teal);">Sign up</a></li>
                 </ul>
             </div>
         </div>
@@ -34,11 +34,11 @@
                     <h2 class="text-info">Log In</h2>
                     <p>Introduce tu nombre de usuario y tu contraseña</p>
                 </div>
-                <form data-aos="fade-up" data-aos-once="true" action="login.html" method="post"  style="border-top-color: var(--bs-teal);">
+                <form data-aos="fade-up" data-aos-once="true" action="/login" method="post"  style="border-top-color: var(--bs-teal);">
                     <input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="mb-3"><label>Usuario</label><input class="form-control" type="text" name="username" required=""></div>
                     <div class="mb-3"><label>Contraseña</label><input class="form-control" type="password" name="password" required="" minlength="8"></div>
-                    <div class="mb-3"><a href="signup.html" style="color: var(--bs-teal);">Todavia no tienes cuenta? Registrate aquí</a></div>
+                    <div class="mb-3"><a href="signup" style="color: var(--bs-teal);">Todavia no tienes cuenta? Registrate aquí</a></div>
                     <button class="btn btn-primary" type="submit" style="background: var(--bs-teal);">Log In</button>
                 </form>
             </div>

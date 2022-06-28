@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.security.SecureRandom;
-
 
 @Configuration
 @EnableWebSecurity
@@ -40,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public class Encoder {
         @Bean
         public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder(15, new SecureRandom());
+            return new BCryptPasswordEncoder();
         }
     }
 
