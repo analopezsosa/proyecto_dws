@@ -29,9 +29,6 @@ public class UserController {
     GradeService gradeService;
 
     @Autowired
-    QueryFilter QueryFilter;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/signup")
@@ -119,15 +116,17 @@ public class UserController {
     @GetMapping("/filter")
     public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName){
         if (username!="" && lastName!=""){
-            TypedQuery<User> q1 = entityManager.createQuery("SELECT u FROM User u where u.user = :username  and u.last_name= :lastName",User.class);
-            model.addAttribute("users", q1.setParameter("username",username).getResultList());
+            TypedQuery<User> q1 = entityManager.createQuery("SELECT u FROM User u where u.user = :username  and u.lastName= :lastName",User.class);
+            q1.setParameter("lastName",lastName).setParameter("username",username);
+            model.addAttribute("users", q1.getResultList());
         }
         else if (username!=""){
             TypedQuery<User> q2 = entityManager.createQuery("SELECT u FROM User u WHERE u.user = :username",User.class);
             model.addAttribute("users", q2.setParameter("username",username).getResultList());
         }
         else if (lastName!=""){
-            model.addAttribute("viewusers", QueryFilter.userByLastName(username));
+            TypedQuery<User> q2 = entityManager.createQuery("SELECT u FROM User u WHERE u.lastName = :lastName",User.class);
+            model.addAttribute("users", q2.setParameter("lastName",lastName).getResultList());
         }
         else{
             model.addAttribute("users",userService.getUsers());
