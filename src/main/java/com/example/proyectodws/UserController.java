@@ -31,6 +31,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @GetMapping("/signup")
     public String showSignUp(){
         return "signup";
@@ -224,6 +225,23 @@ public class UserController {
             return "error";
         }
     }
+    @PostMapping("/joingradeU")
+    public String joinGradeU(@RequestParam long id, Model model){
+        loginDisplay(model);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User userToJoin = userService.getUser(auth.getName());
+        Grade gradeToJoin=gradeService.getGrade(id);
+        if (userToJoin.getGrade()==null) {
+            userToJoin.setGrade(gradeToJoin);
+            gradeToJoin.addUser(userToJoin);
+            userService.addUser(userToJoin);
+            gradeService.addGrade(gradeToJoin);
+            model.addAttribute("user", userService.getUser(auth.getName()));
+            return "index";
+        }else{
+            return "error";
+        }
+    }
 
     @GetMapping("/removeuserfromgrade")
     public String showremovefrom(){
@@ -246,6 +264,7 @@ public class UserController {
 
     private void loginDisplay(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("llega hasta aqui??");
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
             System.out.println("funciona este metodo");
             model.addAttribute("isLogged", true);
@@ -261,6 +280,7 @@ public class UserController {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return auth.getName() != null && (auth.getName().equals(user) || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
         }
+
         return false;
     }
 
