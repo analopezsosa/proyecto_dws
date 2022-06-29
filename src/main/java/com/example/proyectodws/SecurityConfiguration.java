@@ -1,11 +1,14 @@
 package com.example.proyectodws;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.SecureRandom;
@@ -14,6 +17,22 @@ import java.security.SecureRandom;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    RepositoryUserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)throws Exception{
+        //roles
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        auth.inMemoryAuthentication().withUser("user").password(encoder.encode("pass")).roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("adminpass")).roles("ADMIN");
+
+
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+
 
     @Override
     protected  void configure(HttpSecurity http) throws Exception{
@@ -27,7 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
        */
 
+        ///
 
+        //auth.inMemoryAuthentication().withUser("admin").password(passwor)
+
+        ///
         http.formLogin().loginPage("/users/login");
         http.formLogin().usernameParameter("name");
         http.formLogin().passwordParameter("password");
@@ -36,12 +59,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.logout().logoutSuccessUrl("/");
     }
 
-    @Configuration
-    public class Encoder {
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder(15, new SecureRandom());
-        }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(15, new SecureRandom());
     }
 
 
