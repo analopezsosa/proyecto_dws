@@ -28,7 +28,6 @@
 <main class="page blog-post-list">
     <section class="clean-block clean-form dark">
         <div class="container">
-            {{#isLogged}}
             <div class="block-heading">
                 <h2 class="text-info">Tus cursos</h2>
                 <div class="row" style="height: 304.797px;margin: 28px;">
@@ -62,7 +61,6 @@
                     {{/admin}}
                 </div>
             </div>
-            {{/isLogged}}
         </div>
     </section>
     <section class="clean-block clean-blog-list dark" style="height: 800px;">
@@ -84,7 +82,6 @@
                     </div>
                 </div>
 
-                {{#isLogged}}
                 {{#admin}}
                 <div class="col-lg-4">
                     <div class="card clean-testimonial-item border-0 rounded-0">
@@ -93,7 +90,6 @@
                 </div>
 
                 {{/admin}}
-                {{/isLogged}}
 
                 <div class="col-lg-4">
                     <div class="card clean-testimonial-item border-0 rounded-0">
