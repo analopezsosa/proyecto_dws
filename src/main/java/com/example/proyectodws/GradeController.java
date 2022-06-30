@@ -25,8 +25,6 @@ public class GradeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 
 
@@ -43,6 +41,14 @@ public class GradeController {
     @PostMapping("/creategrade")
     public String gradeCreated(Model model,@RequestParam String name,@RequestParam int gradeNumber,@RequestParam String teacher){
         loginDisplay(model);
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        String username= auth.getName();
+
+        if (userService.getUser(username)==null){
+
+            model.addAttribute("error",true);
+            return "creategrade";
+        }
 
         Grade grade = new Grade(name,gradeNumber,teacher);
         gradeService.saveGrade(grade);
@@ -51,9 +57,17 @@ public class GradeController {
     }
 
     @GetMapping("/grade/{id}")
-    public String viewGrade( Model model, @PathVariable long id) {;
-        model.addAttribute("grade",gradeService.getGrade(id));
-        return "viewsubjectsbygrade";
+    public String viewGrade( Model model, @PathVariable long id) {
+
+        Grade checkGrade=gradeService.getGrade(id);
+        if (checkGrade!=null) {
+
+            model.addAttribute("grade", gradeService.getGrade(id));
+            loginDisplay(model);
+
+            return "viewsubjectsbygrade";
+        }
+        return "error";
     }
 
     @GetMapping("/removegrade")
@@ -63,11 +77,12 @@ public class GradeController {
 
 
     @PostMapping("/removegrade")
-    public String deleteGrade(@RequestParam Long id){
+    public String deleteGrade(@RequestParam Long id,Model model){
         Grade grade = gradeService.getGrade(id);
         if(grade != null){
             removeUsers(id);
             gradeService.deleteGrade(id);
+            loginDisplay(model);
             return "functionalities";
         }
         return "error";
@@ -76,7 +91,9 @@ public class GradeController {
 
 
     @GetMapping("/removeUsers")
-    public String showRemoveU(){return "removeusers";}
+    public String showRemoveU(Model model){
+        loginDisplay(model);
+        return "removeusers";}
 
     @PostMapping("/removeUsers")
     public String removeUsers(@RequestParam Long id){
@@ -94,17 +111,19 @@ public class GradeController {
     }
 
     @GetMapping("/editgrade")
-    public String edit(){
+    public String edit(Model model){
+        loginDisplay(model);
         return "editgrade";
     }
     @PostMapping("/editgrade")
-    public String edited(@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, @RequestParam String teacher){
+    public String edited(Model model,@RequestParam long id, @RequestParam String name, @RequestParam int gradeNumber, @RequestParam String teacher){
         Grade editThisGrade = gradeService.getGrade(id);
 
         editThisGrade.setName(name);
         editThisGrade.setGradeNumber(gradeNumber);
         editThisGrade.setTeacher(teacher);
         gradeService.addGrade(editThisGrade);
+        loginDisplay(model);
         return "editedgrade";
     }
 
