@@ -14,11 +14,11 @@ public class MainController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
+  /*  @GetMapping("/")
     public String mainPage(Model model){
         loginDisplay(model);
         return "index";
-    }
+    }*/
 
     @GetMapping("/admin")
     public String adminPage() {
