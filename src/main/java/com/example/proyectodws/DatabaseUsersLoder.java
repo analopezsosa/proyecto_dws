@@ -20,7 +20,7 @@ public class DatabaseUsersLoder {
         listRoles.add("USER");
         listRoles.add("ADMIN");
         userRepository.save(new User("user",passwordEncoder.encode("pass"),"USER"));
-        userRepository.save(new User("admin","adminpass",passwordEncoder.encode("adminpass"),listRoles));
+        userRepository.save(new User("admin",passwordEncoder.encode("adminpass"),"admin",listRoles));
 
     }
 }

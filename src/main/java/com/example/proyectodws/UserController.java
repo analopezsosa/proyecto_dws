@@ -136,31 +136,7 @@ public class UserController {
 
         return "viewusers";
     }
-/*
-    @GetMapping("/filter")
-    public String filterUsers(Model model, @RequestParam(required = false, name= "username") String username, @RequestParam(required = false, name = "lastName") String lastName)  {
 
-        if (username==""&&lastName==""){
-            model.addAttribute("users",userService.getUsers());
-        }
-        else {
-            Set<User> userSet = new HashSet<>(userService.getUsers());
-
-
-            if (username != "" ) {
-                userSet.retainAll(userService.userByUsername(username));
-            }
-            if (lastName!="") {
-                userSet.retainAll(userService.userByLastname(lastName));
-            }
-
-            List<User> toPrint = new LinkedList<>(userSet);
-            model.addAttribute("users", toPrint);
-        }
-        return "viewusers";
-    }
-
- */
 
     @GetMapping("/viewuser/{user}")
     public String showUser(Model model, @PathVariable String user){

@@ -20,7 +20,7 @@ public class RepositoryUserDetailsService implements UserDetailsService{
     private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        User user = userService.getUser(username);
+        User user = userService.getUser(username);//AQUI HABRIA QUE HACERLO CON EL REPOSITORY PERO NOS DA ERROR
         if(userService.getUser(user.getUser()) != null){
             throw new UsernameNotFoundException("User not found");
         }

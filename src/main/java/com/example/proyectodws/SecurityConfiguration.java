@@ -50,7 +50,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //auth.inMemoryAuthentication().withUser("admin").password(passwor)
 
-        ///
+        // Public pages
+
+        // Private pages (all other pages)
+        http.authorizeRequests().antMatchers("/private").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+        // Disable CSRF at the moment
+        http.csrf().disable();
+
+
         http.formLogin().loginPage("/users/login");
         http.formLogin().usernameParameter("name");
         http.formLogin().passwordParameter("password");

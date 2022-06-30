@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ public class GradeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
 
     @GetMapping("/viewgrades.html")
@@ -32,10 +36,14 @@ public class GradeController {
         return "viewgrades";
     }
     @GetMapping("/creategrade")
-    public String showCreate() { return "creategrade"; }
+    public String showCreate(Model model) {
+        loginDisplay(model);
+        return "creategrade"; }
 
     @PostMapping("/creategrade")
-    public String gradeCreated(Model model, String name, int gradeNumber, String teacher){
+    public String gradeCreated(Model model,@RequestParam String name,@RequestParam int gradeNumber,@RequestParam String teacher){
+        loginDisplay(model);
+
         Grade grade = new Grade(name,gradeNumber,teacher);
         gradeService.saveGrade(grade);
         model.addAttribute("grade",grade);
