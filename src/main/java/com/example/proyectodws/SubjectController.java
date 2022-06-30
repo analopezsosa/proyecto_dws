@@ -27,17 +27,30 @@ public class SubjectController {
 
     @GetMapping("/viewsubjects.html")
     public String showSubjects(Model model){
+        loginDisplay(model);
         model.addAttribute("subjects",subjectService.getSubjectList());
         return "viewsubjects";
     }
 
 
-
     @GetMapping("/createsubject.html")
-    public String showSubject(){return "createsubject";}
+    public String showSubject(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
+        return "createsubject";}
 
     @PostMapping("/createsubject.html")
     public String createSubject(@RequestParam String name, @RequestParam int subjectNumber,@RequestParam String description, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         Subject newsubject = new Subject(name, subjectNumber,Sanitizers.FORMATTING.sanitize(description));
         subjectService.saveSubject(newsubject);
         model.addAttribute("subject",newsubject);
@@ -47,12 +60,23 @@ public class SubjectController {
 
 
     @GetMapping("/editsubject.html")
-    public String showEdit() {
+    public String showEdit(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         return "editsubject";
     }
     @PostMapping("/editsubject.html")
-    public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber, @RequestParam String description){
-
+    public String editSubject(@RequestParam long id, @RequestParam String name, @RequestParam int subjectNumber, @RequestParam String description, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         Subject editThisSubject = subjectService.getSubject(id);
 
         editThisSubject.setName(name);
@@ -63,13 +87,25 @@ public class SubjectController {
     }
 
     @GetMapping("/addsubjecttograde")
-    public String showAddSubject(){
+    public String showAddSubject(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         return "addsubjecttograde";
     }
 
 
     @PostMapping("/addsubjecttograde")
     public String addingSubjectToGrade(@RequestParam long idS, @RequestParam long idG, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         Subject subjectToAdd = subjectService.getSubject(idS);
         Grade g = gradeService.getGrade(idG);
 
@@ -84,9 +120,24 @@ public class SubjectController {
 
 
     @GetMapping("/removesubject.html")
-    public String showRemove() { return "removesubject"; }
+    public String showRemove(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
+        return "removesubject";
+    }
+
     @PostMapping("/removesubject.html")
-    public String removeSubject( @RequestParam Long id){
+    public String removeSubject( @RequestParam Long id, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         Subject subject = subjectService.getSubject(id);
         if(subject != null){
 
@@ -102,11 +153,23 @@ public class SubjectController {
     }
 
     @GetMapping("/removesubjectfromgrade")
-    public String showRemoveFromGrade(){
+    public String showRemoveFromGrade(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         return "removesubjectfromgrade";
     }
     @PostMapping("/removesubjectfromgrade")
     public String remove(@RequestParam Long idS, @RequestParam Long idG, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("403", true);
+            return "error";
+        }
+        loginDisplay(model);
         Subject subjectToRemove = subjectService.getSubject(idS);
         Grade g = gradeService.getGrade(idG);
 
