@@ -25,8 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)throws Exception{
         //roles
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication().withUser("user").password(encoder.encode("pass")).roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("adminpass")).roles("ADMIN");
+
+        String encodedPassword = encoder.encode("pass");
+        auth.inMemoryAuthentication().withUser("user").password((encodedPassword)).roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("adminpass")).roles("USER","ADMIN");
 
 
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -36,35 +38,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected  void configure(HttpSecurity http) throws Exception{
-      /*  http.authorizeRequests().antMatchers("/login").permitAll();
+
+        //public
+        http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/signup").permitAll();
-        http.authorizeRequests().antMatchers("/viewuser").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().antMatchers("/error").permitAll();
 
-        http.authorizeRequests().antMatchers("/viewuser").hasAnyRole("USER","ADMIN");
-
-
-
-       */
-
-        ///
-
-        //auth.inMemoryAuthentication().withUser("admin").password(passwor)
-
-        // Public pages
-
+/*
         // Private pages (all other pages)
+
         http.authorizeRequests().antMatchers("/private").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+        http.authorizeRequests().anyRequest().authenticated();
         // Disable CSRF at the moment
         http.csrf().disable();
 
-
-        http.formLogin().loginPage("/users/login");
-        http.formLogin().usernameParameter("name");
+        //login form
+        http.formLogin().loginPage("/login");
+        http.formLogin().usernameParameter("username");
         http.formLogin().passwordParameter("password");
+        http.formLogin().defaultSuccessUrl("/functionalities");
         http.formLogin().failureUrl("/error");
 
-        http.logout().logoutSuccessUrl("/");
+        http.logout().logoutSuccessUrl("/");*/
     }
 
 

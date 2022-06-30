@@ -17,9 +17,11 @@ public class DatabaseUsersLoder {
     @PostConstruct
     private void initDataBase(){
         List<String> listRoles = new ArrayList<>();
+        List<String> listUser = new ArrayList<>();
+        listUser.add("USER");
         listRoles.add("USER");
         listRoles.add("ADMIN");
-        userRepository.save(new User("user",passwordEncoder.encode("pass"),"USER"));
+        userRepository.save(new User("user",passwordEncoder.encode("pass"),"userlastname",listUser));
         userRepository.save(new User("admin",passwordEncoder.encode("adminpass"),"admin",listRoles));
 
     }

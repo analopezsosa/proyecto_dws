@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.SecondaryTable;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -54,11 +56,14 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String showLogin(){
+    public String showLogin(Model model, HttpServletRequest request){
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token",token.getToken());
         return "login";
     }
     @PostMapping("/login")
     public String loginUser(@RequestParam String username,@RequestParam String password, Model model){
+
         User user=userService.getUser(username);
         if(user==null) {
             model.addAttribute("notRegistered",true);
@@ -235,6 +240,13 @@ public class UserController {
 
         return "functionalities";
 
+    }
+////////////
+    @GetMapping("/private")
+    public String privatePage(Model model, HttpServletRequest request){
+        model.addAttribute("username",request.getUserPrincipal().getName());
+        model.addAttribute("admin",request.isUserInRole("ADMIN"));
+        return "functionalities";
     }
 
 
