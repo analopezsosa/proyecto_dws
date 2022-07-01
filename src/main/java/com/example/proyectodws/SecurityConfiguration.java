@@ -54,11 +54,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 http.csrf().disable();
 */
         //login form
-        http.formLogin().loginPage("/http://localhost:8080/login");
+        http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
         http.formLogin().passwordParameter("password");
         http.formLogin().defaultSuccessUrl("/functionalities");
-        //http.formLogin().failureUrl("/error");
+        http.formLogin().failureUrl("/error");
 
         http.logout().logoutSuccessUrl("/");
     }

@@ -33,11 +33,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/usuarioNoRegistrado")
-    public String usuarioNoRegistrado(){
-        return "usuarioNoRegistrado";
-    }
-
 
     @GetMapping("/signup")
     public String showSignUp(){
