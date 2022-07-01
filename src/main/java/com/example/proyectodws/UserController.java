@@ -74,6 +74,7 @@ public class UserController {
             model.addAttribute("notRegistered",true);
             return "signup";
         }else if(passwordEncoder.matches(password, user.getPassword())){
+
             model.addAttribute("user", userService.getUser(username));
             if (user.getGrade()!= null) {
                 model.addAttribute("userGrade", userService.getUser(username));
@@ -88,9 +89,10 @@ public class UserController {
                 model.addAttribute("username", auth.getName());
             }
             //return "viewuser";  //crear una pagina unica para usuario
+
             return "functionalities";
         } else {
-            model.addAttribute("error",true);
+            //model.addAttribute("error",true);
             return "login";
         }
     }
@@ -173,11 +175,11 @@ public class UserController {
                 model.addAttribute("username", auth.getName());
             }
 
-
+        }
         return "viewuser";
     }
-    return "error";
-}
+    //return "error";
+
 
 
 

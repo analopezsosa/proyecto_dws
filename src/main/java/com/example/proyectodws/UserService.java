@@ -35,11 +35,7 @@ public class UserService {
     public User getUser(String username)   {
         Optional<User> present = userRepository.findById(username);
 
-        if (present.isPresent()){
-            return present.get();
-        }else{
-            return null;
-        }
+        return present.orElse(null);
     }
     public User updateUser(String username,User user){
         user.setUser(username);
