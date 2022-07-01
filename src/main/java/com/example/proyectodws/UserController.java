@@ -33,6 +33,11 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping("/")
+    public  String index(Model model){
+        loginDisplay(model);
+        return "index";
+    }
 
     @GetMapping("/usuarioNoRegistrado")
     public String usuarioNoRegistrado(){
@@ -60,9 +65,11 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String showLogin(Model model, HttpServletRequest request){
+    public String showLogin(){
+        /*
         CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
         model.addAttribute("token",token.getToken());
+        */
         return "login";
     }
     @PostMapping("/login")
@@ -73,7 +80,7 @@ public class UserController {
             model.addAttribute("notRegistered",true);
             return "signup";
         }else if(passwordEncoder.matches(password, user.getPassword())){
-
+            loginDisplay(model);
             model.addAttribute("user", userService.getUser(username));
             if (user.getGrade()!= null) {
                 model.addAttribute("userGrade", userService.getUser(username));
@@ -94,6 +101,20 @@ public class UserController {
             //model.addAttribute("error",true);
             return "login";
         }
+
+     /*
+        //prueba otra forma de login
+        if(userService.getUser(username) != null){
+            if(userService.getUser(username).getPassword().matches(password)){
+                loginDisplay(model);
+                return "functionalities";
+            }else {
+                System.out.println("holikncesnv");
+                return "error";
+            }
+        }else{
+            return "error";
+        }*/
     }
 
     @GetMapping("/viewusers")
@@ -186,7 +207,8 @@ public class UserController {
 
 
     @GetMapping("/functionalities")
-    public String showFunctionalities(){
+    public String showFunctionalities(Model model){
+        loginDisplay(model);
         return "functionalities";
     }
     @PostMapping("/joingrade")
@@ -216,14 +238,14 @@ public class UserController {
     public String joinGradeU(@RequestParam long id, Model model){
         loginDisplay(model);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User userToJoin = userService.getUser(auth.getName());
+        User userToJoin = userService.userRepository.getById(auth.getName());
         Grade gradeToJoin=gradeService.getGrade(id);
         if (userToJoin.getGrade()==null) {
             userToJoin.setGrade(gradeToJoin);
             gradeToJoin.addUser(userToJoin);
             userService.addUser(userToJoin);
             gradeService.addGrade(gradeToJoin);
-            model.addAttribute("user", userService.getUser(auth.getName()));
+            model.addAttribute("user",auth.getName());
             return "index";
         }else{
             return "error";
@@ -262,6 +284,8 @@ public class UserController {
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
             System.out.println("funciona este metodo");
             model.addAttribute("isLogged", true);
+            String user = "/"+ userService.userRepository.findByUser(auth.getName());
+            model.addAttribute("username",user);
             if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                 model.addAttribute("admin", true);
             } else {
