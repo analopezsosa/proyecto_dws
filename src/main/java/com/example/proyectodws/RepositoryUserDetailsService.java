@@ -16,14 +16,9 @@ public class RepositoryUserDetailsService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException{
         User username = userRepository.findByUser(user).orElseThrow(() -> new UsernameNotFoundException("User not found"));//AQUI DA ERROR
-        if(userService.getUser(username.getUser()) != null){
-            throw new UsernameNotFoundException("User not found");
-        }
 
         List<GrantedAuthority> roles = new ArrayList<>();
 
