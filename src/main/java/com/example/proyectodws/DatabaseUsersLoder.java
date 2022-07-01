@@ -29,7 +29,7 @@ public class DatabaseUsersLoder {
         userRepository.save(new User("user",passwordEncoder.encode("pass"),"userlastname",listUser));
         userRepository.save(new User("admin",passwordEncoder.encode("adminpass"),"admin",listRoles));
         */
-        User user = new User("admin","adminpass","adminlastname",listRoles);
+        User user = new User("admin",passwordEncoder.encode("adminpass"),"adminlastname",listRoles);
         userService.addUser(user);
     }
 }
