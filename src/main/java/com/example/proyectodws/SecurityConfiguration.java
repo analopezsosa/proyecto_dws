@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected  void configure(HttpSecurity http) throws Exception{
 
         //public
+        http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/signup").permitAll();
         http.authorizeRequests().antMatchers("/error").permitAll();
@@ -47,12 +48,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 /*
         // Private pages (all other pages)
 
-        http.authorizeRequests().antMatchers("/private").hasAnyRole("USER");
-        http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/joingradeU").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removeuserfromgrade").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/viewuser/{user}").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/filter").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removeUser").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/viewusers").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/editsubject.html").hasAnyRole("ADMIN");
+
+        http.authorizeRequests().antMatchers("/addsubjecttograde").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removesubject.html").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removesubjectfromgrade").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/createsubject.html").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/creategrade").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removegrade").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/removeUsers").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/editgrade").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/editsubject.html").hasAnyRole("ADMIN");
+
         http.authorizeRequests().anyRequest().authenticated();
-        // Disable CSRF at the moment
-http.csrf().disable();
 */
+        // Disable CSRF at the moment
+//http.csrf().disable();
+
         //login form
         http.formLogin().loginPage("/http://localhost:8080/login");
         http.formLogin().usernameParameter("username");
