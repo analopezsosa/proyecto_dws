@@ -2,8 +2,12 @@ package com.example.proyectodws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
@@ -80,12 +84,14 @@ public class UserController {
             model.addAttribute("notRegistered",true);
             return "signup";
         }else if(passwordEncoder.matches(password, user.getPassword())){
-            loginDisplay(model);
-            model.addAttribute("user", userService.getUser(username));
+
+            model.addAttribute("user", username);
+
             if (user.getGrade()!= null) {
-                model.addAttribute("userGrade", userService.getUser(username));
+                model.addAttribute("userGrade", userService.getUser(username).getGrade());
             }
             if (user.getRoles().contains("ADMIN")){
+                model.addAttribute("admin",true);
                 return "functionalities"; //hay que hacer la pagina de admin
             }
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -236,7 +242,7 @@ public class UserController {
     }
     @PostMapping("/joingradeU")
     public String joinGradeU(@RequestParam long id, Model model){
-        loginDisplay(model);
+        //loginDisplay(model);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User userToJoin = userService.userRepository.getById(auth.getName());
         Grade gradeToJoin=gradeService.getGrade(id);
@@ -277,22 +283,23 @@ public class UserController {
         return "functionalities";
     }
 
-
     private void loginDisplay(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("llega hasta aqui??");
-        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
             System.out.println("funciona este metodo");
             model.addAttribute("isLogged", true);
-            String user = "/"+ userService.userRepository.findByUser(auth.getName());
+            String user = "/"+ userService.userRepository.findByUser(authentication.getName());
             model.addAttribute("username",user);
-            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                 model.addAttribute("admin", true);
             } else {
-                model.addAttribute("username", userService.getUser(auth.getName()));
+                model.addAttribute("username", userService.getUser(authentication.getName()));
             }
         }
     }
+
     private boolean checkSession(String user){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
