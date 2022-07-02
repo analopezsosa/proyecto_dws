@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.SecondaryTable;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -39,7 +40,7 @@ public class UserController {
 
     @GetMapping("/")
     public  String index(Model model){
-        loginDisplay(model);
+        //loginDisplay(model);
         return "index";
     }
 
@@ -77,7 +78,8 @@ public class UserController {
         return "login";
     }
     @PostMapping("/login")
-    public String loginUser(@RequestParam String username,@RequestParam String password, Model model){
+    public String loginUser(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
+        session.setAttribute("user",username);
 
         User user=userService.getUser(username);
         if(user==null) {
@@ -94,6 +96,7 @@ public class UserController {
                 model.addAttribute("admin",true);
                 return "functionalities"; //hay que hacer la pagina de admin
             }
+            /*
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                 model.addAttribute("admin", true);
@@ -101,7 +104,7 @@ public class UserController {
                 model.addAttribute("username", auth.getName());
             }
             //return "viewuser";  //crear una pagina unica para usuario
-
+            */
             return "functionalities";
         } else {
             //model.addAttribute("error",true);
@@ -241,18 +244,21 @@ public class UserController {
         }
     }
     @PostMapping("/joingradeU")
-    public String joinGradeU(@RequestParam long id, Model model){
+    public String joinGradeU(@RequestParam long id, Model model,HttpSession session){
+        String infoname = (String) session.getAttribute("user");
         //loginDisplay(model);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User userToJoin = userService.userRepository.getById(auth.getName());
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //User userToJoin = userService.userRepository.getById(auth.getName());
+        User userToJoin = userService.userRepository.getById(infoname);
         Grade gradeToJoin=gradeService.getGrade(id);
         if (userToJoin.getGrade()==null) {
             userToJoin.setGrade(gradeToJoin);
             gradeToJoin.addUser(userToJoin);
             userService.addUser(userToJoin);
             gradeService.addGrade(gradeToJoin);
-            model.addAttribute("user",auth.getName());
-            return "index";
+            //model.addAttribute("user",auth.getName());
+            model.addAttribute("user",infoname);
+            return "functionalities";
         }else{
             return "error";
         }
@@ -284,7 +290,7 @@ public class UserController {
     }
 
     private void loginDisplay(Model model) {
-
+/*
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("llega hasta aqui??");
         if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
@@ -296,6 +302,17 @@ public class UserController {
                 model.addAttribute("admin", true);
             } else {
                 model.addAttribute("username", userService.getUser(authentication.getName()));
+            }
+        }
+
+ */
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            model.addAttribute("isLogged", true);
+            if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("username", userService.getUser(auth.getName()));
             }
         }
     }
