@@ -221,7 +221,8 @@ public class UserController {
         return "functionalities";
     }
     @PostMapping("/joingrade")
-    public String joinGrade(@RequestParam String username,@RequestParam long id, Model model){
+    public String joinGrade(@RequestParam String username,@RequestParam long id, Model model,HttpSession session){
+        String infoname = (String) session.getAttribute("user");
 
 
         User userToJoin = userService.getUser(username);
@@ -234,8 +235,9 @@ public class UserController {
             userService.addUser(userToJoin);
             gradeService.addGrade(gradeToJoin);
 
+            model.addAttribute("admin",true);
 
-            model.addAttribute("user", userService.getUser(username));
+            //model.addAttribute("user", userService.getUser(username));
 
             return "functionalities";
 
